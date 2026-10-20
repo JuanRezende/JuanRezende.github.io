@@ -70,7 +70,9 @@
     jump(next, swap);
   }
 
-  /* title card between views: the screen fades to night, a line of light draws the next title, then opens on it */
+  /* title card between views: the screen fades to night and jumps through the stars (effects/cosmos.js warp),
+     a line of light draws the next title mid-flight, then the stars settle and it opens on the new view */
+  const warp = Lumen.createWarp($('.curtain__warp'));
   function jump(next, swap) {
     busy = true;
     const c = $('#curtain'), line = $('.curtain__line', c), parts = $$('.curtain__label, .curtain__title', c);
@@ -78,9 +80,14 @@
     const kicker = article && $('.spaced', article);
     $('.curtain__label', c).textContent = article ? (kicker ? kicker.textContent.split('·')[0].trim() : 'Case') : 'Portfólio';
     $('.curtain__title', c).textContent = article ? article.dataset.title : 'Juan Rezende';
-    gsap.timeline({ onComplete: () => { busy = false; if (pending) { pending = false; route(); } } })
-      .set(c, { visibility: 'visible' })
-      .to(c, { opacity: 1, duration: 0.45, ease: 'power2.inOut' })
+    const tl = gsap.timeline({ onComplete: () => { if (warp) warp.stop(); busy = false; if (pending) { pending = false; route(); } } });
+    if (warp) {
+      tl.add(() => warp.start(), 0)
+        .fromTo(warp.state, { speed: 0 }, { speed: 1, duration: 0.85, ease: 'power2.in' }, 0)
+        .to(warp.state, { speed: 0, duration: 0.8, ease: 'power3.out' }, 1.0);
+    }
+    tl.set(c, { visibility: 'visible' }, 0)
+      .to(c, { opacity: 1, duration: 0.45, ease: 'power2.inOut' }, 0)
       .fromTo(line, { scaleX: 0, transformOrigin: 'left center' }, { scaleX: 1, duration: 0.7, ease: 'power3.inOut' }, 0.2)
       .fromTo(parts, { opacity: 0, y: 14, filter: 'blur(6px)' }, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.55, stagger: 0.07, ease: 'power3.out' }, 0.3)
       .add(() => swap(0.2), 0.95)

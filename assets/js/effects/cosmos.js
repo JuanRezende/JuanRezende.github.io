@@ -58,5 +58,66 @@
     }
   }
 
-  window.Lumen = Object.assign(window.Lumen || {}, { createCosmos });
+  /* ══════════ WARP: the jump between views (stars rush out of the centre, then settle) ══════════
+     Returns { state, start, stop }. The caller tweens state.speed (0 = still, 1 = full warp);
+     the loop only runs between start() and stop(). */
+  function createWarp(canvas) {
+    const c = canvas ? canvas.getContext('2d') : null;
+    if (!c) return null;
+    const tints = ['255,255,255', '255,255,255', '214,236,255', '186,230,253', '103,232,249', '253,224,190'];
+    const N = finePointer ? 420 : 220, DEPTH = 1000, FOCAL = 260;
+    const state = { speed: 0 };
+    let w = 0, h = 0, raf = 0, last = 0, stars = [];
+    const seed = (s, far) => {
+      s.x = (Math.random() - 0.5) * 1600; s.y = (Math.random() - 0.5) * 1000;
+      s.z = far ? DEPTH * (0.55 + Math.random() * 0.45) : 40 + Math.random() * DEPTH; s.pz = s.z;
+      s.tint = tints[(Math.random() * tints.length) | 0];
+      return s;
+    };
+    const resize = () => {
+      const d = Math.min(window.devicePixelRatio || 1, 1.5);
+      w = window.innerWidth; h = window.innerHeight;
+      canvas.width = Math.round(w * d); canvas.height = Math.round(h * d);
+      c.setTransform(d, 0, 0, d, 0, 0);
+    };
+    const frame = (now) => {
+      const dt = Math.min(33, now - (last || now)); last = now;
+      const v = state.speed, cx = w / 2, cy = h / 2, k = FOCAL * Math.max(w, h) / 900;
+      c.clearRect(0, 0, w, h);
+      // a faint blue bloom at the vanishing point while at speed
+      if (v > 0.05) {
+        const g = c.createRadialGradient(cx, cy, 0, cx, cy, Math.max(w, h) * 0.45);
+        g.addColorStop(0, `rgba(56,189,248,${0.16 * v})`); g.addColorStop(1, 'rgba(56,189,248,0)');
+        c.fillStyle = g; c.fillRect(0, 0, w, h);
+      }
+      c.lineCap = 'round';
+      for (const s of stars) {
+        s.pz = s.z;
+        s.z -= (0.25 + v * 7) * dt;                        // drift when still, rush at full speed
+        if (s.z < 1) { seed(s, true); continue; }
+        const x = cx + (s.x / s.z) * k, y = cy + (s.y / s.z) * k;
+        const tail = Math.min(DEPTH, s.z + 14 + v * 340);  // streak length grows with speed
+        const px = cx + (s.x / tail) * k, py = cy + (s.y / tail) * k;
+        if (x < -50 || x > w + 50 || y < -50 || y > h + 50) { seed(s, true); continue; }
+        const near = 1 - s.z / DEPTH;
+        c.strokeStyle = `rgba(${s.tint},${Math.min(1, 0.15 + near * 0.95)})`;
+        c.lineWidth = 0.4 + near * 1.8;
+        c.beginPath(); c.moveTo(px, py); c.lineTo(x, y); c.stroke();
+      }
+      raf = requestAnimationFrame(frame);
+    };
+    window.addEventListener('resize', () => { if (raf) resize(); });
+    return {
+      state,
+      start() {
+        if (raf) return;
+        resize(); last = 0;
+        stars = Array.from({ length: N }, () => seed({}, false));
+        raf = requestAnimationFrame(frame);
+      },
+      stop() { cancelAnimationFrame(raf); raf = 0; state.speed = 0; c.clearRect(0, 0, w, h); }
+    };
+  }
+
+  window.Lumen = Object.assign(window.Lumen || {}, { createCosmos, createWarp });
 })();
