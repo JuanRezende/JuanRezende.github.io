@@ -35,10 +35,31 @@
         if (key && key in T) el.setAttribute(a, T[key]);
       });
     });
+    /* case images with Portuguese text in them: swap in the English file when there is one, else say so in the caption */
+    if (dict.images) {
+      const { english = [], portuguese = [], note = '' } = dict.images;
+      const nameOf = (url) => { const m = /assets\/img\/genialcard\/([\w-]+?)(-1024)?\.webp/.exec(url || ''); return m ? m[1] : null; };
+      const toEn = (url) => url.replace(/(assets\/img\/genialcard\/)([\w-]+\.webp)/g, (all, dir, file) => (english.includes(nameOf(dir + file)) ? dir + 'en/' + file : all));
+      document.querySelectorAll('img[src*="assets/img/genialcard/"]').forEach(img => {
+        img.setAttribute('src', toEn(img.getAttribute('src')));
+        if (img.hasAttribute('srcset')) img.setAttribute('srcset', toEn(img.getAttribute('srcset')));
+      });
+      document.querySelectorAll('[data-zoom*="assets/img/genialcard/"]').forEach(el => {
+        const name = nameOf(el.dataset.zoom);
+        if (english.includes(name)) el.dataset.zoom = toEn(el.dataset.zoom);
+        else if (portuguese.includes(name) && el.dataset.caption && !el.dataset.caption.endsWith(note)) el.dataset.caption += note;
+      });
+    }
     if (dict.meta) {
       document.title = dict.meta.title;
-      const d = document.querySelector('meta[name="description"]');
-      if (d) d.setAttribute('content', dict.meta.description);
+      const set = (sel, v) => { const m = document.querySelector(sel); if (m && v) m.setAttribute('content', v); };
+      set('meta[name="description"]', dict.meta.description);
+      set('meta[property="og:title"]', dict.meta.title);
+      set('meta[name="twitter:title"]', dict.meta.title);
+      set('meta[property="og:description"]', dict.meta.description);
+      set('meta[name="twitter:description"]', dict.meta.description);
+      set('meta[property="og:image:alt"]', dict.meta.imageAlt);
+      set('meta[property="og:locale"]', 'en_US');
     }
   }
 

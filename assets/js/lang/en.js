@@ -8,7 +8,18 @@
 window.I18N_EN = {
   meta: {
     title: 'Juan Rezende | Product Designer · UX/UI · Front-end · AI',
-    description: 'From discovery to code: Product Design, UX/UI, Design Systems, front-end and applied AI. See cases for Globo, Light and more.'
+    description: 'From discovery to code: Product Design, UX/UI, Design Systems, front-end and applied AI. See cases for Globo, Light and more.',
+    imageAlt: 'Juan Rezende, Product Designer. From discovery to code.'
+  },
+  /* case images with Portuguese text drawn in them (file names in assets/img/genialcard/).
+     english: the ones that already have an English version, saved under the same names in assets/img/genialcard/en/
+     (both the 1024px and the full-size file); the page uses those instead.
+     portuguese: the ones still only in Portuguese; their enlarged-image caption says so. Move a name from one list to the
+     other when its English version is saved. */
+  images: {
+    english: [],
+    portuguese: ['duplo-diamante', 'resultados-pesquisa', 'persona', 'jornada-usuario', 'canvas-proposta-valor', 'business-model-canvas', 'wireframes', 'interfaces', 'sitemap', 'guia-estilo'],
+    note: ' (in Portuguese)'
   },
   /* strings used by main.js */
   ui: {
@@ -22,7 +33,7 @@ window.I18N_EN = {
     'Pular para o conteúdo': 'Skip to content',
     'Estratégia · Design · Código': 'Strategy · Design · Code',
     'Principal': 'Main',
-    'Juan Rezende, ir para o início': 'Juan Rezende, go to the top',
+    'Juan Rezende, ir para o início': 'Juan Rezende, back to top',
     'Projetos': 'Projects',
     'Sobre': 'About',
     'Processo': 'Process',
@@ -111,7 +122,7 @@ window.I18N_EN = {
     'Prototipo no Figma, aplico Design System e valido com usuários.': 'I prototype in Figma, apply the Design System and validate with users.',
     'Construção': 'Build',
     'Desenvolvo interfaces e acompanho a implementação com Engenharia.': 'I build interfaces and follow the implementation with Engineering.',
-    'Arraste para o lado': 'Swipe sideways',
+    'Arraste para o lado': 'Drag to explore',
 
     /* ── articles ── */
     'Reflexões sobre': 'Thoughts on',
@@ -127,9 +138,10 @@ window.I18N_EN = {
 
     /* ── contact ── */
     'Vamos': "Let's",
-    'conversar?': 'talk?',
-    'Para criar algo novo ou evoluir o que já existe.': 'To build something new or move what exists forward.',
-    'Enviar e-mail': 'Send e-mail',
+    'conversar?': 'talk.',
+    'Para criar algo novo ou evoluir o que já existe.': 'To build something new or take what exists further.',
+    'Enviar e-mail': 'Send an email',
+    'E-mail': 'Email',
 
     /* ── case shell ── */
     'Você está aqui': 'You are here',
@@ -188,7 +200,7 @@ window.I18N_EN = {
     'Problema': 'Problem',
     '04 · Problema': '04 · Problem',
     'Dados espalhados.': 'Scattered data.',
-    'Nenhuma visão do todo.': 'No view of the whole.',
+    'Nenhuma visão do todo.': 'No big picture.',
     'Desafio': 'Challenge',
     'Transações, limites e assinaturas ficam em apps e faturas diferentes.': 'Transactions, limits and subscriptions live in different apps and statements.',
     'O GenialCard junta tudo e mostra onde dá para economizar.': 'GenialCard brings it all together and shows where to save.',
@@ -214,13 +226,13 @@ window.I18N_EN = {
     'Pesquisa': 'Research',
     '06 · Pesquisa quantitativa': '06 · Quantitative research',
     'O cartão manda.': 'The card rules.',
-    'O controle, não.': 'Control does not.',
+    'O controle, não.': "Control doesn't.",
     'Hábitos de pagamento, controle de gastos e assinaturas.': 'Payment habits, spending control and subscriptions.',
     'Não usam aplicativos': "Don't use apps",
     'para controlar gastos': 'to track spending',
     'Usam o': 'Use the',
     'cartão como principal meio de pagamento': 'card as their main payment method',
-    'cartão de forma individual': 'card individually',
+    'cartão de forma individual': 'card only for themselves',
     'Têm dificuldade com': 'Struggle with',
     'vários cartões e limites': 'multiple cards and limits',
     'Usam cartão em': 'Use cards for',
@@ -228,9 +240,9 @@ window.I18N_EN = {
     'Identificam-se com o gênero feminino': 'Identify as women',
     'Têm': 'Are',
     'de 18 a 25 anos': '18 to 25 years old',
-    'Pagam': 'Pay',
+    'Pagam': 'Pay for',
     'de 3 a 4 assinaturas': '3 to 4 subscriptions',
-    'no cartão': 'on the card',
+    'no cartão': 'on their card',
     'Relatório da pesquisa quantitativa com 46 usuários de cartão de crédito': 'Quantitative research report with 46 credit card users',
     'Ver relatório completo': 'View full report',
     'Formulário da pesquisa': 'Survey form',
@@ -273,7 +285,7 @@ window.I18N_EN = {
     'Ampliar imagem: business model canvas': 'Enlarge image: business model canvas',
     'Solução': 'Solution',
     '09 · Solução': '09 · Solution',
-    'Do rascunho': 'From sketch',
+    'Do rascunho': 'From first draft',
     'ao protótipo.': 'to prototype.',
     'Wireframes, interface em alta fidelidade e protótipo navegável.': 'Wireframes, high-fidelity interface and a clickable prototype.',
     'A navegação prioriza ler e controlar os gastos.': 'Navigation puts reading and controlling spending first.',
@@ -306,7 +318,7 @@ window.I18N_EN = {
     'Guia de estilos': 'Style guide',
     '12 · Guia de estilos': '12 · Style guide',
     'Um sistema,': 'A system,',
-    'não telas soltas.': 'not loose screens.',
+    'não telas soltas.': 'not a pile of screens.',
     'Cores, tipografia e componentes prontos para a implementação.': 'Colors, typography and components ready for implementation.',
     'Guia de estilos do GenialCard': 'GenialCard style guide',
     'Ampliar imagem: guia de estilos': 'Enlarge image: style guide',
@@ -375,7 +387,7 @@ window.I18N_EN = {
     'Manifesto: diversidade e crescimento para os colaboradores.': 'Manifesto: diversity and growth for employees.',
     'Atuação': 'My role',
     '04 · Atuação': '04 · My role',
-    'Do esboço': 'From sketch',
+    'Do esboço': 'From wireframe',
     'ao produto final.': 'to final product.',
     'Prototipação': 'Prototyping',
     'Iterações no design': 'Design iterations',
@@ -407,7 +419,7 @@ window.I18N_EN = {
     'Religação': 'Reconnection',
     'Religação, ligação nova e demandas técnicas.': 'Reconnection, new connections and technical requests.',
     'Acompanhamento': 'Tracking',
-    'Consulta por protocolo, serviço e período.': 'Look-up by protocol number, service and period.',
+    'Consulta por protocolo, serviço e período.': 'Look up by request number, service and period.',
     'Web e mobile': 'Web and mobile',
     'Acesso por desktop e celular.': 'Access from desktop and phone.',
     'Da solicitação': 'From request',
@@ -421,15 +433,15 @@ window.I18N_EN = {
     'Serviços e acompanhamento em mobile e desktop': 'Services and tracking on mobile and desktop',
     'Ampliar imagem: serviços em mobile e desktop': 'Enlarge image: services on mobile and desktop',
     'Serviços e acompanhamento no celular e no desktop.': 'Services and tracking on phone and desktop.',
-    'Acompanhamento de solicitações por protocolo': 'Request tracking by protocol number',
+    'Acompanhamento de solicitações por protocolo': 'Request tracking by request number',
     'Ampliar imagem: acompanhamento de solicitações': 'Enlarge image: request tracking',
-    'Acompanhamento por protocolo, serviço e período.': 'Tracking by protocol number, service and period.',
-    'ao portal pronto.': 'to a finished portal.',
+    'Acompanhamento por protocolo, serviço e período.': 'Tracking by request number, service and period.',
+    'ao portal pronto.': 'to a live portal.',
     'Próximo case · 01': 'Next case · 01',
 
     /* ── end of cases, footer, lightbox ── */
     'Vamos construir': "Let's build",
-    'algo relevante?': 'something that matters?',
+    'algo relevante?': 'something that matters.',
     '© 2026 Juan Rezende · Design e desenvolvimento': '© 2026 Juan Rezende · Design and development',
     'Rodapé': 'Footer',
     'Voltar ao topo': 'Back to top',

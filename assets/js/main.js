@@ -253,7 +253,8 @@
   function splitHeading(el) {
     if (!el || el.dataset.words) return;
     el.dataset.words = '1';
-    el.setAttribute('aria-label', el.textContent.replace(/\s+/g, ' ').trim());
+    /* parts are joined with a space: stacked titles put each part in its own block with no space between ("Vamos"+"conversar?") */
+    el.setAttribute('aria-label', Array.from(el.childNodes, n => n.textContent).join(' ').replace(/\s+/g, ' ').trim());
     const walk = (node) => {
       Array.from(node.childNodes).forEach(n => {
         if (n.nodeType === 3) {
