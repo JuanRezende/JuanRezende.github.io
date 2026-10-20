@@ -17,13 +17,16 @@ window.I18N_EN = {
      portuguese: the ones still only in Portuguese; their enlarged-image caption says so. Move a name from one list to the
      other when its English version is saved. */
   images: {
-    english: [],
-    portuguese: [
-      'genialcard/capa', 'genialcard/duplo-diamante', 'genialcard/resultados-pesquisa', 'genialcard/persona', 'genialcard/jornada-usuario',
+    english: [
+      'genialcard/capa', 'genialcard/duplo-diamante', 'genialcard/persona', 'genialcard/jornada-usuario',
       'genialcard/canvas-proposta-valor', 'genialcard/business-model-canvas', 'genialcard/wireframes', 'genialcard/interfaces',
       'genialcard/sitemap', 'genialcard/guia-estilo',
+      'light/1', 'light/2', 'light/4'
+    ],
+    portuguese: [
+      'genialcard/resultados-pesquisa',
       'globo/1', 'globo/2', 'globo/3', 'globo/4',
-      'light/1', 'light/2', 'light/3', 'light/4'
+      'light/3'
     ],
     note: ' (in Portuguese)'
   },
