@@ -18,16 +18,13 @@ window.I18N_EN = {
      other when its English version is saved. */
   images: {
     english: [
-      'genialcard/capa', 'genialcard/duplo-diamante', 'genialcard/persona', 'genialcard/jornada-usuario',
+      'genialcard/capa', 'genialcard/duplo-diamante', 'genialcard/resultados-pesquisa', 'genialcard/persona', 'genialcard/jornada-usuario',
       'genialcard/canvas-proposta-valor', 'genialcard/business-model-canvas', 'genialcard/wireframes', 'genialcard/interfaces',
       'genialcard/sitemap', 'genialcard/guia-estilo',
-      'light/1', 'light/2', 'light/4'
-    ],
-    portuguese: [
-      'genialcard/resultados-pesquisa',
       'globo/1', 'globo/2', 'globo/3', 'globo/4',
-      'light/3'
+      'light/1', 'light/2', 'light/3', 'light/4'
     ],
+    portuguese: [],
     note: ' (in Portuguese)'
   },
   /* strings used by main.js */
