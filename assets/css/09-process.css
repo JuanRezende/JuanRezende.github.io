@@ -132,6 +132,22 @@
     min-height: 21rem;
   }
   .motion .process__bar { display: block; }
+  /* the pinned reel must fit one screen height, header included: spacing, title and cards follow the height (svh) as
+     well as the width, so a 1366×768 laptop still gets air around the cards and sees the whole scroll animation.
+     Tall screens keep the original sizes (every clamp tops out at them). */
+  .motion .process__pin {
+    --head-clear: 4.5rem;   /* floating header: .75rem offset + 3.5rem pill + its edge */
+    padding-block: calc(var(--head-clear) + clamp(1.5rem, 5svh, 3.5rem)) clamp(1.5rem, 5svh, 3.5rem);
+    gap: clamp(2rem, 6.5svh, 3.5rem);
+  }
+  .motion .process__pin .eyebrow { margin-bottom: clamp(1rem, 2.6svh, 1.75rem); }
+  .motion .process__pin .h2 { font-size: clamp(1.9rem, min(4.2vw, 6.4svh), 3.25rem); }
+  .motion .step {
+    min-height: clamp(13.5rem, 42svh, 21rem);
+    gap: clamp(1.25rem, 5svh, 3rem);
+    padding: clamp(1.4rem, 3.4svh, 2rem);
+  }
+  .motion .step__num { font-size: clamp(2.6rem, 7svh, 3.6rem); }
 }
 .chips {
   display: flex;
