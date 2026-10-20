@@ -39,6 +39,10 @@
 @media (min-width: 1024px) {
   .contact { grid-template-columns: 1.4fr 1fr; }
 }
+/* wide enough for e-mail, LinkedIn and GitHub on one line: the side column takes the width of its buttons */
+@media (min-width: 1200px) {
+  .contact { grid-template-columns: 1fr auto; }
+}
 .horizon {
   position: absolute;
   inset: auto 0 0;
