@@ -3,7 +3,7 @@
    attribute (alt, aria-label, title, data-caption, data-title, data-label, data-suffix), whose text matches a key is
    swapped for its value; leading and trailing spaces of the original are kept.
    When you edit a Portuguese text in index.html, edit its key here too (otherwise that spot stays in Portuguese).
-   Names (GenialCard, Juntos pra fazer história, Credenciados Light, tools, companies) need no entry: missing keys keep the
+   Names (GenialCard, Credenciados Light, tools, companies) need no entry: missing keys keep the
    original text. */
 window.I18N_EN = {
   meta: {
@@ -78,7 +78,7 @@ window.I18N_EN = {
     'App mobile · Finanças pessoais': 'Mobile app · Personal finance',
     'Mais clareza sobre os gastos': 'Clearer view of spending',
     '46 participantes na pesquisa. Protótipo testado com 9 pessoas.': '46 survey participants. Prototype tested with 9 people.',
-    'Interfaces da comunidade Juntos pra fazer história na intranet da Globo': 'Interfaces of the Juntos pra fazer história community on the Globo intranet',
+    'Interfaces da comunidade Juntos pra fazer história na intranet da Globo': 'Interfaces of the Together to make history community on the Globo intranet',
     'Intranet · Globo': 'Intranet · Globo',
     'Cultura e pessoas em um só lugar': 'Culture and people in one place',
     'Cultura, eventos e desenvolvimento em uma comunidade interna.': 'Culture, events and growth in one internal community.',
@@ -342,7 +342,9 @@ window.I18N_EN = {
     'O principal aprendizado: alinhar evidências, experiência e viabilidade desde o início.': 'The main lesson: align evidence, experience and feasibility from the start.',
     'Obrigado pela leitura.': 'Thanks for reading.',
     'Próximo case · 02': 'Next case · 02',
-    'Juntos pra fazer história na Globo': 'Juntos pra fazer história at Globo',
+    'Juntos pra fazer história na Globo': 'Together to make history at Globo',
+    /* the Globo project goes by its English name (card, case title, tab title, transition card) */
+    'Juntos pra fazer história': 'Together to make history',
 
     /* ── case 02 · Globo ── */
     'Case 02 · Intranet · Globo': 'Case 02 · Intranet · Globo',
@@ -357,7 +359,7 @@ window.I18N_EN = {
     'Experiência integrada.': 'Integrated experience.',
     'Reunimos eventos, histórias e aprendizado em um só ambiente.': 'We brought events, stories and learning into a single space.',
     'O manifesto': 'The',
-    '“Juntos pra fazer história”': '“Juntos pra fazer história” (Together to make history)',
+    '“Juntos pra fazer história”': '“Together to make history”',
     'também ganhou espaço central.': 'manifesto also took center stage.',
     'Para gestores, fluxos dedicados simplificam a publicação de conteúdo.': 'For managers, dedicated flows make publishing content simpler.',
     'Funcionalidades': 'Features',
