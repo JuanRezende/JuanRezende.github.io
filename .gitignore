@@ -6,3 +6,6 @@ desktop.ini
 Thumbs.db
 .DS_Store
 .vscode/
+
+# local editing guide (not part of the site)
+ESTRUTURA.md
