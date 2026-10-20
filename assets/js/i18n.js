@@ -35,16 +35,18 @@
         if (key && key in T) el.setAttribute(a, T[key]);
       });
     });
-    /* case images with Portuguese text in them: swap in the English file when there is one, else say so in the caption */
+    /* case images with Portuguese text in them: swap in the English file when there is one, else say so in the caption.
+       Images are named by case folder and file ("globo/2" = assets/img/globo/2.webp and 2-1024.webp). */
     if (dict.images) {
       const { english = [], portuguese = [], note = '' } = dict.images;
-      const nameOf = (url) => { const m = /assets\/img\/genialcard\/([\w-]+?)(-1024)?\.webp/.exec(url || ''); return m ? m[1] : null; };
-      const toEn = (url) => url.replace(/(assets\/img\/genialcard\/)([\w-]+\.webp)/g, (all, dir, file) => (english.includes(nameOf(dir + file)) ? dir + 'en/' + file : all));
-      document.querySelectorAll('img[src*="assets/img/genialcard/"]').forEach(img => {
+      const IMG = /(assets\/img\/(?:genialcard|globo|light)\/)([\w-]+?)(-1024)?\.webp/g;
+      const nameOf = (url) => { IMG.lastIndex = 0; const m = IMG.exec(url || ''); return m ? m[1].split('/')[2] + '/' + m[2] : null; };
+      const toEn = (url) => url.replace(IMG, (all, dir, file, small) => (english.includes(dir.split('/')[2] + '/' + file) ? dir + 'en/' + file + (small || '') + '.webp' : all));
+      document.querySelectorAll('img[src*="assets/img/"]').forEach(img => {
         img.setAttribute('src', toEn(img.getAttribute('src')));
         if (img.hasAttribute('srcset')) img.setAttribute('srcset', toEn(img.getAttribute('srcset')));
       });
-      document.querySelectorAll('[data-zoom*="assets/img/genialcard/"]').forEach(el => {
+      document.querySelectorAll('[data-zoom*="assets/img/"]').forEach(el => {
         const name = nameOf(el.dataset.zoom);
         if (english.includes(name)) el.dataset.zoom = toEn(el.dataset.zoom);
         else if (portuguese.includes(name) && el.dataset.caption && !el.dataset.caption.endsWith(note)) el.dataset.caption += note;

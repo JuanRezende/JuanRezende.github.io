@@ -11,14 +11,20 @@ window.I18N_EN = {
     description: 'From discovery to code: Product Design, UX/UI, Design Systems, front-end and applied AI. See cases for Globo, Light and more.',
     imageAlt: 'Juan Rezende, Product Designer. From discovery to code.'
   },
-  /* case images with Portuguese text drawn in them (file names in assets/img/genialcard/).
-     english: the ones that already have an English version, saved under the same names in assets/img/genialcard/en/
-     (both the 1024px and the full-size file); the page uses those instead.
+  /* case images with Portuguese text drawn in them, named by case folder and file ("globo/2" = assets/img/globo/2.webp).
+     english: the ones that already have an English version, saved under the same names in that case's en/ folder
+     (assets/img/globo/en/2.webp and 2-1024.webp); the page uses those instead.
      portuguese: the ones still only in Portuguese; their enlarged-image caption says so. Move a name from one list to the
      other when its English version is saved. */
   images: {
     english: [],
-    portuguese: ['capa', 'duplo-diamante', 'resultados-pesquisa', 'persona', 'jornada-usuario', 'canvas-proposta-valor', 'business-model-canvas', 'wireframes', 'interfaces', 'sitemap', 'guia-estilo'],
+    portuguese: [
+      'genialcard/capa', 'genialcard/duplo-diamante', 'genialcard/resultados-pesquisa', 'genialcard/persona', 'genialcard/jornada-usuario',
+      'genialcard/canvas-proposta-valor', 'genialcard/business-model-canvas', 'genialcard/wireframes', 'genialcard/interfaces',
+      'genialcard/sitemap', 'genialcard/guia-estilo',
+      'globo/1', 'globo/2', 'globo/3', 'globo/4',
+      'light/1', 'light/2', 'light/3', 'light/4'
+    ],
     note: ' (in Portuguese)'
   },
   /* strings used by main.js */
