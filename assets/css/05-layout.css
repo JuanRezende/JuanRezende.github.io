@@ -131,8 +131,8 @@
   flex-direction: column;
   justify-content: center;
   gap: .25rem;
-  /* near-opaque, so it needs no backdrop blur */
-  background: radial-gradient(120% 80% at 50% 0%, rgba(14, 22, 51, .97), rgba(4, 6, 14, .98));
+  /* opaque, so it needs no backdrop blur and nothing shows through */
+  background: radial-gradient(120% 80% at 50% 0%, #0e1633, #04060e);
   opacity: 0;
   visibility: hidden;
   transition: opacity .4s var(--ease), visibility .4s;
@@ -141,7 +141,8 @@
   opacity: 1;
   visibility: visible;
 }
-.mobile-menu a {
+/* the section links (direct children; the language switch keeps its own small style) */
+.mobile-menu > a {
   display: flex;
   align-items: baseline;
   gap: 1rem;
@@ -152,7 +153,7 @@
   letter-spacing: -.03em;
   color: var(--white);
 }
-.mobile-menu a span {
+.mobile-menu > a span {
   font-family: var(--mono);
   font-size: .72rem;
   letter-spacing: .12em;
@@ -209,4 +210,29 @@ main {
     align-items: end;
     gap: 4rem;
   }
+}
+
+/* ══════════ LANGUAGE SWITCH (PT · EN, see assets/js/i18n.js): end of the header pill, and in the mobile menu ══════════ */
+.lang-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  font-family: var(--mono);
+  font-size: .68rem;
+  font-weight: 500;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--marker);
+}
+.lang-switch a {
+  padding: .5rem .15rem;
+  margin-right: -.18em;   /* the tracking would leave the label off centre */
+  color: var(--meta);
+  transition: color .3s;
+}
+.lang-switch a:hover { color: var(--text); }
+.lang-switch a.is-current { color: var(--white); }
+.lang-switch--menu {
+  margin-top: 2rem;
+  font-size: .8rem;
 }

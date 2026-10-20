@@ -52,6 +52,17 @@
 <script>
   document.documentElement.classList.add('js');
   try { if (sessionStorage.getItem('jr-intro') || matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('no-intro'); } catch (e) {}
+  /* language: Portuguese unless ?lang=en or a saved choice says English. The English copy is applied by assets/js/i18n.js
+     at the end of the body; until then the page stays hidden (lang-pending, with a CSS failsafe in 02-base.css). */
+  (function () {
+    var d = document.documentElement, l = null;
+    try {
+      l = new URLSearchParams(location.search).get('lang');
+      if (l === 'en' || l === 'pt') localStorage.setItem('jr-lang', l);
+      else l = localStorage.getItem('jr-lang');
+    } catch (e) {}
+    if (l === 'en') { d.lang = 'en'; d.classList.add('lang-pending'); }
+  })();
   /* effects budget: without hardware graphics (WebGL missing or software-only) every blur and the WebGL aura fall on the CPU,
      so the page switches to lite mode before first paint (static aura image, no filters, fewer layers; see 14-motion.css).
      ?fx=lite or ?fx=full forces a mode for the session (headless test browsers are software-only, so they need ?fx=full). */
@@ -257,6 +268,7 @@
       <a class="nav-link" href="#processo" data-nav="processo">Processo</a>
       <a class="nav-link" href="#artigos" data-nav="artigos">Artigos</a>
       <a class="nav__cta" href="#contato">Contato</a>
+      <div class="lang-switch" role="group" aria-label="Idioma"><a href="?lang=pt" data-lang="pt" lang="pt-BR" hreflang="pt-BR" aria-label="Português">PT</a><span aria-hidden="true">·</span><a href="?lang=en" data-lang="en" lang="en" hreflang="en" aria-label="English">EN</a></div>
     </div>
     <button class="menu-btn" type="button" aria-controls="mobile-menu" aria-expanded="false" aria-label="Abrir menu"><svg class="icon" aria-hidden="true"><use href="#i-menu"/></svg></button>
   </nav>
@@ -269,6 +281,7 @@
   <a href="#processo"><span>03</span>Processo</a>
   <a href="#artigos"><span>04</span>Artigos</a>
   <a href="#contato"><span>05</span>Contato</a>
+  <div class="lang-switch lang-switch--menu" role="group" aria-label="Idioma"><a href="?lang=pt" data-lang="pt" lang="pt-BR" hreflang="pt-BR" aria-label="Português">PT</a><span aria-hidden="true">·</span><a href="?lang=en" data-lang="en" lang="en" hreflang="en" aria-label="English">EN</a></div>
   <p class="mobile-menu__foot">Estratégia · Design · Código</p>
 </div>
 
@@ -1169,6 +1182,9 @@
 <script src="assets/vendor/ScrollTrigger.min.js"></script>
 <script src="assets/js/effects/cosmos.js"></script>
 <script src="assets/js/effects/wave.js"></script>
+<!-- English copy, applied before main.js so every animation starts from the chosen language -->
+<script src="assets/js/lang/en.js"></script>
+<script src="assets/js/i18n.js"></script>
 <script src="assets/js/main.js"></script>
 </body>
 </html>

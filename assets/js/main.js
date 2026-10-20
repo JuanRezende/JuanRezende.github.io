@@ -38,6 +38,9 @@
   const cases = {};
   $$('.case').forEach(a => { cases[a.dataset.case] = a; });
   const baseTitle = document.title;
+  /* runtime strings follow the page language (assets/js/i18n.js; Portuguese when it is missing) */
+  const tr = (s) => (window.I18N ? I18N.t(s) : s);
+  const locale = window.I18N ? I18N.locale : 'pt-BR';
   /* credential counts follow their lists, so adding a certificate is a single line of markup */
   $$('[data-count-of]').forEach(el => { const list = $(el.dataset.countOf); if (list) el.textContent = list.children.length; });
 
@@ -81,7 +84,7 @@
     const c = $('#curtain'), line = $('.curtain__line', c), parts = $$('.curtain__label, .curtain__title', c);
     const article = next.view === 'case' ? cases[next.slug] : null;
     const kicker = article && $('.spaced', article);
-    $('.curtain__label', c).textContent = article ? (kicker ? kicker.textContent.split('·')[0].trim() : 'Case') : 'Portfólio';
+    $('.curtain__label', c).textContent = article ? (kicker ? kicker.textContent.split('·')[0].trim() : tr('Case')) : tr('Portfólio');
     $('.curtain__title', c).textContent = article ? article.dataset.title : 'Juan Rezende';
     const tl = gsap.timeline({ onComplete: () => { if (warp) warp.stop(); busy = false; if (pending) { pending = false; route(); } } });
     if (warp) {
@@ -280,7 +283,7 @@
   function counters(scope) {
     $$('[data-count]', scope).forEach(el => {
       const end = parseFloat(el.dataset.count), suffix = el.dataset.suffix || '', dec = +el.dataset.decimals || 0;
-      const fmt = (v) => v.toLocaleString('pt-BR', { minimumFractionDigits: dec, maximumFractionDigits: dec }) + suffix;
+      const fmt = (v) => v.toLocaleString(locale, { minimumFractionDigits: dec, maximumFractionDigits: dec }) + suffix;
       const obj = { v: 0 };
       el.textContent = fmt(0);
       gsap.to(obj, {
@@ -541,7 +544,7 @@
   function setMenu(open) {
     menu.classList.toggle('is-open', open);
     menuBtn.setAttribute('aria-expanded', String(open));
-    menuBtn.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu');
+    menuBtn.setAttribute('aria-label', open ? tr('Fechar menu') : tr('Abrir menu'));
     $('use', menuBtn).setAttribute('href', open ? '#i-x' : '#i-menu');
     doc.classList.toggle('is-locked', open);
     if (open) {
