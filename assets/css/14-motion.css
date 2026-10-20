@@ -1,0 +1,38 @@
+/* 14-motion.css · Motion safety: offscreen pause and prefers-reduced-motion
+   Part of the Lumen stylesheet, loaded in numeric order (the cascade depends on it). */
+
+/* looping motion rests while its block is off screen (toggled by script) */
+.is-paused,
+.is-paused *,
+.is-paused::before,
+.is-paused::after,
+.is-paused *::before,
+.is-paused *::after {
+  animation-play-state: paused !important;
+}
+
+/* ══════════ REDUCED MOTION ══════════ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .blob,
+  .dust,
+  .grain,
+  .hero__beams .ray,
+  .ticker__track,
+  .portrait__orbit i,
+  .display em,
+  .btn--fill,
+  .btn--solid,
+  .ai-card {
+    animation: none !important;
+  }
+  .hero__beams .ray {
+    stroke-dashoffset: 0;
+    opacity: .5;
+  }
+}

@@ -1,0 +1,186 @@
+/* 03-components.css · Shared components: buttons, glass surfaces (spotlight + lit border)
+   Part of the Lumen stylesheet, loaded in numeric order (the cascade depends on it). */
+
+/* ══════════ BUTTONS ══════════ */
+.btn {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .75rem;
+  min-height: 3rem;
+  padding: .85rem 1.65rem;
+  border-radius: var(--pill);
+  border: 1px solid transparent;
+  font-family: var(--mono);
+  font-size: .72rem;
+  letter-spacing: .16em;
+  font-weight: 500;
+  text-transform: uppercase;
+  color: var(--white);
+  translate: var(--tx, 0px) var(--ty, 0px);
+  transition: color var(--d-fast), box-shadow .4s var(--ease), translate .4s var(--ease);
+}
+.btn .icon {
+  width: 16px;
+  height: 16px;
+  transition: transform .3s var(--ease);
+}
+.btn:hover .icon { transform: translateX(3px); }
+/* primary · Aura's shiny CTA in ember: a conic light circles the border; hover pours the flame in */
+.btn--fill, .btn--solid {
+  color: var(--accent-2);
+  background:
+    linear-gradient(var(--bg), var(--bg)) padding-box,
+    conic-gradient(from var(--angle), rgba(253, 186, 116, .22) 0%, var(--accent) 7%, #fff7ed 13%, var(--accent) 20%, rgba(253, 186, 116, .22) 32%, rgba(253, 186, 116, .22) 100%) border-box;
+  box-shadow: 0 0 34px -12px rgba(253, 186, 116, .55);
+  animation: border-spin 3.6s linear infinite;
+}
+.btn--fill::before, .btn--solid::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(95deg, var(--accent), var(--accent-2));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .6s var(--ease-expo);
+}
+.btn--fill::after, .btn--solid::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(circle at 1.5px 1.5px, rgba(255, 237, 213, .5) .6px, transparent 0) 0 0 / 5px 5px;
+  -webkit-mask-image: conic-gradient(from calc(var(--angle) + 45deg), #000, transparent 12% 88%, #000);
+  mask-image: conic-gradient(from calc(var(--angle) + 45deg), #000, transparent 12% 88%, #000);
+  opacity: .35;
+}
+.btn--fill:hover, .btn--solid:hover {
+  color: var(--bg);
+  box-shadow: 0 0 46px -8px rgba(253, 186, 116, .7);
+}
+.btn--fill:hover::before, .btn--solid:hover::before { transform: scaleX(1); }
+@keyframes border-spin {
+  to { --angle: 360deg; }
+}
+/* secondary · Fluxora glass pill, lifts on a pool of blue light */
+.btn--ghost, .btn--outline {
+  color: var(--text);
+  background:
+    linear-gradient(rgba(10, 16, 36, .7), rgba(10, 16, 36, .7)) padding-box,
+    var(--hairline-strong) border-box;
+}
+.btn--ghost:hover, .btn--outline:hover {
+  color: var(--white);
+  translate: var(--tx, 0px) calc(var(--ty, 0px) - 2px);
+  box-shadow: 0 14px 34px -14px rgba(56, 189, 248, .6);
+}
+.btn--sm {
+  min-height: 2.75rem;
+  padding: .65rem 1.25rem;
+}
+.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .75rem;
+}
+.link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  padding-bottom: .35rem;
+  font-family: var(--mono);
+  font-size: .72rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--text-2);
+  transition: color .3s;
+}
+.link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: var(--line-3);
+}
+.link::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  z-index: 1;
+  background: var(--dawn);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform .5s var(--ease-expo);
+}
+.link:hover { color: var(--white); }
+.link:hover::before {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+.link .icon {
+  width: 14px;
+  height: 14px;
+  transition: transform .3s var(--ease);
+}
+.link:hover .icon { transform: rotate(45deg); }
+
+/* ══════════ SURFACES ══════════
+   One glass recipe for every panel: dark base + 225° veil, a gradient hairline drawn by a mask,
+   and a spotlight that follows the cursor (--mx/--my set by script; --spot-c fades in on hover). */
+.glass, .cap, .step {
+  position: relative;
+  isolation: isolate;
+  border-radius: var(--radius);
+  background:
+    radial-gradient(420px circle at var(--mx, 50%) var(--my, 0%), var(--spot-c), transparent 62%),
+    var(--veil),
+    var(--glass-base);
+  box-shadow: 0 24px 60px -40px rgba(0, 0, 0, .9);
+  transition: --spot-c .5s var(--ease), box-shadow .5s var(--ease), translate .5s var(--ease);
+}
+.glass::after, .cap::after, .step::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  pointer-events: none;
+  background: var(--hairline);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  transition: opacity .5s var(--ease);
+}
+.glass:hover, .cap:hover, .step:hover {
+  --spot-c: rgba(56, 189, 248, .13);
+  box-shadow: var(--shadow-glow);
+}
+a.glass:hover { translate: 0 -3px; }
+/* panels: the hairline lights up where the cursor is (--mx/--my in px, set by the glass spotlight script) */
+.glass::before, .cap::before, .step::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: inherit;
+  padding: 1px;
+  pointer-events: none;
+  background: radial-gradient(240px circle at var(--mx, 50%) var(--my, 0%), var(--ice), rgba(56, 189, 248, .65) 32%, transparent 70%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity .5s var(--ease);
+}
+.glass:hover::before, .cap:hover::before, .step:hover::before { opacity: 1; }

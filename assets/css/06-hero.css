@@ -1,0 +1,372 @@
+/* 06-hero.css · Home hero (wave canvas, beams, laser core, title) and the credits ticker
+   Part of the Lumen stylesheet, loaded in numeric order (the cascade depends on it). */
+
+/* ══════════ HERO (laser + orbit field, light veil, converging beams) ══════════ */
+.hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  text-align: center;
+}
+.hero__stage {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  transform-origin: 50% 50%;
+}
+.hero__gl {
+  position: absolute;
+  inset: 0;
+  z-index: -3;
+  width: 100%;
+  height: 100%;
+  /* the wave is drawn as LED squares */
+  image-rendering: pixelated;
+}
+/* Aura's beams: four curves feed light into the laser core; a short dash travels each one */
+.hero__beams {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+  pointer-events: none;
+  overflow: visible;
+  -webkit-mask-image: radial-gradient(ellipse 34% 30% at 50% 50%, transparent 35%, #000 85%);
+  mask-image: radial-gradient(ellipse 34% 30% at 50% 50%, transparent 35%, #000 85%);
+}
+.hero__beams .rail {
+  fill: none;
+  stroke: rgba(255, 255, 255, .055);
+  stroke-width: 1;
+}
+.hero__beams .ray {
+  fill: none;
+  stroke: url(#beam-grad);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-dasharray: 110 1500;
+  stroke-dashoffset: 1610;
+  animation: ray 4.2s var(--ease-io) infinite;
+}
+.hero__beams .ray:nth-of-type(2) { animation-delay: -1.05s; }
+.hero__beams .ray:nth-of-type(3) { animation-delay: -2.1s; }
+.hero__beams .ray:nth-of-type(4) { animation-delay: -3.15s; }
+@keyframes ray {
+  to { stroke-dashoffset: 0; }
+}
+.hero__flare {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 2px;
+  margin-top: -1px;
+  pointer-events: none;
+  opacity: 0;
+  transform: scaleX(0);
+  background: linear-gradient(90deg, transparent, rgba(56, 189, 248, .5) 28%, #fff 50%, rgba(253, 186, 116, .5) 72%, transparent);
+  box-shadow: 0 0 18px 2px rgba(56, 189, 248, .45), 0 0 60px 6px rgba(37, 99, 235, .25);
+}
+.hero__bloom {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 44rem;
+  height: 44rem;
+  margin: -22rem 0 0 -22rem;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(circle, rgba(186, 230, 253, .34), rgba(56, 189, 248, .1) 32%, transparent 64%);
+}
+.hero__laser {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(50% - 3rem);
+  z-index: -2;
+  width: 6rem;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 28%, rgba(0, 0, 0, .14) 40%, rgba(0, 0, 0, .14) 64%, #000 76%, #000 100%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 28%, rgba(0, 0, 0, .14) 40%, rgba(0, 0, 0, .14) 64%, #000 76%, #000 100%);
+}
+.hero__laser span {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  animation: laserPulse 3s ease-in-out infinite;
+}
+.hero__laser .l1 {
+  /* the wave ring carries the light; the laser keeps only its line and core */
+  display: none;
+  left: 1rem;
+  width: 4rem;
+  background: rgba(14, 165, 233, .11);
+  filter: blur(24px);
+}
+.hero__laser .l2 {
+  display: none;
+  left: calc(50% - .375rem);
+  width: .75rem;
+  background: rgba(96, 165, 250, .32);
+  filter: blur(6px);
+}
+.hero__laser .l3 {
+  left: calc(50% - 1px);
+  width: 2px;
+  background: linear-gradient(to bottom, transparent, var(--sky), transparent);
+  opacity: .3;
+}
+.hero__laser .core {
+  top: 50%;
+  bottom: auto;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  margin: -4px 0 0 -4px;
+  border-radius: 50%;
+  background: var(--ice);
+  filter: blur(2px);
+}
+@keyframes laserPulse {
+  0%, 100% { opacity: .5; }
+  50% { opacity: 1; }
+}
+.hero__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  /* a dark core inside the wave ring, where the title sits */
+  background: radial-gradient(42% 32% at 50% 50%, rgba(3, 5, 12, .74), rgba(3, 5, 12, .3) 60%, transparent 80%);
+}
+.hero__fade {
+  position: absolute;
+  inset: auto 0 0;
+  height: 18%;
+  z-index: -1;
+  background: linear-gradient(to bottom, transparent, var(--bg));
+  pointer-events: none;
+}
+/* one fold, read like a title card: who (name, role), the promise, then the credits band (disciplines, scroll cue, actions) */
+.hero__inner {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  row-gap: clamp(2.5rem, 6svh, 4rem);
+  padding-block: clamp(6rem, 13svh, 8rem) clamp(1.75rem, 4svh, 2.5rem);
+}
+.hero__main {
+  align-self: center;
+  display: grid;
+  justify-items: center;
+}
+.display {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: clamp(2.4rem, min(8.2vw, 14svh), 7.5rem);
+  line-height: .95;
+  letter-spacing: -.045em;
+  text-transform: uppercase;
+  color: var(--white);
+}
+.display > span, .display > em { display: block; }
+/* the role turns to light: an italic serif lit sky-to-ember (Aura), on its own glow */
+.display em {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 300;
+  text-transform: none;
+  font-size: 1.12em;
+  letter-spacing: -.03em;
+  line-height: .9;
+  background: var(--aurora);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 30px rgba(56, 189, 248, .3));
+  animation: aurora 9s ease-in-out infinite alternate;
+  /* the gradient only paints inside the box: padding (cancelled by margin) lets it reach the cedilla, the accents and the italic overhang */
+  padding: .08em .16em .26em .1em;
+  margin: -.08em -.16em -.26em -.1em;
+}
+@keyframes aurora {
+  from { background-position: 0% 50%; }
+  to { background-position: 100% 50%; }
+}
+/* each title line rises out of blur and transparency, with no clipping mask (a mask cut the blurred letters mid-entrance) */
+.hero__line { display: block; }
+.hero__line > * { display: inline-block; }
+.hero__promise {
+  margin-top: clamp(1.5rem, 3.6svh, 2.25rem);
+  padding-bottom: .12em;
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(1.2rem, 2.1vw, 1.875rem);
+  line-height: 1.25;
+  letter-spacing: -.03em;
+  color: var(--white);
+  text-wrap: balance;
+}
+.hero__promise em {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 300;
+  font-size: 1.1em;
+  letter-spacing: -.01em;
+  background: linear-gradient(95deg, var(--ice) 10%, var(--accent-2) 95%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  padding-right: .06em;
+}
+@media (max-width: 639px) {
+  .hero__beams { display: none; }
+}
+/* credits band: a horizon line, then three columns aligned to the grid; the cue sits where the laser lands */
+.hero__band {
+  position: relative;
+  display: grid;
+  gap: 2rem;
+  justify-items: center;
+  padding-top: clamp(1.5rem, 3.5svh, 2rem);
+}
+.hero__horizon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--line-3) 18%, var(--sky) 50%, var(--line-3) 82%, transparent);
+}
+.hero__cta {
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+}
+.hero__frame {
+  position: absolute;
+  inset: clamp(5rem, 11svh, 6.5rem) calc(var(--gutter) - 14px) .75rem;
+  z-index: -1;
+  display: none;
+  pointer-events: none;
+  --c: rgba(56, 189, 248, .42);
+  background:
+    linear-gradient(var(--c), var(--c)) top left / 18px 1px no-repeat,
+    linear-gradient(var(--c), var(--c)) top left / 1px 18px no-repeat,
+    linear-gradient(var(--c), var(--c)) top right / 18px 1px no-repeat,
+    linear-gradient(var(--c), var(--c)) top right / 1px 18px no-repeat,
+    linear-gradient(var(--c), var(--c)) bottom left / 18px 1px no-repeat,
+    linear-gradient(var(--c), var(--c)) bottom left / 1px 18px no-repeat,
+    linear-gradient(var(--c), var(--c)) bottom right / 18px 1px no-repeat,
+    linear-gradient(var(--c), var(--c)) bottom right / 1px 18px no-repeat;
+}
+@media (min-width: 900px) {
+  .hero__frame { display: block; }
+  .hero__band {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
+    justify-items: stretch;
+    column-gap: 2rem;
+    text-align: left;
+  }
+  .hero__cta { justify-self: end; }
+}
+/* the scroll cue only joins once the outer columns can hold the actions without wrapping, so it sits exactly on the laser */
+@media (min-width: 1200px) {
+  .hero__band { grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); }
+}
+/* where the laser lands, a sonar answers (Aura) */
+/* One-message hero: one promise, one action. */
+.hero__band {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hero__cta { justify-content: center; }
+/* the action sits right under the promise, centred in the dark core of the ring */
+.hero__main .hero__cta {
+  justify-self: center;
+  justify-content: center;
+  margin-top: clamp(1.75rem, 4.5svh, 2.75rem);
+}
+
+/* ══════════ TICKER · the disciplines, run like end credits (two reels, opposite directions) ══════════ */
+.ticker {
+  position: relative;
+  display: grid;
+  gap: clamp(.75rem, 2vw, 1.25rem);
+  padding-block: clamp(2.25rem, 5vw, 3.5rem);
+  overflow: hidden;
+  border-top: 1px solid var(--line);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+}
+.ticker__row {
+  display: flex;
+  width: max-content;
+}
+.ticker__track {
+  display: flex;
+  align-items: center;
+  flex: none;
+  gap: clamp(1.5rem, 3vw, 2.75rem);
+  padding-right: clamp(1.5rem, 3vw, 2.75rem);
+  animation: marquee 48s linear infinite;
+}
+.ticker__row--rev .ticker__track {
+  animation-name: marquee-rev;
+  animation-duration: 62s;
+}
+.ticker.is-paused .ticker__track, .ticker:hover .ticker__track { animation-play-state: paused; }
+.ticker__track span, .ticker__track em {
+  white-space: nowrap;
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: clamp(1.6rem, 3.6vw, 3rem);
+  line-height: 1.1;
+  letter-spacing: -.04em;
+  color: var(--white);
+}
+.ticker__track em {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 300;
+  letter-spacing: -.02em;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(186, 230, 253, .55);
+}
+.ticker__row--rev .ticker__track span {
+  font-family: var(--mono);
+  font-weight: 400;
+  font-size: .74rem;
+  letter-spacing: .26em;
+  text-transform: uppercase;
+  color: var(--meta);
+}
+.ticker__star {
+  width: clamp(.8rem, 1.4vw, 1.1rem);
+  height: clamp(.8rem, 1.4vw, 1.1rem);
+  flex: none;
+  fill: var(--accent);
+  filter: drop-shadow(0 0 8px rgba(253, 186, 116, .7));
+}
+.ticker__row--rev .ticker__star {
+  width: .5rem;
+  height: .5rem;
+  fill: var(--sky);
+  filter: none;
+}
+@keyframes marquee {
+  to { transform: translateX(-100%); }
+}
+@keyframes marquee-rev {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0); }
+}

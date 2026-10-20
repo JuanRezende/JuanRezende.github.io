@@ -1,0 +1,366 @@
+/* 08-about.css · Home · Sobre (portrait, statement, impact indicators) and Formação
+   Part of the Lumen stylesheet, loaded in numeric order (the cascade depends on it). */
+
+/* ══════════ ABOUT ══════════ */
+.about {
+  display: grid;
+  gap: clamp(2.5rem, 6vw, 5rem);
+}
+.portrait {
+  position: relative;
+  width: min(100%, 22rem);
+  margin: 0;
+}
+.portrait__frame {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  border: 1px solid transparent;
+  background: linear-gradient(var(--surface), var(--surface)) padding-box, var(--hairline-strong) border-box;
+  box-shadow: var(--shadow);
+}
+.portrait__frame img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  filter: grayscale(1) contrast(1.08) brightness(.9);
+  transition: filter 1.2s var(--ease);
+}
+.portrait:hover .portrait__frame img { filter: grayscale(.35) contrast(1.05) brightness(.95); }
+.portrait__frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(165deg, rgba(56, 189, 248, .16), transparent 38%),
+    linear-gradient(to top, rgba(4, 6, 14, .66), transparent 45%),
+    linear-gradient(0deg, rgba(253, 186, 116, .12), transparent 30%);
+}
+/* Fluxora orbit pulse + Aura technical rings, centred on the portrait */
+.portrait__orbit {
+  position: absolute;
+  inset: 0 0 auto;
+  aspect-ratio: 1;
+  z-index: 0;
+  pointer-events: none;
+}
+.portrait__orbit i {
+  position: absolute;
+  border-radius: 50%;
+}
+.portrait__orbit i:nth-child(1) {
+  inset: -14%;
+  border: 1px dashed rgba(255, 255, 255, .1);
+  animation: spin 40s linear infinite;
+}
+.portrait__orbit i:nth-child(2) {
+  inset: -7%;
+  border: 1px dashed rgba(56, 189, 248, .24);
+  animation: spin 28s linear infinite reverse;
+}
+.portrait__orbit i:nth-child(3) {
+  inset: -2%;
+  border: 1px solid rgba(56, 189, 248, .3);
+  animation: pulse-ring 3.6s cubic-bezier(.4, 0, .6, 1) infinite;
+}
+@keyframes spin {
+  to { rotate: 360deg; }
+}
+@keyframes pulse-ring {
+  0%, 100% {
+    opacity: .15;
+    scale: 1;
+  }
+  50% {
+    opacity: .55;
+    scale: 1.04;
+  }
+}
+.portrait figcaption {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  margin-top: 1.25rem;
+  font-family: var(--mono);
+  font-size: .64rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--meta);
+}
+.portrait figcaption::before {
+  content: "";
+  width: 1.5rem;
+  height: 1px;
+  background: var(--accent);
+}
+.statement {
+  max-width: 46rem;
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(1.4rem, 2.8vw, 2.25rem);
+  line-height: 1.3;
+  letter-spacing: -.025em;
+  color: var(--white);
+}
+.statement em { font-size: 1.06em; }
+.about__text {
+  display: grid;
+  gap: 1.25rem;
+  max-width: 40rem;
+  margin-top: 2rem;
+  color: var(--muted);
+}
+.about__text b {
+  font-weight: 500;
+  color: var(--white);
+}
+/* scannable proof: one line per delivery, a lit marker on each */
+.about__lede {
+  font-size: 1.125rem;
+  color: var(--text-2);
+}
+/* impact: three results, each tagged with the project it came from; the number leads */
+.impact {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-rows: auto auto auto auto;
+  gap: 0 2rem;
+  margin-top: 2.5rem;
+  padding: 1.75rem 0 0;
+  border-top: 1px solid var(--line);
+  list-style: none;
+}
+/* one shared row grid (subgrid): number, label, description and source line up across all three */
+.impact li {
+  display: grid;
+  grid-row: span 4;
+  grid-template-rows: subgrid;
+  align-items: start;
+}
+.impact__desc { margin-top: .4rem; }
+.impact__num {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(2.25rem, 3.8vw, 3rem);
+  line-height: 1;
+  letter-spacing: -.05em;
+  white-space: nowrap;
+  background: var(--dawn);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  font-variant-numeric: tabular-nums;
+  padding-bottom: .08em;
+}
+.impact__num small {
+  font-size: .5em;
+  letter-spacing: -.02em;
+}
+.impact__what {
+  margin-top: .9rem;
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: 1rem;
+  letter-spacing: -.015em;
+  color: var(--white);
+}
+.impact__desc {
+  max-width: 19ch;
+  font-size: .875rem;
+  line-height: 1.5;
+  color: var(--muted);
+  text-wrap: balance;
+}
+.impact__src {
+  margin-top: .9rem;
+  font-family: var(--mono);
+  font-size: .6rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--meta);
+}
+@media (max-width: 639px) {
+  .impact {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+    padding-top: 0;
+  }
+  .impact { grid-template-rows: none; }
+  .impact li {
+    grid-row: auto;
+    grid-template-rows: none;
+    grid-template-columns: 6.5rem minmax(0, 1fr);
+    column-gap: 1.25rem;
+    row-gap: .3rem;
+    padding: 1.25rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .impact__num {
+    grid-row: 1 / span 4;
+    min-width: 6.5rem;
+  }
+  .impact__what, .impact__desc { margin-top: 0; }
+  .impact__src { margin-top: .3rem; }
+}
+/* formação: the next chapter of the same column; the portrait stays beside it the whole way */
+.edu { margin-top: clamp(4rem, 8vw, 6rem); }
+/* two kinds of credential, two groups: degrees first (one wide card), then certificates by area */
+.edu__part + .edu__part { margin-top: 3rem; }
+.cap.edu__degrees {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 3.5rem;
+  margin: 0;
+  padding: 1.75rem;
+  list-style: none;
+}
+.edu__degrees li {
+  display: grid;
+  align-content: start;
+  gap: .4rem;
+}
+/* the divider sits in the middle of the gap, so both columns get exactly half */
+.edu__degrees li { position: relative; }
+.edu__degrees li + li::before {
+  content: "";
+  position: absolute;
+  left: -1.75rem;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--line);
+}
+.edu__kind {
+  font-family: var(--mono);
+  font-size: .6rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--sky);
+}
+.edu__degrees b {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: 1.25rem;
+  line-height: 1.25;
+  letter-spacing: -.025em;
+  color: var(--white);
+  text-wrap: balance;
+}
+.edu__degrees small {
+  font-family: var(--mono);
+  font-size: .62rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--meta);
+}
+/* certificates: one panel, one uniform cell per certificate; a new one is one more row, never a new card */
+.cap.edu__certs {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-auto-rows: 1fr;
+  column-gap: 3.5rem;
+  margin: 0;
+  padding: .5rem 1.75rem;
+  list-style: none;
+}
+.edu__certs li {
+  position: relative;
+  display: grid;
+  align-content: center;
+  gap: .35rem;
+  padding: 1.15rem 0;
+  border-top: 1px solid var(--line);
+}
+.edu__certs li:first-child { border-top: 0; }
+.edu__certs b {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 1.35;
+  letter-spacing: -.015em;
+  color: var(--white);
+}
+.edu__certs small {
+  font-family: var(--mono);
+  font-size: .62rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--meta);
+}
+.edu__area {
+  --tone: var(--sky);
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  font-family: var(--mono);
+  font-size: .58rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--tone);
+}
+.edu__area::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--tone);
+  box-shadow: 0 0 8px var(--tone);
+}
+.edu__area[data-area="des"] { --tone: var(--ice); }
+.edu__area[data-area="pia"] { --tone: var(--accent); }
+@media (min-width: 768px) {
+  .cap.edu__certs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .edu__certs li:nth-child(2) { border-top: 0; }
+  .edu__certs li:nth-child(even)::before {
+    content: "";
+    position: absolute;
+    left: -1.75rem;
+    top: 1rem;
+    bottom: 1rem;
+    width: 1px;
+    background: var(--line);
+  }
+}
+@media (max-width: 639px) {
+  .cap.edu__degrees {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 1.5rem 1.35rem;
+  }
+  .edu__degrees li + li {
+    padding-top: 1.25rem;
+    margin-top: 1.25rem;
+    border-top: 1px solid var(--line);
+  }
+  .edu__degrees li + li::before { display: none; }
+}
+@media (min-width: 1024px) {
+  .about {
+    grid-template-columns: 20rem minmax(0, 1fr);
+    align-items: start;
+  }
+  .portrait {
+    position: sticky;
+    top: 7rem;
+  }
+  .about__text { max-width: 44rem; }
+}
+/* capabilities as a bento of glass cards */
+.cap { padding: 1.75rem 1.75rem 2rem; }
+.cap h3 {
+  margin-bottom: .6rem;
+  font-family: var(--display);
+  font-size: 1.125rem;
+  font-weight: 500;
+  letter-spacing: -.02em;
+  color: var(--white);
+}
+.cap p {
+  font-size: .9375rem;
+  color: var(--muted);
+}
+/* Formação: the course is the headline, institution · year a quieter mono line under it */

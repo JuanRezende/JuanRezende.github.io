@@ -1,0 +1,84 @@
+/* 01-tokens.css · Design tokens: colour roles, glass recipe, type, spacing, radii, easings
+   Part of the Lumen stylesheet, loaded in numeric order (the cascade depends on it). */
+
+/* ══════════════════════════════════════════════════════════════════════════════════════
+   LUMEN · design system
+   One ink, one light, one flame:
+   · ink   — deep navy base (portfolio)
+   · light — sky / azure / cyan carry structure, motion and focus (Aura sky glow · Fluxora azure)
+   · flame — ember is the single complementary hue, reserved for action, indexes and active states
+   Type: Space Grotesk display · Newsreader italic accents (Aura) · JetBrains Mono labels
+   Surface: one glass recipe — 225° veil + gradient hairline + cursor spotlight (Fluxora)
+   Motion: settle · reveal · sweep — three easings, three durations
+   ══════════════════════════════════════════════════════════════════════════════════════ */
+@property --angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+@property --spot-c {
+  syntax: '<color>';
+  initial-value: rgba(56, 189, 248, 0);
+  inherits: false;
+}
+:root {
+  /* ink */
+  --bg: #04060e;
+  --ink-2: #070b19;
+  --surface: #0a1024;
+  --surface-2: #0e1633;
+  /* light */
+  --sky: #38bdf8;
+  --azure: #60a5fa;
+  --glow: #67e8f9;
+  --ice: #bae6fd;
+  --sky-line: rgba(56, 189, 248, .35);
+  --sky-soft: rgba(56, 189, 248, .1);
+  /* flame */
+  --accent: #fdba74;
+  --accent-2: #fed7aa;
+  --ember-deep: #fb923c;
+  --accent-line: rgba(253, 186, 116, .4);
+  --accent-soft: rgba(253, 186, 116, .08);
+  /* text */
+  --white: #f8fafc;
+  --text: #e2e8f0;
+  --text-2: #cbd5e1;
+  --muted: #94a3b8;
+  --meta: #7c8aa5;
+  --marker: #334058;
+  /* lines + glass */
+  --line: rgba(255, 255, 255, .07);
+  --line-2: rgba(255, 255, 255, .11);
+  --line-3: rgba(255, 255, 255, .2);
+  --hairline: linear-gradient(225deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, .24) 50%, rgba(255, 255, 255, 0) 100%);
+  --hairline-strong: linear-gradient(225deg, rgba(255, 255, 255, .06) 0%, rgba(255, 255, 255, .3) 50%, rgba(255, 255, 255, .06) 100%);
+  --veil: linear-gradient(225deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, .05) 50%, rgba(255, 255, 255, 0) 100%);
+  --glass-base: linear-gradient(160deg, rgba(14, 22, 51, .66), rgba(7, 11, 25, .46));
+  --glass: rgba(255, 255, 255, .03);
+  /* signature gradients */
+  --aurora: linear-gradient(100deg, var(--ice) 0%, var(--sky) 34%, var(--azure) 58%, var(--accent) 100%);
+  --dawn: linear-gradient(95deg, var(--sky) 0%, var(--accent) 100%);
+  --steel: linear-gradient(180deg, #ffffff 0%, #a9bbd6 100%);
+  /* type */
+  --display: 'Space Grotesk', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --sans: 'Space Grotesk', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --serif: 'Newsreader', 'Iowan Old Style', 'Palatino Linotype', Georgia, serif;
+  --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  /* motion */
+  --ease: cubic-bezier(.22, 1, .36, 1);
+  --ease-expo: cubic-bezier(.16, 1, .3, 1);
+  --ease-io: cubic-bezier(.65, 0, .35, 1);
+  --d-fast: .25s;
+  --d: .5s;
+  --d-slow: 1.1s;
+  /* layout */
+  --gutter: clamp(1rem, 5vw, 3rem);
+  --max: 76rem;
+  --radius-sm: 10px;
+  --radius: 18px;
+  --radius-lg: 26px;
+  --pill: 999px;
+  --shadow: 0 40px 80px -40px rgba(0, 0, 0, .9);
+  --shadow-glow: 0 30px 80px -36px rgba(56, 189, 248, .4);
+}

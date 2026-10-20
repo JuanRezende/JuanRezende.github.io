@@ -1,0 +1,138 @@
+/* 11-contact.css · Home · Contato (horizon) and the site footer
+   Part of the Lumen stylesheet, loaded in numeric order (the cascade depends on it). */
+
+/* ══════════ CONTACT + HORIZON ══════════ */
+.contact-section {
+  isolation: isolate;
+  overflow: hidden;
+  padding-bottom: clamp(13rem, 26vw, 19rem);
+}
+.contact {
+  display: grid;
+  gap: 3rem;
+  align-items: end;
+}
+.stacked {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: clamp(2.4rem, 7vw, 5.5rem);
+  line-height: 1;
+  letter-spacing: -.05em;
+  color: var(--white);
+}
+.stacked > span, .stacked > em { display: block; }
+.stacked em {
+  font-weight: 300;
+  font-size: 1.1em;
+  padding-right: .1em;
+  color: var(--accent-2);
+  text-shadow: 0 0 34px rgba(253, 186, 116, .38);
+}
+.contact__side {
+  display: grid;
+  gap: 2rem;
+}
+.contact__side p {
+  color: var(--text-2);
+  max-width: 30rem;
+}
+@media (min-width: 1024px) {
+  .contact { grid-template-columns: 1.4fr 1fr; }
+}
+.horizon {
+  position: absolute;
+  inset: auto 0 0;
+  height: 60%;
+  z-index: -1;
+  pointer-events: none;
+}
+.horizon__planet {
+  position: absolute;
+  left: 50%;
+  top: 60%;
+  width: max(1800px, 170vw);
+  aspect-ratio: 1;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 0%, #0f2350 0%, #07142f 20%, var(--bg) 45%);
+  box-shadow:
+    0 0 0 1px rgba(186, 230, 253, .26),
+    0 -6px 30px rgba(56, 189, 248, .2),
+    0 -40px 120px rgba(37, 99, 235, .2),
+    inset 0 24px 60px rgba(56, 189, 248, .1);
+}
+.horizon__sun {
+  position: absolute;
+  left: 50%;
+  top: 60%;
+  width: min(36rem, 90vw);
+  height: 8rem;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(ellipse at center, rgba(255, 237, 213, .75), rgba(253, 186, 116, .32) 24%, rgba(253, 186, 116, .06) 52%, transparent 72%);
+  filter: blur(6px);
+}
+.horizon__flare {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 60%;
+  height: 1px;
+  transform: translateY(-50%);
+  background: linear-gradient(90deg, transparent, rgba(56, 189, 248, .4) 25%, rgba(255, 255, 255, .85) 50%, rgba(253, 186, 116, .4) 75%, transparent);
+}
+/* the same LED wave draws the horizon line */
+.horizon__gl {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  image-rendering: pixelated;
+}
+
+/* ══════════ FOOTER ══════════ */
+.footer {
+  position: relative;
+  z-index: 1;
+  padding: 2.5rem 0;
+  background: var(--bg);
+}
+.footer::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--line-3), transparent);
+}
+.footer__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.footer__copy {
+  font-family: var(--mono);
+  font-size: .64rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--meta);
+}
+.footer__nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem 1.75rem;
+  font-family: var(--mono);
+  font-size: .68rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.footer__nav a { transition: color .3s; }
+.footer__nav a:hover { color: var(--accent-2); }
+@media (min-width: 900px) {
+  .footer__inner {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}

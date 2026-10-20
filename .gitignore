@@ -1,0 +1,8 @@
+# reference material from other designers (never publish)
+Bases/
+
+# OS / editor clutter
+desktop.ini
+Thumbs.db
+.DS_Store
+.vscode/

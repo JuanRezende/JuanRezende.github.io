@@ -1,0 +1,1142 @@
+<!DOCTYPE html>
+<!--
+  Juan Rezende · portfolio (single page, works straight from file://)
+
+  Where things live
+    index.html ............ content: intro, header, HOME (hero, projetos, sobre + formação, processo, artigos,
+                            contato), CASES (genialcard, globo, light), footer. Search the ══ comments.
+    assets/css/01…14 ....... styles, one file per area, loaded in numeric order (the cascade depends on it)
+    assets/js/main.js ...... routing, animations and interactions (contents listed at its top)
+    assets/js/effects/ ..... cosmos.js (starfield) and wave.js (LED wave), used by main.js
+    assets/vendor/ ......... GSAP + ScrollTrigger
+    assets/img/ ............ images, by project
+  More detail: ESTRUTURA.md
+-->
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- ══════════ SEO · the site address (https://juanrezende.github.io) appears here, in the JSON-LD below, robots.txt and sitemap.xml:
+     if it ever changes (e.g. a custom domain), replace it in all of them (see ESTRUTURA.md › SEO) ══════════ -->
+<title>Juan Rezende | Product Designer · UX/UI · Front-end · IA</title>
+<meta name="description" content="Discovery ao código: Product Design, UX/UI, Design Systems, front-end e IA aplicada. Veja os cases para Globo, Light e mais.">
+<meta name="author" content="Juan Rezende">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://juanrezende.github.io/">
+<meta name="theme-color" content="#04060e">
+<meta property="og:type" content="profile">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="Juan Rezende">
+<meta property="og:url" content="https://juanrezende.github.io/">
+<meta property="og:title" content="Juan Rezende | Product Designer · UX/UI · Front-end · IA">
+<meta property="og:description" content="Discovery ao código: Product Design, UX/UI, Design Systems, front-end e IA aplicada. Veja os cases para Globo, Light e mais.">
+<meta property="og:image" content="https://juanrezende.github.io/assets/img/seo/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Juan Rezende, Product Designer. Do discovery ao código.">
+<meta property="profile:first_name" content="Juan">
+<meta property="profile:last_name" content="Rezende">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Juan Rezende | Product Designer · UX/UI · Front-end · IA">
+<meta name="twitter:description" content="Discovery ao código: Product Design, UX/UI, Design Systems, front-end e IA aplicada. Veja os cases para Globo, Light e mais.">
+<meta name="twitter:image" content="https://juanrezende.github.io/assets/img/seo/og-image.jpg">
+<link rel="icon" href="favicon.ico" sizes="48x48">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/img/seo/favicon-96.png" type="image/png" sizes="96x96">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&amp;family=Newsreader:ital,opsz,wght@1,6..72,300;1,6..72,400&amp;family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+<script>
+  document.documentElement.classList.add('js');
+  try { if (sessionStorage.getItem('jr-intro') || matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('no-intro'); } catch (e) {}
+  /* design-system catalog hook (only when this page is framed, e.g. by Bases/lumen-ds.html): the catalog owns the navbar, gets the reading
+     progress, and can park this page as the live background of its Components view (hero scene only) */
+  (function () {
+    if (window.parent === window) return;
+    var d = document.documentElement, y = 0, queued = false;
+    d.classList.add('ds-embed');
+    var send = function () {
+      queued = false;
+      var max = d.scrollHeight - innerHeight;
+      try { parent.postMessage({ ds: 'scroll', p: max > 0 ? Math.min(1, scrollY / max) : 0 }, '*'); } catch (e) {}
+    };
+    addEventListener('scroll', function () { if (!queued) { queued = true; requestAnimationFrame(send); } }, { passive: true });
+    addEventListener('message', function (e) {
+      if (e.source !== window.parent || !e.data || !e.data.ds) return;
+      if (e.data.ds === 'bg' && !d.classList.contains('ds-bg')) { y = scrollY; d.classList.add('ds-bg'); scrollTo(0, 0); }
+      else if (e.data.ds === 'page' && d.classList.contains('ds-bg')) { d.classList.remove('ds-bg'); scrollTo(0, y); }
+    });
+  })();
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://juanrezende.github.io/#site",
+      "url": "https://juanrezende.github.io/",
+      "name": "Juan Rezende",
+      "inLanguage": "pt-BR",
+      "publisher": { "@id": "https://juanrezende.github.io/#juan" }
+    },
+    {
+      "@type": "ProfilePage",
+      "@id": "https://juanrezende.github.io/#page",
+      "url": "https://juanrezende.github.io/",
+      "name": "Juan Rezende | Product Designer · UX/UI · Front-end · IA",
+      "inLanguage": "pt-BR",
+      "isPartOf": { "@id": "https://juanrezende.github.io/#site" },
+      "mainEntity": { "@id": "https://juanrezende.github.io/#juan" },
+      "primaryImageOfPage": "https://juanrezende.github.io/assets/img/seo/og-image.jpg",
+      "hasPart": [
+        { "@type": "CreativeWork", "name": "GenialCard", "url": "https://juanrezende.github.io/#case/genialcard", "about": "App mobile de finanças pessoais: UX Research, UX Strategy, UX e UI Design", "image": "https://juanrezende.github.io/assets/img/genialcard/capa-1024.webp", "creator": { "@id": "https://juanrezende.github.io/#juan" } },
+        { "@type": "CreativeWork", "name": "Juntos pra fazer história · Globo", "url": "https://juanrezende.github.io/#case/globo", "about": "Comunidade de cultura e pessoas na intranet da Globo: UX e UI Design", "image": "https://juanrezende.github.io/assets/img/globo/1-1024.webp", "creator": { "@id": "https://juanrezende.github.io/#juan" } },
+        { "@type": "CreativeWork", "name": "Credenciados Light", "url": "https://juanrezende.github.io/#case/light", "about": "Plataforma web responsiva para parceiros credenciados da Light: UX e UI Design", "image": "https://juanrezende.github.io/assets/img/light/2-1024.webp", "creator": { "@id": "https://juanrezende.github.io/#juan" } }
+      ]
+    },
+    {
+      "@type": "Person",
+      "@id": "https://juanrezende.github.io/#juan",
+      "name": "Juan Rezende",
+      "url": "https://juanrezende.github.io/",
+      "image": "https://juanrezende.github.io/assets/img/avatar/juan-500.webp",
+      "jobTitle": "Product Designer",
+      "description": "Product Designer que leva produtos do discovery ao código: UX/UI, Design Systems, desenvolvimento front-end e IA aplicada a produtos digitais.",
+      "address": { "@type": "PostalAddress", "addressCountry": "BR" },
+      "knowsLanguage": "pt-BR",
+      "knowsAbout": [
+        "Product Design", "UX Design", "UI Design", "UX Research", "UX Strategy", "Design Systems", "Figma",
+        "Arquitetura da Informação", "Testes de usabilidade", "Prototipação", "Discovery de produto",
+        "Desenvolvimento Front-end", "React", "TypeScript", "Design to Code",
+        "Inteligência Artificial", "IA generativa", "AI Product Design", "Product Management"
+      ],
+      "alumniOf": [
+        { "@type": "CollegeOrUniversity", "name": "Universidade Cruzeiro do Sul" },
+        { "@type": "CollegeOrUniversity", "name": "Estácio" }
+      ],
+      "hasCredential": [
+        { "@type": "EducationalOccupationalCredential", "name": "AI Product Specialist", "recognizedBy": { "@type": "Organization", "name": "PM3" } },
+        { "@type": "EducationalOccupationalCredential", "name": "Product Management", "recognizedBy": { "@type": "Organization", "name": "PM3" } },
+        { "@type": "EducationalOccupationalCredential", "name": "Design Systems / Figma", "recognizedBy": { "@type": "Organization", "name": "cfPRO" } },
+        { "@type": "EducationalOccupationalCredential", "name": "UX, UI e Product Design", "recognizedBy": { "@type": "Organization", "name": "UX Unicórnio" } },
+        { "@type": "EducationalOccupationalCredential", "name": "Full-Stack", "recognizedBy": { "@type": "Organization", "name": "Rocketseat" } },
+        { "@type": "EducationalOccupationalCredential", "name": "Front-end", "recognizedBy": { "@type": "Organization", "name": "Alura" } }
+      ],
+      "sameAs": ["https://www.linkedin.com/in/juanrezende/", "https://medium.com/@juan.rezende"]
+    }
+  ]
+}
+</script>
+<!-- Lumen stylesheet, split by section; order matters (see assets/css) -->
+<link rel="stylesheet" href="assets/css/01-tokens.css">
+<link rel="stylesheet" href="assets/css/02-base.css">
+<link rel="stylesheet" href="assets/css/03-components.css">
+<link rel="stylesheet" href="assets/css/04-atmosphere.css">
+<link rel="stylesheet" href="assets/css/05-layout.css">
+<link rel="stylesheet" href="assets/css/06-hero.css">
+<link rel="stylesheet" href="assets/css/07-projects.css">
+<link rel="stylesheet" href="assets/css/08-about.css">
+<link rel="stylesheet" href="assets/css/09-process.css">
+<link rel="stylesheet" href="assets/css/10-articles.css">
+<link rel="stylesheet" href="assets/css/11-contact.css">
+<link rel="stylesheet" href="assets/css/12-case.css">
+<link rel="stylesheet" href="assets/css/13-overlays.css">
+<link rel="stylesheet" href="assets/css/14-motion.css">
+</head>
+<body>
+<a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="trace-grad" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#fdba74"/><stop offset=".35" stop-color="#fed7aa"/><stop offset=".62" stop-color="#bae6fd"/><stop offset="1" stop-color="#38bdf8"/></linearGradient>
+    <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
+    <symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></symbol>
+    <symbol id="i-arrow-up-right" viewBox="0 0 24 24"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></symbol>
+    <symbol id="i-chevron-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+    <symbol id="i-star4" viewBox="0 0 24 24"><path d="M12 1.5c.7 5.9 4.6 9.8 10.5 10.5-5.9.7-9.8 4.6-10.5 10.5C11.3 16.6 7.4 12.7 1.5 12 7.4 11.3 11.3 7.4 12 1.5z"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></symbol>
+    <symbol id="i-linkedin" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></symbol>
+    <symbol id="i-book-open" viewBox="0 0 24 24"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></symbol>
+    <symbol id="i-sparkles" viewBox="0 0 24 24"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/><path d="M20 3v4"/><path d="M22 5h-4"/><path d="M4 17v2"/><path d="M5 18H3"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+    <symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h16"/></symbol>
+    <symbol id="i-briefcase" viewBox="0 0 24 24"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/><rect width="20" height="14" x="2" y="6" rx="2"/></symbol>
+    <symbol id="i-route" viewBox="0 0 24 24"><circle cx="6" cy="19" r="3"/><path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15"/><circle cx="18" cy="5" r="3"/></symbol>
+    <symbol id="i-quote" viewBox="0 0 24 24"><path d="M16 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z"/><path d="M5 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z"/></symbol>
+    <symbol id="i-maximize" viewBox="0 0 24 24"><path d="M15 3h6v6"/><path d="m21 3-7 7"/><path d="m3 21 7-7"/><path d="M9 21H3v-6"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol>
+    <symbol id="i-component" viewBox="0 0 24 24"><path d="M15.536 11.293a1 1 0 0 0 0 1.414l2.376 2.377a1 1 0 0 0 1.414 0l2.377-2.377a1 1 0 0 0 0-1.414l-2.377-2.377a1 1 0 0 0-1.414 0z"/><path d="M2.297 11.293a1 1 0 0 0 0 1.414l2.377 2.377a1 1 0 0 0 1.414 0l2.377-2.377a1 1 0 0 0 0-1.414L6.088 8.916a1 1 0 0 0-1.414 0z"/><path d="M8.916 17.912a1 1 0 0 0 0 1.415l2.377 2.376a1 1 0 0 0 1.414 0l2.377-2.376a1 1 0 0 0 0-1.415l-2.377-2.376a1 1 0 0 0-1.414 0z"/><path d="M8.916 4.674a1 1 0 0 0 0 1.414l2.377 2.376a1 1 0 0 0 1.414 0l2.377-2.376a1 1 0 0 0 0-1.414l-2.377-2.377a1 1 0 0 0-1.414 0z"/></symbol>
+    <symbol id="i-pen-tool" viewBox="0 0 24 24"><path d="M15.707 21.293a1 1 0 0 1-1.414 0l-1.586-1.586a1 1 0 0 1 0-1.414l5.586-5.586a1 1 0 0 1 1.414 0l1.586 1.586a1 1 0 0 1 0 1.414z"/><path d="m18 13-1.375-6.874a1 1 0 0 0-.746-.776L3.235 2.028a1 1 0 0 0-1.207 1.207L5.35 15.879a1 1 0 0 0 .776.746L13 18"/><path d="m2.3 2.3 7.286 7.286"/><circle cx="11" cy="11" r="2"/></symbol>
+    <symbol id="i-code" viewBox="0 0 24 24"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></symbol>
+    <symbol id="i-heart" viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></symbol>
+    <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></symbol>
+    <symbol id="i-lightbulb" viewBox="0 0 24 24"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></symbol>
+    <symbol id="i-flask" viewBox="0 0 24 24"><path d="M10 2v7.527a2 2 0 0 1-.211.896L4.72 20.55a1 1 0 0 0 .9 1.45h12.76a1 1 0 0 0 .9-1.45l-5.069-10.127A2 2 0 0 1 14 9.527V2"/><path d="M8.5 2h7"/><path d="M7 16h10"/></symbol>
+    <symbol id="i-circle-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="i-circle-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="M6 3 20 12 6 21 6 3z"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></symbol>
+    <symbol id="i-megaphone" viewBox="0 0 24 24"><path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></symbol>
+    <symbol id="i-newspaper" viewBox="0 0 24 24"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></symbol>
+    <symbol id="i-graduation" viewBox="0 0 24 24"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="i-store" viewBox="0 0 24 24"><path d="m2 7 4.41-4.41A2 2 0 0 1 7.83 2h8.34a2 2 0 0 1 1.42.59L22 7"/><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><path d="M15 22v-4a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v4"/><path d="M2 7h20"/></symbol>
+    <symbol id="i-receipt" viewBox="0 0 24 24"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 17.5v-11"/></symbol>
+    <symbol id="i-calculator" viewBox="0 0 24 24"><rect width="16" height="20" x="4" y="2" rx="2"/><path d="M8 6h8"/><path d="M16 14v4"/><path d="M16 10h.01"/><path d="M12 10h.01"/><path d="M8 10h.01"/><path d="M12 14h.01"/><path d="M8 14h.01"/><path d="M12 18h.01"/><path d="M8 18h.01"/></symbol>
+    <symbol id="i-zap" viewBox="0 0 24 24"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></symbol>
+    <symbol id="i-list-checks" viewBox="0 0 24 24"><path d="m3 17 2 2 4-4"/><path d="m3 7 2 2 4-4"/><path d="M13 6h8"/><path d="M13 12h8"/><path d="M13 18h8"/></symbol>
+    <symbol id="i-devices" viewBox="0 0 24 24"><path d="M18 8V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h8"/><path d="M10 19v-3.96 3.15"/><path d="M7 19h5"/><rect width="6" height="10" x="16" y="12" rx="2"/></symbol>
+  </defs>
+</svg>
+
+<!-- ══════════ INTRO (light beam) + TITLE-CARD TRANSITION ══════════ -->
+<div class="intro" id="intro" aria-hidden="true">
+  <span class="intro__beam"></span>
+  <div class="intro__text"><p class="intro__name">Juan Rezende</p><p class="intro__role">Estratégia · Design · Código</p></div>
+</div>
+<div class="curtain" id="curtain" aria-hidden="true">
+  <p class="curtain__label"></p>
+  <p class="curtain__title"></p>
+  <span class="curtain__line"></span>
+</div>
+
+<!-- ══════════ ATMOSPHERE (nebula, starfield, vignette, grain) ══════════ -->
+<div class="atmos" aria-hidden="true">
+  <div class="atmos__layer"><div class="blob blob--1"></div><div class="blob blob--2"></div><div class="blob blob--3"></div></div>
+  <canvas class="cosmos" id="cosmos"></canvas>
+  <div class="atmos__grid"></div>
+  <div class="atmos__dust"><div class="dust dust--1"></div><div class="dust dust--2"></div><div class="dust dust--3"></div><div class="dust dust--4"></div></div>
+  <div class="atmos__vignette"></div>
+  <div class="cursor-glow"></div>
+</div>
+<div class="grain" aria-hidden="true"></div>
+
+<!-- ══════════ HEADER ══════════ -->
+<header class="site-header" id="site-header">
+  <nav class="nav" aria-label="Principal">
+    <a class="brand" href="#inicio" aria-label="Juan Rezende, ir para o início">Juan Rezende</a>
+    <div class="nav__group">
+      <a class="nav-link" href="#projetos" data-nav="projetos">Projetos</a>
+      <a class="nav-link" href="#sobre" data-nav="sobre">Sobre</a>
+      <a class="nav-link" href="#processo" data-nav="processo">Processo</a>
+      <a class="nav-link" href="#artigos" data-nav="artigos">Artigos</a>
+      <a class="nav__cta" href="#contato">Contato</a>
+    </div>
+    <button class="menu-btn" type="button" aria-controls="mobile-menu" aria-expanded="false" aria-label="Abrir menu"><svg class="icon" aria-hidden="true"><use href="#i-menu"/></svg></button>
+  </nav>
+  <div class="progress" aria-hidden="true"><span id="scroll-progress"></span></div>
+</header>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#projetos"><span>01</span>Projetos</a>
+  <a href="#sobre"><span>02</span>Sobre</a>
+  <a href="#processo"><span>03</span>Processo</a>
+  <a href="#artigos"><span>04</span>Artigos</a>
+  <a href="#contato"><span>05</span>Contato</a>
+  <p class="mobile-menu__foot">Estratégia · Design · Código</p>
+</div>
+
+<main id="conteudo" tabindex="-1">
+
+<!-- ═══════════════════════════════ HOME ═══════════════════════════════ -->
+<div class="view" id="view-home">
+
+  <!-- ══════════ HERO ══════════ -->
+  <section class="hero" id="inicio" aria-labelledby="hero-title">
+    <div class="hero__stage" aria-hidden="true">
+      <canvas class="hero__gl"></canvas>
+      <svg class="hero__beams" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
+        <defs>
+          <linearGradient id="beam-grad" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="1200" y2="0">
+            <stop offset="0" stop-color="#38bdf8" stop-opacity=".15"/><stop offset=".42" stop-color="#bae6fd"/><stop offset=".5" stop-color="#ffffff"/><stop offset=".58" stop-color="#fed7aa"/><stop offset="1" stop-color="#fdba74" stop-opacity=".15"/>
+          </linearGradient>
+        </defs>
+        <g class="rails">
+          <path class="rail" d="M -60 150 C 280 150, 320 400, 600 400"/>
+          <path class="rail" d="M -60 680 C 280 680, 320 400, 600 400"/>
+          <path class="rail" d="M 1260 110 C 920 110, 880 400, 600 400"/>
+          <path class="rail" d="M 1260 700 C 920 700, 880 400, 600 400"/>
+        </g>
+        <g class="rays">
+          <path class="ray" d="M -60 150 C 280 150, 320 400, 600 400"/>
+          <path class="ray" d="M 1260 700 C 920 700, 880 400, 600 400"/>
+          <path class="ray" d="M -60 680 C 280 680, 320 400, 600 400"/>
+          <path class="ray" d="M 1260 110 C 920 110, 880 400, 600 400"/>
+        </g>
+      </svg>
+      <div class="hero__bloom"></div>
+      <div class="hero__laser"><span class="l1"></span><span class="l2"></span><span class="l3"></span><span class="core"></span></div>
+      <div class="hero__flare"></div>
+    </div>
+    <div class="hero__scrim" aria-hidden="true"></div>
+    <div class="hero__fade" aria-hidden="true"></div>
+    <div class="container hero__inner">
+      <div class="hero__frame" aria-hidden="true"></div>
+      <div class="hero__main">
+        <h1 class="display" id="hero-title"><span class="sr-only">Juan Rezende, Product Designer: </span><span class="hero__line"><span>Da visão</span></span> <span class="hero__line"><em>à execução.</em></span></h1>
+        <p class="hero__promise">Estratégia, design e código.</p>
+        <div class="btn-row hero__cta">
+          <a class="btn btn--fill" href="#projetos">Conheça meus projetos<svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+        </div>
+      </div>
+      <div class="hero__band">
+        <span class="hero__horizon" aria-hidden="true"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ TICKER (decorative: the disciplines already listed on the page, run as end credits) ══════════ -->
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker__row"><div class="ticker__track">
+      <span>Visão de negócio</span><svg class="ticker__star"><use href="#i-star4"/></svg><em>Design Systems</em><svg class="ticker__star"><use href="#i-star4"/></svg>
+      <span>Arquitetura da Informação</span><svg class="ticker__star"><use href="#i-star4"/></svg><em>Experiência digital</em><svg class="ticker__star"><use href="#i-star4"/></svg>
+      <span>Testes de usabilidade</span><svg class="ticker__star"><use href="#i-star4"/></svg><em>UX Strategy</em><svg class="ticker__star"><use href="#i-star4"/></svg>
+      <span>Desenvolvimento Front-end</span><svg class="ticker__star"><use href="#i-star4"/></svg><em>IA aplicada</em><svg class="ticker__star"><use href="#i-star4"/></svg>
+    </div></div>
+    <div class="ticker__row ticker__row--rev"><div class="ticker__track">
+      <span>React &amp; TypeScript</span><svg class="ticker__star"><use href="#i-star4"/></svg><span>UX/UI Design</span><svg class="ticker__star"><use href="#i-star4"/></svg>
+      <span>Entrevistas</span><svg class="ticker__star"><use href="#i-star4"/></svg><span>Benchmarking</span><svg class="ticker__star"><use href="#i-star4"/></svg>
+      <span>Personas</span><svg class="ticker__star"><use href="#i-star4"/></svg><span>Jornadas</span><svg class="ticker__star"><use href="#i-star4"/></svg>
+      <span>Interfaces escaláveis</span><svg class="ticker__star"><use href="#i-star4"/></svg><span>Implementação</span><svg class="ticker__star"><use href="#i-star4"/></svg>
+      <span>Arquitetura e implementação</span><svg class="ticker__star"><use href="#i-star4"/></svg>
+    </div></div>
+  </div>
+
+  <!-- ══════════ PROJETOS ══════════ -->
+  <section class="section" id="projetos" aria-labelledby="projetos-title">
+    <div class="container">
+      <div class="section-head section-head--split">
+        <div>
+          <p class="eyebrow"><span class="eyebrow__n">01</span>Projetos selecionados</p>
+          <h2 class="h2" id="projetos-title">Decisões <em>em prática.</em></h2>
+        </div>
+        <p class="lead" data-reveal>Pesquisa, experiência e interfaces em diferentes contextos.</p>
+      </div>
+
+      <div class="projects">
+        <a class="proj proj--featured" href="#case/genialcard">
+          <div class="proj__ignite" data-ignite>
+          <div class="proj__media">
+            <div class="proj__parallax">
+              <img src="assets/img/genialcard/capa-1024.webp" srcset="assets/img/genialcard/capa-1024.webp 1024w, assets/img/genialcard/capa.webp 2048w" sizes="(min-width: 1024px) 70vw, 100vw" width="2048" height="1152" alt="Telas do app GenialCard: boas-vindas, gráficos de entradas e saídas, gastos do mês e chat com a IA Geni" decoding="sync" fetchpriority="high">
+            </div>
+            <span class="proj__bar">Ver case<svg class="icon" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></span>
+            <svg class="proj__trace" aria-hidden="true"><path pathLength="1"/><path pathLength="1"/></svg>
+          </div>
+          <span class="proj__corners" aria-hidden="true"></span>
+          </div>
+          <div class="proj__body">
+            <p class="proj__meta"><span class="proj__index">01</span><span>App mobile · Finanças pessoais</span></p>
+            <h3 class="proj__title">GenialCard <em>Mais clareza sobre os gastos</em></h3>
+            <p class="proj__summary">46 participantes na pesquisa. Protótipo testado com 9 pessoas.</p>
+            <ul class="tags"><li class="tag">UX Research</li><li class="tag">UX Strategy</li><li class="tag">UX Design</li><li class="tag">UI Design</li></ul>
+          </div>
+        </a>
+
+        <a class="proj" href="#case/globo">
+          <div class="proj__media">
+            <div class="proj__parallax">
+              <img src="assets/img/globo/1-1024.webp" srcset="assets/img/globo/1-1024.webp 1024w, assets/img/globo/1.webp 2048w" sizes="(min-width: 900px) 45vw, 100vw" width="2048" height="1536" alt="Interfaces da comunidade Juntos pra fazer história na intranet da Globo" loading="lazy" decoding="async">
+            </div>
+            <span class="proj__bar">Ver case<svg class="icon" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></span>
+          </div>
+          <div class="proj__body">
+            <p class="proj__meta"><span class="proj__index">02</span><span>Intranet · Globo</span></p>
+            <h3 class="proj__title">Juntos pra fazer história <em>Cultura e pessoas em um só lugar</em></h3>
+            <p class="proj__summary">Cultura, eventos e desenvolvimento em uma comunidade interna.</p>
+            <ul class="tags"><li class="tag">UX Design</li><li class="tag">UI Design</li><li class="tag">Globo</li></ul>
+          </div>
+        </a>
+
+        <a class="proj" href="#case/light">
+          <div class="proj__media">
+            <div class="proj__parallax">
+              <img src="assets/img/light/2-1024.webp" srcset="assets/img/light/2-1024.webp 1024w, assets/img/light/2.webp 2048w" sizes="(min-width: 900px) 45vw, 100vw" width="2048" height="1536" alt="Telas mobile e desktop do portal Credenciados Light com serviços e acompanhamento" loading="lazy" decoding="async">
+            </div>
+            <span class="proj__bar">Ver case<svg class="icon" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></span>
+          </div>
+          <div class="proj__body">
+            <p class="proj__meta"><span class="proj__index">03</span><span>Plataforma web responsiva · Light</span></p>
+            <h3 class="proj__title">Credenciados Light <em>Serviços mais perto das pessoas</em></h3>
+            <p class="proj__summary">Jornadas de atendimento para estabelecimentos credenciados.</p>
+            <ul class="tags"><li class="tag">UX Design</li><li class="tag">UI Design</li><li class="tag">Light</li></ul>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ SOBRE ══════════ -->
+  <section class="section" id="sobre" aria-labelledby="sobre-title">
+    <div class="container about">
+      <figure class="portrait" data-reveal>
+        <div class="portrait__orbit" aria-hidden="true"><i></i><i></i><i></i></div>
+        <div class="portrait__frame"><img src="assets/img/avatar/juan-500.webp" width="500" height="500" alt="Retrato de Juan Rezende" loading="lazy" decoding="async"></div>
+        <figcaption>Juan Rezende</figcaption>
+      </figure>
+      <div>
+        <p class="eyebrow"><span class="eyebrow__n">02</span><span id="sobre-title">Sobre</span></p>
+        <p class="statement">Design e engenharia. <em>Na mesma decisão.</em></p>
+        <div class="about__text" data-reveal>
+          <p class="about__lede">Minha visão conecta estratégia, experiência e código.</p>
+          <p>Reestruturei jornadas, digitalizei processos e simplifiquei sistemas legados, da pesquisa à implementação.</p>
+        </div>
+        <ul class="impact" aria-label="Indicadores de impacto">
+          <li data-reveal>
+            <p class="impact__num"><span data-count="97" data-suffix="%">97%</span></p>
+            <p class="impact__what">menos inconsistências</p>
+            <p class="impact__desc">Design System em 56 telas auditadas.</p>
+            <p class="impact__src">Light · Design System</p>
+          </li>
+          <li data-reveal>
+            <p class="impact__num"><span data-count="75" data-suffix="%">75%</span></p>
+            <p class="impact__what">menos cliques</p>
+            <p class="impact__desc">Acesso a faturas e pagamentos.</p>
+            <p class="impact__src">Light · Agência Virtual</p>
+          </li>
+          <li data-reveal>
+            <p class="impact__num"><span data-count="19">19</span><small> de 20</small></p>
+            <p class="impact__what">usuários</p>
+            <p class="impact__desc">Relataram uma experiência melhor.</p>
+            <p class="impact__src">Globo · Gestão de cobranças</p>
+          </li>
+        </ul>
+
+        <!-- FORMAÇÃO: the story continues in the same column, beside the portrait -->
+        <div class="edu">
+          <div class="edu__part">
+            <h3 class="eyebrow" id="edu-degrees"><span class="eyebrow__n" data-count-of=".edu__degrees">2</span>Formação acadêmica</h3>
+            <ul class="cap edu__degrees" aria-labelledby="edu-degrees" data-reveal>
+              <li><span class="edu__kind">Bacharelado</span><b>Engenharia de Software</b><small>Cruzeiro do Sul · 2028</small></li>
+              <li><span class="edu__kind">Graduação</span><b>Análise e Desenvolvimento de Sistemas</b><small>Estácio · 2021</small></li>
+            </ul>
+          </div>
+          <div class="edu__part">
+            <h3 class="eyebrow" id="edu-certs"><span class="eyebrow__n" data-count-of=".edu__certs">6</span>Certificações</h3>
+            <!-- one row per certificate, newest first; data-area: dev · des · pia. The panel and the count grow on their own. -->
+            <ul class="cap edu__certs" aria-labelledby="edu-certs" data-reveal>
+              <li><span class="edu__area" data-area="pia">Produto &amp; IA</span><b>AI Product Specialist</b><small>PM3 · 2026</small></li>
+              <li><span class="edu__area" data-area="pia">Produto &amp; IA</span><b>Product Management</b><small>PM3 · 2026</small></li>
+              <li><span class="edu__area" data-area="des">Design</span><b>Design Systems / Figma</b><small>cfPRO · 2025</small></li>
+              <li><span class="edu__area" data-area="des">Design</span><b>UX, UI e Product Design</b><small>UX Unicórnio · 2024</small></li>
+              <li><span class="edu__area" data-area="dev">Desenvolvimento</span><b>Full-Stack</b><small>Rocketseat · 2023</small></li>
+              <li><span class="edu__area" data-area="dev">Desenvolvimento</span><b>Front-end</b><small>Alura · 2022</small></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ PROCESSO ══════════ -->
+  <section class="section" id="processo" aria-labelledby="processo-title" style="padding-block:0">
+    <div class="process__pin">
+      <div class="container section-head section-head--split">
+        <div>
+          <p class="eyebrow"><span class="eyebrow__n">03</span>Processo</p>
+          <h2 class="h2" id="processo-title">Investigar. Projetar. <em>Construir.</em></h2>
+        </div>
+        <p class="lead" data-reveal>Evidências para decidir. IA aplicada de ponta a ponta.</p>
+      </div>
+
+      <ol class="process__track" aria-label="Etapas do meu processo de produto e desenvolvimento">
+        <li class="step"><span class="step__num">01</span><div><h3>Descoberta</h3><p>Investigo necessidades com entrevistas, testes e dados de uso.</p></div></li>
+        <li class="step"><span class="step__num">02</span><div><h3>Estratégia</h3><p>Transformo evidências em prioridades com Produto e stakeholders.</p></div></li>
+        <li class="step"><span class="step__num">03</span><div><h3>Arquitetura</h3><p>Estruturo fluxos e informações para simplificar jornadas.</p></div></li>
+        <li class="step"><span class="step__num">04</span><div><h3>Design &amp; Validação</h3><p>Prototipo no Figma, aplico Design System e valido com usuários.</p></div></li>
+        <li class="step"><span class="step__num">05</span><div><h3>Construção</h3><p>Desenvolvo interfaces e acompanho a implementação com Engenharia.</p></div></li>
+      </ol>
+      <p class="process__hint" aria-hidden="true">Arraste para o lado<svg class="icon"><use href="#i-arrow-right"/></svg></p>
+      <div class="container"><div class="process__bar" aria-hidden="true"><span></span><i class="process__comet"></i></div></div>
+    </div>
+  </section>
+
+  <!-- ══════════ ARTIGOS ══════════ -->
+  <section class="section" id="artigos" aria-labelledby="artigos-title">
+    <div class="container">
+      <div class="section-head section-head--split">
+        <div>
+          <p class="eyebrow"><span class="eyebrow__n">04</span>Artigos</p>
+          <h2 class="h2" id="artigos-title">Reflexões sobre <em>experiência.</em></h2>
+        </div>
+        <p class="lead" data-reveal>Pesquisa e arquitetura da informação na prática.</p>
+      </div>
+      <div class="articles">
+        <a class="article" href="https://medium.com/@juan.rezende/desvendando-a-arquitetura-da-informa%C3%A7%C3%A3o-conceitos-e-pr%C3%A1ticas-ab6edd15f87c" target="_blank" rel="noopener" data-reveal>
+          <p class="article__src">Medium · Arquitetura da Informação</p>
+          <div>
+            <h3>Desvendando a Arquitetura da Informação: Conceitos e Práticas</h3>
+            <p>Informação bem organizada melhora a experiência.</p>
+          </div>
+          <span class="article__go">Ler artigo<svg class="icon" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></span>
+        </a>
+        <a class="article" href="https://medium.com/@juan.rezende/5-formas-de-integrar-jornadas-do-usu%C3%A1rio-ux-research-e-testes-de-usabilidade-1f15527021f8" target="_blank" rel="noopener" data-reveal>
+          <p class="article__src">Medium · UX Research</p>
+          <div>
+            <h3>Simplificando: Jornadas do usuário, UX Research e Testes de Usabilidade</h3>
+            <p>Pesquisa e testes para decisões mais claras.</p>
+          </div>
+          <span class="article__go">Ler artigo<svg class="icon" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ CONTATO ══════════ -->
+  <section class="section contact-section" id="contato" aria-labelledby="contato-title">
+    <div class="horizon" aria-hidden="true"><div class="horizon__planet"></div><canvas class="horizon__gl"></canvas><div class="horizon__sun"></div><div class="horizon__flare"></div></div>
+    <div class="container">
+      <p class="eyebrow"><span class="eyebrow__n">05</span>Contato</p>
+      <div class="contact">
+        <h2 class="stacked" id="contato-title"><span>Vamos</span><em>conversar?</em></h2>
+        <div class="contact__side">
+          <p data-reveal>Para criar algo novo ou evoluir o que já existe.</p>
+          <div class="btn-row" data-reveal>
+            <a class="btn btn--fill" href="#contato" data-mail>Enviar e-mail<svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+            <a class="btn btn--ghost" href="https://www.linkedin.com/in/juanrezende/" target="_blank" rel="noopener">LinkedIn<svg class="icon" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ═══════════════════════════════ CASES (#case/<slug>) ═══════════════════════════════ -->
+<div class="view" id="view-case" hidden>
+
+  <!-- ══════════ CASE 01 · GENIALCARD ══════════ -->
+  <article class="case" data-case="genialcard" data-title="GenialCard" hidden>
+    <header class="case-hero">
+      <div class="container">
+        <nav class="crumbs case-el" aria-label="Você está aqui">
+          <a href="#projetos"><svg class="icon" aria-hidden="true"><use href="#i-arrow-left"/></svg>Voltar</a>
+          <span class="crumbs__sep" aria-hidden="true">/</span><a href="#inicio">Início</a>
+          <span class="crumbs__sep" aria-hidden="true">/</span><a href="#projetos">Projetos</a>
+          <span class="crumbs__sep" aria-hidden="true">/</span><span aria-current="page">GenialCard</span>
+        </nav>
+        <p class="spaced case-el">Case 01 · App mobile · Finanças</p>
+        <h1 class="case-title case-el" tabindex="-1">GenialCard <em>Gastos visíveis. Decisões melhores.</em></h1>
+        <p class="case-lead case-el">Cartões, limites e assinaturas reunidos em uma leitura única dos gastos.</p>
+        <ul class="tags case-el"><li class="tag">UX Research</li><li class="tag">UX Strategy</li><li class="tag">UX Design</li><li class="tag">UI Design</li></ul>
+      </div>
+      <div class="container">
+        <div class="viewfinder">
+          <figure class="stage">
+            <img src="assets/img/genialcard/capa-1024.webp" srcset="assets/img/genialcard/capa-1024.webp 1024w, assets/img/genialcard/capa.webp 2048w" sizes="(min-width: 1312px) 1250px, 100vw" width="2048" height="1152" alt="Telas do GenialCard: boas-vindas, gráficos de entradas e saídas, gastos do mês e conversa com a IA Geni" decoding="async">
+          </figure>
+        </div>
+      </div>
+      <div class="container">
+        <dl class="ficha">
+          <div><dt>Produto</dt><dd>App mobile de controle financeiro</dd></div>
+          <div><dt>Escopo</dt><dd>UX Research, UX Strategy, UX e UI Design</dd></div>
+          <div><dt>Ferramentas</dt><dd>Figma, Notion, Trello, Google Forms, Google Meet, Photoshop</dd></div>
+          <div><dt>Status</dt><dd>Concluído · projeto em equipe</dd></div>
+        </dl>
+      </div>
+    </header>
+
+    <div class="container case-body">
+      <aside class="case-index" aria-label="Seções do case"><p>Neste case</p><ol data-index></ol></aside>
+      <div class="case-content">
+
+        <section class="csec" id="genialcard-cenario" data-label="Cenário">
+          <p class="csec__kicker">01 · Cenário</p>
+          <h2>Assinaturas no cartão. <em>Custos invisíveis.</em></h2>
+          <div class="prose" data-reveal>
+            <p>Um CEO pagava assinaturas da empresa no cartão pessoal e perdia a noção do custo recorrente.</p>
+            <p>A pergunta: como as pessoas acompanham o que pagam todo mês?</p>
+          </div>
+        </section>
+
+        <section class="csec" id="genialcard-processo" data-label="Processo">
+          <p class="csec__kicker">02 · Processo</p>
+          <h2>Hipóteses primeiro. <em>Evidências depois.</em></h2>
+          <div class="prose" data-reveal>
+            <p>Seguimos o <strong>Duplo Diamante</strong>: abrir o problema antes de fechar a solução.</p>
+            <p>Cada decisão de interface partiu de um dado.</p>
+          </div>
+          <figure class="media" data-reveal>
+            <button class="media__frame" type="button" data-zoom="assets/img/genialcard/duplo-diamante.webp" data-caption="Abordagem do Duplo Diamante" aria-label="Ampliar imagem: diagrama do Duplo Diamante">
+              <img src="assets/img/genialcard/duplo-diamante-1024.webp" srcset="assets/img/genialcard/duplo-diamante-1024.webp 1024w, assets/img/genialcard/duplo-diamante.webp 2000w" sizes="(min-width: 1024px) 860px, 100vw" width="2000" height="866" alt="" loading="lazy" decoding="async">
+              <span class="media__zoom" aria-hidden="true"><svg class="icon"><use href="#i-maximize"/></svg></span>
+            </button>
+            <figcaption>Descobrir, definir, desenvolver e entregar.</figcaption>
+          </figure>
+        </section>
+
+        <section class="csec" id="genialcard-mercado" data-label="Mercado">
+          <p class="csec__kicker">03 · Mercado</p>
+          <h2>O crédito cresce. <em>A dívida também.</em></h2>
+          <div class="grid-cards">
+            <div class="data-card glass" data-reveal>
+              <p class="data-card__num" data-count="212" data-suffix=" mi">212 mi</p>
+              <p><strong>Mais cartões que habitantes.</strong> Em 2023, mais de 212 milhões de cartões em uso para 203,1 milhões de brasileiros.</p>
+              <a class="source" href="https://noticias.r7.com/jr-na-tv/video/brasil-tem-mais-cartoes-de-credito-do-que-pessoas-aponta-relatorio-divulgado-pelo-banco-central-07062024/" target="_blank" rel="noopener">Fonte: R7 · Banco Central<svg class="icon" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a>
+            </div>
+            <div class="data-card glass" data-reveal>
+              <p class="data-card__num" data-count="77" data-suffix="%">77%</p>
+              <p><strong>dos lares brasileiros tinham dívidas.</strong> O cartão liderava; 30% tinham alguma dívida atrasada.</p>
+              <a class="source" href="https://www.infomoney.com.br/economia/inadimplencia-alcanca-77-dos-lares-brasileiros-e-dividas-com-cartao-de-credito-lideram-diz-pesquisa/" target="_blank" rel="noopener">Fonte: InfoMoney · Raio X da Inadimplência<svg class="icon" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a>
+            </div>
+          </div>
+          <ol class="trend" data-reveal aria-label="Pessoas que têm o cartão como principal fonte de dívida">
+            <li><span class="trend__year">2021</span><span class="trend__val">49%</span></li>
+            <li class="trend__arrow" aria-hidden="true"><svg class="icon"><use href="#i-arrow-right"/></svg></li>
+            <li><span class="trend__year">2022</span><span class="trend__val">56%</span></li>
+            <li class="trend__arrow" aria-hidden="true"><svg class="icon"><use href="#i-arrow-right"/></svg></li>
+            <li><span class="trend__year">2023</span><span class="trend__val">60%</span></li>
+            <li class="trend__caption">Cartão de crédito como principal fonte de dívida. Fonte: “Raio X da Inadimplência Brasileira”, MFM Tecnologia e Instituto Locomotiva.</li>
+          </ol>
+        </section>
+
+        <section class="csec" id="genialcard-problema" data-label="Problema">
+          <p class="csec__kicker">04 · Problema</p>
+          <h2>Dados espalhados. <em>Nenhuma visão do todo.</em></h2>
+          <div class="callout" data-reveal>
+            <p class="callout__label"><svg class="icon" aria-hidden="true"><use href="#i-target"/></svg>Desafio</p>
+            <p>Transações, limites e assinaturas ficam em apps e faturas diferentes.</p>
+            <p>O GenialCard junta tudo e mostra onde dá para economizar.</p>
+          </div>
+        </section>
+
+        <section class="csec" id="genialcard-csd" data-label="Matriz CSD">
+          <p class="csec__kicker">05 · Matriz CSD</p>
+          <h2>O que sabíamos. <em>O que faltava testar.</em></h2>
+          <div class="grid-cards">
+            <div class="card glass" data-reveal>
+              <svg class="icon card__icon" aria-hidden="true"><use href="#i-circle-check"/></svg>
+              <h3>Certezas</h3>
+              <ul>
+                <li>Gerenciar vários cartões aumenta a complexidade</li>
+                <li>A falta de controle favorece gastos desnecessários</li>
+                <li>Pessoas usam mais de um cartão</li>
+                <li>A maioria reconhece falhas no planejamento</li>
+              </ul>
+            </div>
+            <div class="card glass" data-reveal>
+              <svg class="icon card__icon" aria-hidden="true"><use href="#i-lightbulb"/></svg>
+              <h3>Suposições</h3>
+              <ul>
+                <li>Organização financeira pode melhorar a rotina</li>
+                <li>Apps bancários podem dificultar a leitura dos gastos</li>
+                <li>Planilhas podem ser pouco utilizadas</li>
+                <li>O cartão pode funcionar como extensão da renda</li>
+              </ul>
+            </div>
+            <div class="card glass" data-reveal>
+              <svg class="icon card__icon" aria-hidden="true"><use href="#i-circle-help"/></svg>
+              <h3>Dúvidas</h3>
+              <ul>
+                <li>Falta de clareza contribui para o endividamento?</li>
+                <li>O que dificulta acompanhar gastos?</li>
+                <li>Onde buscam informação financeira?</li>
+                <li>O que impede um planejamento consistente?</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section class="csec" id="genialcard-pesquisa" data-label="Pesquisa">
+          <p class="csec__kicker">06 · Pesquisa quantitativa</p>
+          <h2>O cartão manda. <em>O controle, não.</em></h2>
+          <div class="prose" data-reveal>
+            <p>Hábitos de pagamento, controle de gastos e assinaturas.</p>
+          </div>
+          <ul class="research">
+            <li data-reveal><span class="research__num" data-count="76" data-suffix="%">76%</span><p><strong>Não usam aplicativos</strong> para controlar gastos</p></li>
+            <li data-reveal><span class="research__num" data-count="73" data-suffix="%">73%</span><p>Usam o <strong>cartão como principal meio de pagamento</strong></p></li>
+            <li data-reveal><span class="research__num" data-count="72" data-suffix="%">72%</span><p>Usam o <strong>cartão de forma individual</strong></p></li>
+            <li data-reveal><span class="research__num" data-count="60" data-suffix="%">60%</span><p>Têm dificuldade com <strong>vários cartões e limites</strong></p></li>
+            <li data-reveal><span class="research__num" data-count="58" data-suffix="%">58%</span><p>Usam cartão em <strong>compras diárias, lazer e educação</strong></p></li>
+            <li data-reveal><span class="research__num" data-count="53" data-suffix="%">53%</span><p><strong>Identificam-se com o gênero feminino</strong></p></li>
+            <li data-reveal><span class="research__num" data-count="52" data-suffix="%">52%</span><p>Têm <strong>de 18 a 25 anos</strong></p></li>
+            <li data-reveal><span class="research__num" data-count="43" data-suffix="%">43%</span><p>Pagam <strong>de 3 a 4 assinaturas</strong> no cartão</p></li>
+          </ul>
+          <div class="btn-row" style="margin-top:2rem" data-reveal>
+            <button class="btn btn--outline btn--sm" type="button" data-zoom="assets/img/genialcard/resultados-pesquisa.webp" data-caption="Relatório da pesquisa quantitativa com 46 usuários de cartão de crédito">Ver relatório completo<svg class="icon" aria-hidden="true"><use href="#i-maximize"/></svg></button>
+            <a class="btn btn--ghost btn--sm" href="https://forms.gle/GJyJJdMzHBrD1kpCA" target="_blank" rel="noopener">Formulário da pesquisa<svg class="icon" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a>
+          </div>
+        </section>
+
+        <section class="csec" id="genialcard-benchmarking" data-label="Benchmarking">
+          <p class="csec__kicker">07 · Benchmarking</p>
+          <h2>O que já existe. <em>O que faltava.</em></h2>
+          <div class="prose" data-reveal>
+            <p>Monefy, Minhas Economias, Mobills e Organizze, comparados recurso a recurso.</p>
+          </div>
+          <div class="table-wrap" tabindex="0" role="region" aria-label="Tabela comparativa de competidores" data-reveal>
+            <table>
+              <thead><tr><th scope="col">Recursos</th><th scope="col">Monefy</th><th scope="col">Minhas Economias</th><th scope="col">Mobills</th><th scope="col">Organizze</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">Acompanhamento de investimentos</th><td><span class="no"><svg class="icon" aria-hidden="true"><use href="#i-minus"/></svg><span class="sr-only">Não</span></span></td><td><span class="no"><svg class="icon" aria-hidden="true"><use href="#i-minus"/></svg><span class="sr-only">Não</span></span></td><td><span class="yes"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span class="sr-only">Sim</span></span></td><td><span class="no"><svg class="icon" aria-hidden="true"><use href="#i-minus"/></svg><span class="sr-only">Não</span></span></td></tr>
+                <tr><th scope="row">Adição do cartão de crédito</th><td><span class="no"><svg class="icon" aria-hidden="true"><use href="#i-minus"/></svg><span class="sr-only">Não</span></span></td><td><span class="yes"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span class="sr-only">Sim</span></span></td><td><span class="yes"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span class="sr-only">Sim</span></span></td><td><span class="yes"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span class="sr-only">Sim</span></span></td></tr>
+                <tr><th scope="row">Alerta de contas a pagar</th><td><span class="no"><svg class="icon" aria-hidden="true"><use href="#i-minus"/></svg><span class="sr-only">Não</span></span></td><td><span class="yes"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span class="sr-only">Sim</span></span></td><td><span class="yes"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span class="sr-only">Sim</span></span></td><td><span class="yes"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span class="sr-only">Sim</span></span></td></tr>
+                <tr><th scope="row">Categorização de despesas</th><td><span class="yes"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span class="sr-only">Sim</span></span></td><td><span class="yes"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span class="sr-only">Sim</span></span></td><td><span class="yes"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span class="sr-only">Sim</span></span></td><td><span class="yes"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span class="sr-only">Sim</span></span></td></tr>
+                <tr><th scope="row">Conteúdos de educação financeira</th><td><span class="no"><svg class="icon" aria-hidden="true"><use href="#i-minus"/></svg><span class="sr-only">Não</span></span></td><td><span class="yes"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span class="sr-only">Sim</span></span></td><td><span class="no"><svg class="icon" aria-hidden="true"><use href="#i-minus"/></svg><span class="sr-only">Não</span></span></td><td><span class="no"><svg class="icon" aria-hidden="true"><use href="#i-minus"/></svg><span class="sr-only">Não</span></span></td></tr>
+                <tr><th scope="row">Definição de metas</th><td><span class="no"><svg class="icon" aria-hidden="true"><use href="#i-minus"/></svg><span class="sr-only">Não</span></span></td><td><span class="yes"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span class="sr-only">Sim</span></span></td><td><span class="yes"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span class="sr-only">Sim</span></span></td><td><span class="yes"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span class="sr-only">Sim</span></span></td></tr>
+                <tr><th scope="row">Exportação de dados</th><td><span class="yes"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span class="sr-only">Sim</span></span></td><td><span class="yes"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span class="sr-only">Sim</span></span></td><td><span class="yes"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span class="sr-only">Sim</span></span></td><td><span class="yes"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span class="sr-only">Sim</span></span></td></tr>
+                <tr><th scope="row">Gamificação</th><td><span class="no"><svg class="icon" aria-hidden="true"><use href="#i-minus"/></svg><span class="sr-only">Não</span></span></td><td><span class="no"><svg class="icon" aria-hidden="true"><use href="#i-minus"/></svg><span class="sr-only">Não</span></span></td><td><span class="yes"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span class="sr-only">Sim</span></span></td><td><span class="no"><svg class="icon" aria-hidden="true"><use href="#i-minus"/></svg><span class="sr-only">Não</span></span></td></tr>
+                <tr><th scope="row">Integração com bancos</th><td><span class="no"><svg class="icon" aria-hidden="true"><use href="#i-minus"/></svg><span class="sr-only">Não</span></span></td><td><span class="yes"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span class="sr-only">Sim</span></span></td><td><span class="yes"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span class="sr-only">Sim</span></span></td><td><span class="yes"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span class="sr-only">Sim</span></span></td></tr>
+                <tr><th scope="row">Relatórios</th><td><span class="yes"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span class="sr-only">Sim</span></span></td><td><span class="yes"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span class="sr-only">Sim</span></span></td><td><span class="yes"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span class="sr-only">Sim</span></span></td><td><span class="yes"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span class="sr-only">Sim</span></span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="csec" id="genialcard-negocio" data-label="Negócio">
+          <p class="csec__kicker">08 · Negócio</p>
+          <h2>Da pesquisa <em>às prioridades.</em></h2>
+          <div class="prose" data-reveal>
+            <p>Quem usa, por onde passa e o que o negócio sustenta.</p>
+          </div>
+          <div class="tabs" data-reveal>
+            <div class="tabs__list" role="tablist" aria-label="Artefatos de negócio">
+              <button class="tab" role="tab" type="button" id="gc-tab-persona" aria-controls="gc-panel-persona" aria-selected="true">Persona</button>
+              <button class="tab" role="tab" type="button" id="gc-tab-jornada" aria-controls="gc-panel-jornada" aria-selected="false" tabindex="-1">Jornada</button>
+              <button class="tab" role="tab" type="button" id="gc-tab-valor" aria-controls="gc-panel-valor" aria-selected="false" tabindex="-1">Proposta de valor</button>
+              <button class="tab" role="tab" type="button" id="gc-tab-bmc" aria-controls="gc-panel-bmc" aria-selected="false" tabindex="-1">Business model</button>
+            </div>
+            <div class="tabpanel prose" role="tabpanel" id="gc-panel-persona" aria-labelledby="gc-tab-persona">
+              <p>Construída com os dados da pesquisa.</p>
+              <figure class="media media--narrow">
+                <button class="media__frame" type="button" data-zoom="assets/img/genialcard/persona.webp" data-caption="Persona do GenialCard" aria-label="Ampliar imagem: persona">
+                  <img src="assets/img/genialcard/persona-1024.webp" srcset="assets/img/genialcard/persona-1024.webp 1024w, assets/img/genialcard/persona.webp 2048w" sizes="(min-width: 1024px) 768px, 100vw" width="2048" height="2596" alt="" loading="lazy" decoding="async">
+                  <span class="media__zoom" aria-hidden="true"><svg class="icon"><use href="#i-maximize"/></svg></span>
+                </button>
+              </figure>
+            </div>
+            <div class="tabpanel prose" role="tabpanel" id="gc-panel-jornada" aria-labelledby="gc-tab-jornada" hidden>
+              <p>Fricções e oportunidades em cada etapa.</p>
+              <figure class="media">
+                <button class="media__frame" type="button" data-zoom="assets/img/genialcard/jornada-usuario.webp" data-caption="Jornada do usuário" aria-label="Ampliar imagem: jornada do usuário">
+                  <img src="assets/img/genialcard/jornada-usuario-1024.webp" srcset="assets/img/genialcard/jornada-usuario-1024.webp 1024w, assets/img/genialcard/jornada-usuario.webp 2048w" sizes="(min-width: 1024px) 860px, 100vw" width="2048" height="1416" alt="" loading="lazy" decoding="async">
+                  <span class="media__zoom" aria-hidden="true"><svg class="icon"><use href="#i-maximize"/></svg></span>
+                </button>
+              </figure>
+            </div>
+            <div class="tabpanel prose" role="tabpanel" id="gc-panel-valor" aria-labelledby="gc-tab-valor" hidden>
+              <p>Dores, ganhos e o que o app entrega.</p>
+              <figure class="media">
+                <button class="media__frame" type="button" data-zoom="assets/img/genialcard/canvas-proposta-valor.webp" data-caption="Canvas de proposta de valor" aria-label="Ampliar imagem: canvas de proposta de valor">
+                  <img src="assets/img/genialcard/canvas-proposta-valor-1024.webp" srcset="assets/img/genialcard/canvas-proposta-valor-1024.webp 1024w, assets/img/genialcard/canvas-proposta-valor.webp 2048w" sizes="(min-width: 1024px) 860px, 100vw" width="2048" height="640" alt="" loading="lazy" decoding="async">
+                  <span class="media__zoom" aria-hidden="true"><svg class="icon"><use href="#i-maximize"/></svg></span>
+                </button>
+              </figure>
+            </div>
+            <div class="tabpanel prose" role="tabpanel" id="gc-panel-bmc" aria-labelledby="gc-tab-bmc" hidden>
+              <p>Hipóteses de valor, operação e riscos.</p>
+              <figure class="media">
+                <button class="media__frame" type="button" data-zoom="assets/img/genialcard/business-model-canvas.webp" data-caption="Business model canvas" aria-label="Ampliar imagem: business model canvas">
+                  <img src="assets/img/genialcard/business-model-canvas-1024.webp" srcset="assets/img/genialcard/business-model-canvas-1024.webp 1024w, assets/img/genialcard/business-model-canvas.webp 2048w" sizes="(min-width: 1024px) 860px, 100vw" width="2048" height="1396" alt="" loading="lazy" decoding="async">
+                  <span class="media__zoom" aria-hidden="true"><svg class="icon"><use href="#i-maximize"/></svg></span>
+                </button>
+              </figure>
+            </div>
+          </div>
+        </section>
+
+        <section class="csec" id="genialcard-solucao" data-label="Solução">
+          <p class="csec__kicker">09 · Solução</p>
+          <h2>Do rascunho <em>ao protótipo.</em></h2>
+          <div class="prose" data-reveal>
+            <p>Wireframes, interface em alta fidelidade e protótipo navegável.</p>
+            <p>A navegação prioriza ler e controlar os gastos.</p>
+          </div>
+          <figure class="media" data-reveal>
+            <button class="media__frame" type="button" data-zoom="assets/img/genialcard/wireframes.webp" data-caption="Wireframes do GenialCard" aria-label="Ampliar imagem: wireframes">
+              <img src="assets/img/genialcard/wireframes-1024.webp" srcset="assets/img/genialcard/wireframes-1024.webp 1024w, assets/img/genialcard/wireframes.webp 2048w" sizes="(min-width: 1024px) 860px, 100vw" width="2048" height="1536" alt="" loading="lazy" decoding="async">
+              <span class="media__zoom" aria-hidden="true"><svg class="icon"><use href="#i-maximize"/></svg></span>
+            </button>
+            <figcaption>Wireframes: a estrutura antes do visual.</figcaption>
+          </figure>
+          <figure class="media" data-reveal>
+            <button class="media__frame" type="button" data-zoom="assets/img/genialcard/interfaces.webp" data-caption="Interfaces em alta fidelidade do GenialCard" aria-label="Ampliar imagem: interfaces em alta fidelidade">
+              <img src="assets/img/genialcard/interfaces-1024.webp" srcset="assets/img/genialcard/interfaces-1024.webp 1024w, assets/img/genialcard/interfaces.webp 2048w" sizes="(min-width: 1024px) 860px, 100vw" width="2048" height="1536" alt="" loading="lazy" decoding="async">
+              <span class="media__zoom" aria-hidden="true"><svg class="icon"><use href="#i-maximize"/></svg></span>
+            </button>
+            <figcaption>Alta fidelidade.</figcaption>
+          </figure>
+          <div class="ai-card" data-reveal>
+            <p class="ai-card__label"><svg class="icon" aria-hidden="true"><use href="#i-sparkles"/></svg>IA Geni</p>
+            <p>Analisa despesas e sugere hábitos e metas.</p>
+          </div>
+          <div class="proto glass" data-reveal>
+            <div>
+              <h3>Protótipo navegável</h3>
+              <p>Navegue pelos fluxos no Figma.</p>
+            </div>
+            <a class="btn btn--solid" href="https://www.figma.com/proto/zTbOB2c1e4s9APqhJjDBW1/GenialCard---Intelig%C3%AAncia-e-praticidade-em-seu-controle-financeiro?page-id=4%3A384&amp;node-id=6-6798&amp;node-type=frame&amp;viewport=26494%2C26562%2C0.21&amp;t=g41jT7tnyGVybmh9-1&amp;scaling=min-zoom&amp;content-scaling=fixed&amp;starting-point-node-id=6%3A6798&amp;share=1" target="_blank" rel="noopener">Abrir protótipo<svg class="icon" aria-hidden="true"><use href="#i-play"/></svg></a>
+          </div>
+        </section>
+
+        <section class="csec" id="genialcard-sitemap" data-label="Sitemap">
+          <p class="csec__kicker">10 · Arquitetura</p>
+          <h2>Cada tela <em>no seu lugar.</em></h2>
+          <div class="prose" data-reveal>
+            <p>O sitemap que guiou a navegação.</p>
+          </div>
+          <figure class="media media--narrow" data-reveal>
+            <button class="media__frame" type="button" data-zoom="assets/img/genialcard/sitemap.webp" data-caption="Sitemap do GenialCard" aria-label="Ampliar imagem: sitemap">
+              <img src="assets/img/genialcard/sitemap-1024.webp" srcset="assets/img/genialcard/sitemap-1024.webp 1024w, assets/img/genialcard/sitemap.webp 2048w" sizes="(min-width: 1024px) 768px, 100vw" width="2048" height="2382" alt="" loading="lazy" decoding="async">
+              <span class="media__zoom" aria-hidden="true"><svg class="icon"><use href="#i-maximize"/></svg></span>
+            </button>
+          </figure>
+        </section>
+
+        <section class="csec" id="genialcard-validacao" data-label="Validação">
+          <p class="csec__kicker">11 · Validação</p>
+          <h2>Testado com <em>quem vai usar.</em></h2>
+          <div class="prose" data-reveal>
+            <p>Clareza, navegação e proposta de valor em teste.</p>
+          </div>
+          <div class="quotes">
+            <blockquote class="quote glass" data-reveal><svg class="icon" aria-hidden="true"><use href="#i-quote"/></svg><p>“GENI IA é incrível! As dicas personalizadas de economia são exatamente o que eu precisava para controlar meu dinheiro.”</p><footer>Participante do teste</footer></blockquote>
+            <blockquote class="quote glass" data-reveal><svg class="icon" aria-hidden="true"><use href="#i-quote"/></svg><p>“O aplicativo tem sido incrível na minha vida! Com o conhecimento que ganhei, já consegui organizar meu orçamento familiar e evitar dívidas no cartão de crédito.”</p><footer>Participante do teste</footer></blockquote>
+            <blockquote class="quote glass" data-reveal><svg class="icon" aria-hidden="true"><use href="#i-quote"/></svg><p>“O conteúdo deste app vai além do básico e é super simples. Realmente faz a diferença!”</p><footer>Participante do teste</footer></blockquote>
+          </div>
+        </section>
+
+        <section class="csec" id="genialcard-estilo" data-label="Guia de estilos">
+          <p class="csec__kicker">12 · Guia de estilos</p>
+          <h2>Um sistema, <em>não telas soltas.</em></h2>
+          <div class="prose" data-reveal>
+            <p>Cores, tipografia e componentes prontos para a implementação.</p>
+          </div>
+          <figure class="media media--narrow" data-reveal>
+            <button class="media__frame" type="button" data-zoom="assets/img/genialcard/guia-estilo.webp" data-caption="Guia de estilos do GenialCard" aria-label="Ampliar imagem: guia de estilos">
+              <img src="assets/img/genialcard/guia-estilo-1024.webp" srcset="assets/img/genialcard/guia-estilo-1024.webp 1024w, assets/img/genialcard/guia-estilo.webp 2048w" sizes="(min-width: 1024px) 768px, 100vw" width="2048" height="4612" alt="" loading="lazy" decoding="async">
+              <span class="media__zoom" aria-hidden="true"><svg class="icon"><use href="#i-maximize"/></svg></span>
+            </button>
+          </figure>
+        </section>
+
+        <section class="csec" id="genialcard-proximos" data-label="Próximos passos">
+          <p class="csec__kicker">13 · Próximos passos</p>
+          <h2>O que vem <em>depois.</em></h2>
+          <ol class="grid-cards num-cards">
+            <li class="glass" data-reveal>Validar o UX Writing com usuários.</li>
+            <li class="glass" data-reveal>Versão web responsiva.</li>
+            <li class="glass" data-reveal>Testar as próximas versões.</li>
+            <li class="glass" data-reveal>Planejar a comunicação de novas funcionalidades.</li>
+          </ol>
+        </section>
+
+        <section class="csec" id="genialcard-conclusao" data-label="Conclusão">
+          <p class="csec__kicker">14 · Conclusão</p>
+          <h2><em>O que aprendemos.</em></h2>
+          <div class="prose" data-reveal>
+            <p>O principal aprendizado: alinhar evidências, experiência e viabilidade desde o início.</p>
+          </div>
+          <blockquote class="pull" data-reveal><p>Obrigado pela leitura.</p></blockquote>
+        </section>
+      </div>
+    </div>
+
+    <section class="case-next" aria-label="Próximo case">
+      <div class="container">
+        <a class="next-card glass" href="#case/globo" data-reveal>
+          <div class="next-card__media"><img src="assets/img/globo/1-1024.webp" width="1024" height="768" alt="" loading="lazy" decoding="async"></div>
+          <div class="next-card__body">
+            <p class="label" style="color:var(--meta)">Próximo case · 02</p>
+            <p class="next-card__title">Juntos pra fazer história na Globo</p>
+            <span class="next-card__go">Abrir case<span class="next-card__circle"><svg class="icon" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></span></span>
+          </div>
+        </a>
+      </div>
+    </section>
+  </article>
+
+  <!-- ══════════ CASE 02 · GLOBO ══════════ -->
+  <article class="case" data-case="globo" data-title="Juntos pra fazer história" hidden>
+    <header class="case-hero">
+      <div class="container">
+        <nav class="crumbs case-el" aria-label="Você está aqui">
+          <a href="#projetos"><svg class="icon" aria-hidden="true"><use href="#i-arrow-left"/></svg>Voltar</a>
+          <span class="crumbs__sep" aria-hidden="true">/</span><a href="#inicio">Início</a>
+          <span class="crumbs__sep" aria-hidden="true">/</span><a href="#projetos">Projetos</a>
+          <span class="crumbs__sep" aria-hidden="true">/</span><span aria-current="page">Globo</span>
+        </nav>
+        <p class="spaced case-el">Case 02 · Intranet · Globo</p>
+        <h1 class="case-title case-el" tabindex="-1">Juntos pra fazer história na Globo <em>Cultura conectada em um só lugar</em></h1>
+        <p class="case-lead case-el">Uma comunidade interna para reunir cultura, eventos e desenvolvimento.</p>
+        <ul class="tags case-el"><li class="tag">UX Design</li><li class="tag">UI Design</li><li class="tag">Globo</li></ul>
+      </div>
+      <div class="container">
+        <div class="viewfinder">
+          <figure class="stage">
+            <img src="assets/img/globo/1-1024.webp" srcset="assets/img/globo/1-1024.webp 1024w, assets/img/globo/1.webp 2048w" sizes="(min-width: 1312px) 1250px, 100vw" width="2048" height="1536" alt="Visão geral da comunidade: atalhos, conteúdos em destaque, novidades e agenda de eventos" decoding="async">
+          </figure>
+        </div>
+      </div>
+      <div class="container">
+        <dl class="ficha">
+          <div><dt>Cliente</dt><dd>Globo</dd></div>
+          <div><dt>Produto</dt><dd>Comunidade na intranet</dd></div>
+          <div><dt>Responsabilidades</dt><dd>Wireframes, protótipos, testes de usabilidade e iterações</dd></div>
+          <div><dt>Ferramentas</dt><dd>Miro, Whimsical, Adobe XD, Figma</dd></div>
+        </dl>
+      </div>
+    </header>
+
+    <div class="container case-body">
+      <aside class="case-index" aria-label="Seções do case"><p>Neste case</p><ol data-index></ol></aside>
+      <div class="case-content">
+        <section class="csec" id="globo-produto" data-label="O produto">
+          <p class="csec__kicker">01 · Visão geral</p>
+          <h2>Informação dispersa. <em>Experiência integrada.</em></h2>
+          <div class="prose" data-reveal>
+            <p>Reunimos eventos, histórias e aprendizado em um só ambiente.</p>
+            <p>O manifesto <strong>“Juntos pra fazer história”</strong> também ganhou espaço central.</p>
+            <p>Para gestores, fluxos dedicados simplificam a publicação de conteúdo.</p>
+          </div>
+        </section>
+
+        <section class="csec" id="globo-funcionalidades" data-label="Funcionalidades">
+          <p class="csec__kicker">02 · Funcionalidades</p>
+          <h2>Uma comunidade. <em>Vários caminhos.</em></h2>
+          <ul class="grid-cards">
+            <li class="card glass" data-reveal><svg class="icon card__icon" aria-hidden="true"><use href="#i-megaphone"/></svg><h3>Manifesto</h3><p>A cultura expressa para todos os colaboradores.</p></li>
+            <li class="card glass" data-reveal><svg class="icon card__icon" aria-hidden="true"><use href="#i-calendar"/></svg><h3>Eventos</h3><p>Agenda e participação em eventos.</p></li>
+            <li class="card glass" data-reveal><svg class="icon card__icon" aria-hidden="true"><use href="#i-newspaper"/></svg><h3>Cultura e histórias</h3><p>Notícias e histórias dos colaboradores.</p></li>
+            <li class="card glass" data-reveal><svg class="icon card__icon" aria-hidden="true"><use href="#i-graduation"/></svg><h3>Treinamento</h3><p>Conteúdos de aprendizado e desenvolvimento.</p></li>
+            <li class="card glass" data-reveal><svg class="icon card__icon" aria-hidden="true"><use href="#i-chart"/></svg><h3>Diagnósticos</h3><p>Dados e diagnósticos sobre cultura.</p></li>
+            <li class="card glass" data-reveal><svg class="icon card__icon" aria-hidden="true"><use href="#i-shield"/></svg><h3>Administração</h3><p>Publicação e gestão de conteúdos.</p></li>
+          </ul>
+        </section>
+
+        <section class="csec" id="globo-interfaces" data-label="Interfaces">
+          <p class="csec__kicker">03 · Interfaces</p>
+          <h2>Tudo ao alcance. <em>Navegação simples.</em></h2>
+          <div class="gallery">
+            <figure class="is-wide" data-reveal>
+              <button class="media__frame" type="button" data-zoom="assets/img/globo/2.webp" data-caption="Página inicial com as seções da comunidade e postagens" aria-label="Ampliar imagem: página inicial da comunidade">
+                <img src="assets/img/globo/2-1024.webp" srcset="assets/img/globo/2-1024.webp 1024w, assets/img/globo/2.webp 2048w" sizes="(min-width: 1024px) 860px, 100vw" width="2048" height="1536" alt="" loading="lazy" decoding="async">
+                <span class="media__zoom" aria-hidden="true"><svg class="icon"><use href="#i-maximize"/></svg></span>
+              </button>
+              <figcaption>Página inicial com as seções da comunidade e as postagens.</figcaption>
+            </figure>
+            <figure data-reveal>
+              <button class="media__frame" type="button" data-zoom="assets/img/globo/3.webp" data-caption="Área de Desenvolvimento com acesso à academia" aria-label="Ampliar imagem: área de desenvolvimento">
+                <img src="assets/img/globo/3-1024.webp" srcset="assets/img/globo/3-1024.webp 1024w, assets/img/globo/3.webp 2048w" sizes="(min-width: 768px) 420px, 100vw" width="2048" height="1536" alt="" loading="lazy" decoding="async">
+                <span class="media__zoom" aria-hidden="true"><svg class="icon"><use href="#i-maximize"/></svg></span>
+              </button>
+              <figcaption>Desenvolvimento: academia e conteúdos de aprendizado.</figcaption>
+            </figure>
+            <figure data-reveal>
+              <button class="media__frame" type="button" data-zoom="assets/img/globo/1.webp" data-caption="Destaques, novidades e agenda de eventos" aria-label="Ampliar imagem: destaques e agenda de eventos">
+                <img src="assets/img/globo/1-1024.webp" srcset="assets/img/globo/1-1024.webp 1024w, assets/img/globo/1.webp 2048w" sizes="(min-width: 768px) 420px, 100vw" width="2048" height="1536" alt="" loading="lazy" decoding="async">
+                <span class="media__zoom" aria-hidden="true"><svg class="icon"><use href="#i-maximize"/></svg></span>
+              </button>
+              <figcaption>Destaques, novidades e agenda de eventos.</figcaption>
+            </figure>
+            <figure class="is-wide" data-reveal>
+              <button class="media__frame" type="button" data-zoom="assets/img/globo/4.webp" data-caption="Manifesto da comunidade" aria-label="Ampliar imagem: manifesto">
+                <img src="assets/img/globo/4-1024.webp" srcset="assets/img/globo/4-1024.webp 1024w, assets/img/globo/4.webp 2048w" sizes="(min-width: 1024px) 860px, 100vw" width="2048" height="644" alt="" loading="lazy" decoding="async">
+                <span class="media__zoom" aria-hidden="true"><svg class="icon"><use href="#i-maximize"/></svg></span>
+              </button>
+              <figcaption>Manifesto: diversidade e crescimento para os colaboradores.</figcaption>
+            </figure>
+          </div>
+        </section>
+
+        <section class="csec" id="globo-atuacao" data-label="Atuação">
+          <p class="csec__kicker">04 · Atuação</p>
+          <h2>Do esboço <em>ao produto final.</em></h2>
+          <ol class="grid-cards num-cards">
+            <li class="glass" data-reveal>Wireframing</li>
+            <li class="glass" data-reveal>Prototipação</li>
+            <li class="glass" data-reveal>Testes de usabilidade</li>
+            <li class="glass" data-reveal>Iterações no design</li>
+          </ol>
+          <ul class="chips" style="margin-top:2rem" data-reveal>
+            <li class="chip"><i></i>Miro</li><li class="chip"><i></i>Whimsical</li><li class="chip"><i></i>Adobe XD</li><li class="chip"><i></i>Figma</li>
+          </ul>
+        </section>
+      </div>
+    </div>
+
+    <section class="case-next" aria-label="Próximo case">
+      <div class="container">
+        <a class="next-card glass" href="#case/light" data-reveal>
+          <div class="next-card__media"><img src="assets/img/light/2-1024.webp" width="1024" height="768" alt="" loading="lazy" decoding="async"></div>
+          <div class="next-card__body">
+            <p class="label" style="color:var(--meta)">Próximo case · 03</p>
+            <p class="next-card__title">Credenciados Light</p>
+            <span class="next-card__go">Abrir case<span class="next-card__circle"><svg class="icon" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></span></span>
+          </div>
+        </a>
+      </div>
+    </section>
+  </article>
+
+  <!-- ══════════ CASE 03 · LIGHT ══════════ -->
+  <article class="case" data-case="light" data-title="Credenciados Light" hidden>
+    <header class="case-hero">
+      <div class="container">
+        <nav class="crumbs case-el" aria-label="Você está aqui">
+          <a href="#projetos"><svg class="icon" aria-hidden="true"><use href="#i-arrow-left"/></svg>Voltar</a>
+          <span class="crumbs__sep" aria-hidden="true">/</span><a href="#inicio">Início</a>
+          <span class="crumbs__sep" aria-hidden="true">/</span><a href="#projetos">Projetos</a>
+          <span class="crumbs__sep" aria-hidden="true">/</span><span aria-current="page">Light</span>
+        </nav>
+        <p class="spaced case-el">Case 03 · Plataforma web responsiva · Light</p>
+        <h1 class="case-title case-el" tabindex="-1">Credenciados Light <em>Atendimento mais perto das pessoas</em></h1>
+        <p class="case-lead case-el">Um portal para credenciados oferecerem serviços da Light perto dos clientes.</p>
+        <ul class="tags case-el"><li class="tag">UX Design</li><li class="tag">UI Design</li><li class="tag">Light</li></ul>
+      </div>
+      <div class="container">
+        <div class="viewfinder">
+          <figure class="stage">
+            <img src="assets/img/light/2-1024.webp" srcset="assets/img/light/2-1024.webp 1024w, assets/img/light/2.webp 2048w" sizes="(min-width: 1312px) 1250px, 100vw" width="2048" height="1536" alt="Telas mobile e desktop do portal Credenciados Light com serviços e acompanhamento" decoding="async">
+          </figure>
+        </div>
+      </div>
+      <div class="container">
+        <dl class="ficha">
+          <div><dt>Contexto</dt><dd>Projeto na Light</dd></div>
+          <div><dt>Produto</dt><dd>Portal para parceiros credenciados</dd></div>
+          <div><dt>Responsabilidades</dt><dd>Wireframes, protótipos, testes de usabilidade e iterações</dd></div>
+          <div><dt>Ferramentas</dt><dd>Miro, Whimsical, Adobe XD, Figma</dd></div>
+        </dl>
+      </div>
+    </header>
+
+    <div class="container case-body">
+      <aside class="case-index" aria-label="Seções do case"><p>Neste case</p><ol data-index></ol></aside>
+      <div class="case-content">
+        <section class="csec" id="light-produto" data-label="O produto">
+          <p class="csec__kicker">01 · Visão geral</p>
+          <h2>Mais serviços. <em>Menos distância.</em></h2>
+          <div class="prose" data-reveal>
+            <p>O portal leva serviços da Light a estabelecimentos credenciados nos bairros.</p>
+            <p>Bancas, gráficas e lojas atendem <strong>2ª via, parcelamento, religação</strong> e demais serviços.</p>
+            <p>O desafio era reunir jornadas diferentes em uma interface clara.</p>
+          </div>
+        </section>
+
+        <section class="csec" id="light-servicos" data-label="Serviços">
+          <p class="csec__kicker">02 · Serviços</p>
+          <h2>Vários serviços. <em>Um único portal.</em></h2>
+          <ul class="grid-cards">
+            <li class="card glass" data-reveal><svg class="icon card__icon" aria-hidden="true"><use href="#i-store"/></svg><h3>Parceiros credenciados</h3><p>Bancas, gráficas e lojas nos bairros.</p></li>
+            <li class="card glass" data-reveal><svg class="icon card__icon" aria-hidden="true"><use href="#i-receipt"/></svg><h3>2ª via de contas</h3><p>Emissão no ponto credenciado.</p></li>
+            <li class="card glass" data-reveal><svg class="icon card__icon" aria-hidden="true"><use href="#i-calculator"/></svg><h3>Parcelamento</h3><p>Negociação de débitos no local.</p></li>
+            <li class="card glass" data-reveal><svg class="icon card__icon" aria-hidden="true"><use href="#i-zap"/></svg><h3>Religação</h3><p>Religação, ligação nova e demandas técnicas.</p></li>
+            <li class="card glass" data-reveal><svg class="icon card__icon" aria-hidden="true"><use href="#i-list-checks"/></svg><h3>Acompanhamento</h3><p>Consulta por protocolo, serviço e período.</p></li>
+            <li class="card glass" data-reveal><svg class="icon card__icon" aria-hidden="true"><use href="#i-devices"/></svg><h3>Web e mobile</h3><p>Acesso por desktop e celular.</p></li>
+          </ul>
+        </section>
+
+        <section class="csec" id="light-interfaces" data-label="Interfaces">
+          <p class="csec__kicker">03 · Interfaces</p>
+          <h2>Da solicitação <em>ao acompanhamento.</em></h2>
+          <div class="gallery">
+            <figure class="is-wide" data-reveal>
+              <button class="media__frame" type="button" data-zoom="assets/img/light/1.webp" data-caption="Login do credenciado, seleção da instalação e serviços" aria-label="Ampliar imagem: login, seleção de instalação e serviços">
+                <img src="assets/img/light/1-1024.webp" srcset="assets/img/light/1-1024.webp 1024w, assets/img/light/1.webp 2048w" sizes="(min-width: 1024px) 860px, 100vw" width="2048" height="1536" alt="" loading="lazy" decoding="async">
+                <span class="media__zoom" aria-hidden="true"><svg class="icon"><use href="#i-maximize"/></svg></span>
+              </button>
+              <figcaption>Login do credenciado, seleção da instalação e catálogo de serviços.</figcaption>
+            </figure>
+            <figure data-reveal>
+              <button class="media__frame" type="button" data-zoom="assets/img/light/3.webp" data-caption="Formulário de alteração de carga" aria-label="Ampliar imagem: formulário de alteração de carga">
+                <img src="assets/img/light/3-1024.webp" srcset="assets/img/light/3-1024.webp 1024w, assets/img/light/3.webp 2048w" sizes="(min-width: 768px) 420px, 100vw" width="2048" height="1536" alt="" loading="lazy" decoding="async">
+                <span class="media__zoom" aria-hidden="true"><svg class="icon"><use href="#i-maximize"/></svg></span>
+              </button>
+              <figcaption>Solicitação de alteração de carga.</figcaption>
+            </figure>
+            <figure data-reveal>
+              <button class="media__frame" type="button" data-zoom="assets/img/light/2.webp" data-caption="Serviços e acompanhamento em mobile e desktop" aria-label="Ampliar imagem: serviços em mobile e desktop">
+                <img src="assets/img/light/2-1024.webp" srcset="assets/img/light/2-1024.webp 1024w, assets/img/light/2.webp 2048w" sizes="(min-width: 768px) 420px, 100vw" width="2048" height="1536" alt="" loading="lazy" decoding="async">
+                <span class="media__zoom" aria-hidden="true"><svg class="icon"><use href="#i-maximize"/></svg></span>
+              </button>
+              <figcaption>Serviços e acompanhamento no celular e no desktop.</figcaption>
+            </figure>
+            <figure class="is-wide" data-reveal>
+              <button class="media__frame" type="button" data-zoom="assets/img/light/4.webp" data-caption="Acompanhamento de solicitações por protocolo" aria-label="Ampliar imagem: acompanhamento de solicitações">
+                <img src="assets/img/light/4-1024.webp" srcset="assets/img/light/4-1024.webp 1024w, assets/img/light/4.webp 2048w" sizes="(min-width: 1024px) 860px, 100vw" width="2048" height="644" alt="" loading="lazy" decoding="async">
+                <span class="media__zoom" aria-hidden="true"><svg class="icon"><use href="#i-maximize"/></svg></span>
+              </button>
+              <figcaption>Acompanhamento por protocolo, serviço e período.</figcaption>
+            </figure>
+          </div>
+        </section>
+
+        <section class="csec" id="light-atuacao" data-label="Atuação">
+          <p class="csec__kicker">04 · Atuação</p>
+          <h2>Do rascunho <em>ao portal pronto.</em></h2>
+          <ol class="grid-cards num-cards">
+            <li class="glass" data-reveal>Wireframing</li>
+            <li class="glass" data-reveal>Prototipação</li>
+            <li class="glass" data-reveal>Testes de usabilidade</li>
+            <li class="glass" data-reveal>Iterações no design</li>
+          </ol>
+          <ul class="chips" style="margin-top:2rem" data-reveal>
+            <li class="chip"><i></i>Miro</li><li class="chip"><i></i>Whimsical</li><li class="chip"><i></i>Adobe XD</li><li class="chip"><i></i>Figma</li>
+          </ul>
+        </section>
+      </div>
+    </div>
+
+    <section class="case-next" aria-label="Próximo case">
+      <div class="container">
+        <a class="next-card glass" href="#case/genialcard" data-reveal>
+          <div class="next-card__media"><img src="assets/img/genialcard/capa-1024.webp" width="1024" height="576" alt="" loading="lazy" decoding="async"></div>
+          <div class="next-card__body">
+            <p class="label" style="color:var(--meta)">Próximo case · 01</p>
+            <p class="next-card__title">GenialCard</p>
+            <span class="next-card__go">Abrir case<span class="next-card__circle"><svg class="icon" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></span></span>
+          </div>
+        </a>
+      </div>
+    </section>
+  </article>
+
+  <section class="case-contact" aria-labelledby="case-contact-title">
+    <div class="container case-contact__inner">
+      <div>
+        <p class="eyebrow">Contato</p>
+        <h2 class="h2" id="case-contact-title">Vamos construir <em>algo relevante?</em></h2>
+      </div>
+      <div class="btn-row" data-reveal>
+        <a class="btn btn--fill" href="#contato" data-mail>Enviar e-mail<svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+        <a class="btn btn--ghost" href="https://www.linkedin.com/in/juanrezende/" target="_blank" rel="noopener">LinkedIn<svg class="icon" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a>
+      </div>
+    </div>
+  </section>
+</div>
+</main>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer class="footer">
+  <div class="container footer__inner">
+    <p class="footer__copy">© 2026 Juan Rezende · Design e desenvolvimento</p>
+    <nav class="footer__nav" aria-label="Rodapé">
+      <a href="#contato" data-mail>E-mail</a>
+      <a href="https://www.linkedin.com/in/juanrezende/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://medium.com/@juan.rezende" target="_blank" rel="noopener">Medium</a>
+      <a href="#inicio">Voltar ao topo</a>
+    </nav>
+  </div>
+</footer>
+
+<dialog class="lightbox" id="lightbox" aria-label="Imagem ampliada">
+  <button class="lightbox__close" type="button" aria-label="Fechar imagem ampliada"><svg class="icon" aria-hidden="true"><use href="#i-x"/></svg></button>
+  <div class="lightbox__scroll">
+    <figure class="lightbox__fig"><img id="lightbox-img" alt=""><figcaption id="lightbox-cap"></figcaption></figure>
+  </div>
+</dialog>
+
+<script src="assets/vendor/gsap.min.js"></script>
+<script src="assets/vendor/ScrollTrigger.min.js"></script>
+<script src="assets/js/effects/cosmos.js"></script>
+<script src="assets/js/effects/wave.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+/* 10-articles.css · Home · Artigos
+   Part of the Lumen stylesheet, loaded in numeric order (the cascade depends on it). */
+
+/* ══════════ ARTICLES ══════════ */
+.articles { border-top: 1px solid var(--line); }
+.article {
+  position: relative;
+  display: grid;
+  gap: .75rem;
+  padding: 2rem 0;
+  border-bottom: 1px solid var(--line);
+}
+.article::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 1px;
+  background: var(--dawn);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .8s var(--ease-expo);
+}
+.article:hover::after { transform: scaleX(1); }
+.article .article__src {
+  font-family: var(--mono);
+  font-size: .64rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--meta);
+}
+.article h3 {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: clamp(1.15rem, 2vw, 1.5rem);
+  line-height: 1.3;
+  letter-spacing: -.025em;
+  color: var(--white);
+  transition: color .4s, translate .6s var(--ease);
+}
+.article p {
+  color: var(--muted);
+  font-size: .9375rem;
+  max-width: 40rem;
+}
+.article h3 + p { margin-top: .6rem; }
+.article__go {
+  display: inline-flex;
+  align-items: center;
+  gap: .75rem;
+  font-family: var(--mono);
+  font-size: .66rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--accent-2);
+}
+.article__go .icon {
+  box-sizing: content-box;
+  width: 14px;
+  height: 14px;
+  padding: .65rem;
+  border-radius: 50%;
+  border: 1px solid var(--accent-line);
+  transition: transform .4s var(--ease), background-color .3s, color .3s;
+}
+.article:hover h3 {
+  color: var(--ice);
+  translate: .35rem 0;
+}
+.article:hover .article__go .icon {
+  transform: rotate(45deg);
+  background: var(--accent);
+  color: var(--bg);
+}
+@media (min-width: 900px) {
+  .article {
+    grid-template-columns: 14rem minmax(0, 1fr) auto;
+    column-gap: 3rem;
+    align-items: start;
+  }
+  .article__src { padding-top: .5rem; }
+  .article__go { padding-top: 0; }
+}
