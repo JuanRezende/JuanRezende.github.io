@@ -18,7 +18,7 @@ window.I18N_EN = {
      other when its English version is saved. */
   images: {
     english: [],
-    portuguese: ['duplo-diamante', 'resultados-pesquisa', 'persona', 'jornada-usuario', 'canvas-proposta-valor', 'business-model-canvas', 'wireframes', 'interfaces', 'sitemap', 'guia-estilo'],
+    portuguese: ['capa', 'duplo-diamante', 'resultados-pesquisa', 'persona', 'jornada-usuario', 'canvas-proposta-valor', 'business-model-canvas', 'wireframes', 'interfaces', 'sitemap', 'guia-estilo'],
     note: ' (in Portuguese)'
   },
   /* strings used by main.js */
