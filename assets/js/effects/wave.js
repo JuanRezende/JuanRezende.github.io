@@ -11,9 +11,19 @@
      a beam runs along the lit frame (hero); a dithered horizon rises at the end (contact). Own shader after Aura's
      scene: the field is computed per cell into a small target, then stamped on screen as squares that grow with
      the light, over a faint grid and a soft underglow. Every motion derives from the clock, never from a frame step. ══════════ */
+  /* STATIC AURA: the same field pre-rendered from this shader (assets/img/aura, a CSS background of the canvas, see
+     06-hero.css and 11-contact.css). Used in lite mode, when WebGL is missing, and if the GPU drops the context.
+     Same API as the live wave, so main.js does not care which one it got. */
+  function staticAura(canvas, mode) {
+    canvas.classList.add('aura-static');
+    if (mode === 1) canvas.classList.add('is-on');
+    return { ignite() { canvas.classList.add('is-on'); }, grown() { return 1; }, lite() {} };
+  }
+
   function waveField(canvas, mode) {
+    if (document.documentElement.classList.contains('fx-lite')) return staticAura(canvas, mode);
     const gl = canvas.getContext('webgl', { alpha: true, premultipliedAlpha: true, antialias: false, depth: false, powerPreference: 'low-power' });
-    if (!gl) return null;
+    if (!gl) return staticAura(canvas, mode);
     const HEAD = '#ifdef GL_FRAGMENT_PRECISION_HIGH\nprecision highp float;\n#else\nprecision mediump float;\n#endif\n';
     const sh = (type, src) => { const o = gl.createShader(type); gl.shaderSource(o, src); gl.compileShader(o); return o; };
     const prog = (v, f) => { const o = gl.createProgram(); gl.attachShader(o, sh(gl.VERTEX_SHADER, v)); gl.attachShader(o, sh(gl.FRAGMENT_SHADER, f)); gl.linkProgram(o); return gl.getProgramParameter(o, gl.LINK_STATUS) ? o : null; };
@@ -80,7 +90,7 @@
       'float a=inside*(.16+.84*smoothstep(.02,.6,v));' +
       'float ga=glow*glow*.32;vec3 gc=mix(vec3(.05,.42,.86),vec3(.99,.62,.3),f.b*.6);' +
       'gl_FragColor=vec4(c*a+gc*ga*(1.-a),a+ga*(1.-a));}');
-    if (!field || !stamp) return null;
+    if (!field || !stamp) return staticAura(canvas, mode);
 
     const quad = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, quad);
@@ -130,10 +140,18 @@
     }
 
     const t0 = performance.now();
-    let visible = false, raf = 0;
+    let visible = false, raf = 0, off = false;
+    /* hand over to the static aura for good: the GPU dropped the context, or the page went lite mid-visit */
+    const toStatic = () => {
+      if (off) return;
+      off = true; cancelAnimationFrame(raf); raf = 0;
+      canvas.classList.add('aura-static', 'is-on');
+      try { const lose = gl.getExtension('WEBGL_lose_context'); if (lose && !gl.isContextLost()) lose.loseContext(); } catch (e) { }
+    };
+    canvas.addEventListener('webglcontextlost', (e) => { e.preventDefault(); toStatic(); });
     const draw = (now) => {
       raf = 0;
-      if (!resize()) return;
+      if (off || !resize()) return;
       const dt = Math.min(0.1, (now - last) / 1000); last = now;
       const k = 1 - Math.exp(-dt * 5);
       mx += (tmx - mx) * k; my += (tmy - my) * k; mz += (tmz - mz) * k;
@@ -162,7 +180,7 @@
       gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
       if (visible && !document.hidden && !reduceMotion) raf = requestAnimationFrame(draw);
     };
-    const start = () => { if (!raf && visible && !document.hidden) { last = performance.now(); raf = requestAnimationFrame(draw); } };
+    const start = () => { if (!off && !raf && visible && !document.hidden) { last = performance.now(); raf = requestAnimationFrame(draw); } };
     new IntersectionObserver(([en]) => { visible = en.isIntersecting; if (visible) start(); }).observe(canvas);
     document.addEventListener('visibilitychange', () => start());
     /* a hidden view gives the canvas no size; it is measured again (and redrawn once) when it comes back */
@@ -171,7 +189,8 @@
 
     return {
       ignite() { if (g0 === null) { g0 = performance.now(); start(); } },
-      grown() { return growth(performance.now()); }
+      grown() { return growth(performance.now()); },
+      lite: toStatic
     };
   }
 

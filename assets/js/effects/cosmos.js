@@ -6,19 +6,21 @@
 
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  /* lite mode (html.fx-lite, see the <head> script): fewer stars, drawn at 1x */
+  const isLite = () => document.documentElement.classList.contains('fx-lite');
 
   /* ══════════ COSMOS: quiet depth starfield (slow twinkle, scroll + pointer parallax) ══════════ */
   function createCosmos(canvas) {
     const c = canvas ? canvas.getContext('2d') : null;
     if (!c) return;
     const tints = ['255,255,255', '255,255,255', '255,255,255', '214,236,255', '196,248,255', '253,224,190'];
-    const stars = Array.from({ length: finePointer ? 360 : 170 }, () => ({
+    const stars = Array.from({ length: isLite() ? 140 : finePointer ? 360 : 170 }, () => ({
       x: Math.random(), y: Math.random(), z: 0.15 + Math.pow(Math.random(), 2.2) * 0.85,
       ph: Math.random() * 6.283, sp: 0.3 + Math.random() * 1.1, tint: tints[(Math.random() * tints.length) | 0]
     }));
     let w = 0, h = 0, raf = 0, mx = 0, my = 0, tmx = 0, tmy = 0, lastY = window.scrollY, vel = 0;
     const resize = () => {
-      const d = Math.min(window.devicePixelRatio || 1, finePointer ? 1.5 : 1);
+      const d = isLite() ? 1 : Math.min(window.devicePixelRatio || 1, finePointer ? 1.5 : 1);
       w = window.innerWidth; h = window.innerHeight;
       canvas.width = Math.round(w * d); canvas.height = Math.round(h * d);
       c.setTransform(d, 0, 0, d, 0, 0);
@@ -56,6 +58,8 @@
       raf = requestAnimationFrame(loop);
       document.addEventListener('visibilitychange', () => { if (!document.hidden && !raf) raf = requestAnimationFrame(loop); });
     }
+    /* the page went lite mid-visit (FX WATCHDOG in main.js) */
+    return { lite() { if (stars.length > 140) stars.length = 140; resize(); } };
   }
 
   /* ══════════ WARP: the jump between views (stars rush out of the centre, then settle) ══════════
@@ -65,7 +69,8 @@
     const c = canvas ? canvas.getContext('2d') : null;
     if (!c) return null;
     const tints = ['255,255,255', '255,255,255', '214,236,255', '186,230,253', '103,232,249', '253,224,190'];
-    const N = finePointer ? 420 : 220, DEPTH = 1000, FOCAL = 260;
+    const DEPTH = 1000, FOCAL = 260;
+    let N = 0;
     const state = { speed: 0 };
     let w = 0, h = 0, raf = 0, last = 0, stars = [];
     const seed = (s, far) => {
@@ -75,7 +80,7 @@
       return s;
     };
     const resize = () => {
-      const d = Math.min(window.devicePixelRatio || 1, 1.5);
+      const d = isLite() ? 1 : Math.min(window.devicePixelRatio || 1, 1.5);
       w = window.innerWidth; h = window.innerHeight;
       canvas.width = Math.round(w * d); canvas.height = Math.round(h * d);
       c.setTransform(d, 0, 0, d, 0, 0);
@@ -112,6 +117,7 @@
       start() {
         if (raf) return;
         resize(); last = 0;
+        N = isLite() ? 160 : finePointer ? 420 : 220;
         stars = Array.from({ length: N }, () => seed({}, false));
         raf = requestAnimationFrame(frame);
       },

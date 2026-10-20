@@ -23,6 +23,19 @@
   /* the wave is drawn as LED squares */
   image-rendering: pixelated;
 }
+/* static aura (effects/wave.js): the ring pre-rendered from the shader, stretched to the canvas like the shader's own
+   uv space, so the ring keeps its place at any size; it grows out when the hero ignites (the hero timeline already
+   fades the canvas in, so no opacity here). Only fetched when used. */
+.hero__gl.aura-static {
+  background: url("../img/aura/hero-wide.webp") center / 100% 100% no-repeat;
+  image-rendering: auto;
+  transform: scale(.6);
+  transition: transform 3.4s var(--ease-expo);
+}
+@media (orientation: portrait) {
+  .hero__gl.aura-static { background-image: url("../img/aura/hero-tall.webp"); }
+}
+.hero__gl.aura-static.is-on { transform: none; }
 /* Aura's beams: four curves feed light into the laser core; a short dash travels each one */
 .hero__beams {
   position: absolute;

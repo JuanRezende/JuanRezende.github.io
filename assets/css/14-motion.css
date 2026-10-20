@@ -1,4 +1,4 @@
-/* 14-motion.css · Motion safety: offscreen pause and prefers-reduced-motion
+/* 14-motion.css · Motion safety and effects budget: offscreen pause, lite mode and prefers-reduced-motion
    Part of the Lumen stylesheet, loaded in numeric order (the cascade depends on it). */
 
 /* looping motion rests while its block is off screen (toggled by script) */
@@ -36,3 +36,39 @@
     opacity: .5;
   }
 }
+
+/* ══════════ LITE MODE (html.fx-lite) ══════════
+   Set in the <head> when the machine has no hardware graphics (WebGL missing or software-only), on data saver, or by the
+   FX WATCHDOG in main.js when frames run under ~25fps. Everything here would otherwise be painted by the CPU.
+   Not reduced motion: transitions, reveals and the warp still play, only the costly layers go. */
+.fx-lite *,
+.fx-lite *::before,
+.fx-lite *::after {
+  /* !important also beats the inline blur GSAP gives to reveals */
+  filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+/* without its blur the floating header needs a denser glass to stay readable over the content */
+.fx-lite .site-header {
+  background:
+    linear-gradient(rgba(6, 10, 24, .92), rgba(6, 10, 24, .92)) padding-box,
+    var(--hairline-strong) border-box;
+}
+.fx-lite .grain,
+.fx-lite .atmos__dust,
+.fx-lite .cursor-glow { display: none; }
+/* looping effects that repaint (gradients, strokes, text fills) rest; the transform-only reels keep running */
+.fx-lite .blob,
+.fx-lite .hero__beams .ray,
+.fx-lite .hero__laser span,
+.fx-lite .display em,
+.fx-lite .btn--fill,
+.fx-lite .btn--solid,
+.fx-lite .ai-card,
+.fx-lite .portrait__orbit i { animation: none !important; }
+.fx-lite .hero__beams .ray {
+  stroke-dashoffset: 0;
+  opacity: .5;
+}
+

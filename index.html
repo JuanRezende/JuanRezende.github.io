@@ -52,6 +52,34 @@
 <script>
   document.documentElement.classList.add('js');
   try { if (sessionStorage.getItem('jr-intro') || matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('no-intro'); } catch (e) {}
+  /* effects budget: without hardware graphics (WebGL missing or software-only) every blur and the WebGL aura fall on the CPU,
+     so the page switches to lite mode before first paint (static aura image, no filters, fewer layers; see 14-motion.css).
+     ?fx=lite or ?fx=full forces a mode for the session (headless test browsers are software-only, so they need ?fx=full). */
+  (function () {
+    var d = document.documentElement, fx = null, lite = false;
+    try {
+      var q = new URLSearchParams(location.search).get('fx');
+      if (q === 'lite' || q === 'full') sessionStorage.setItem('jr-fx', q);
+      fx = sessionStorage.getItem('jr-fx');
+    } catch (e) {}
+    if (fx) lite = fx === 'lite';
+    else {
+      try {
+        var gl = document.createElement('canvas').getContext('webgl', { failIfMajorPerformanceCaveat: true });
+        lite = !gl;
+        /* a software rasterizer can still slip through when it was enabled by hand: catch it by name */
+        if (gl) {
+          var info = gl.getExtension('WEBGL_debug_renderer_info');
+          var renderer = String(gl.getParameter(info ? info.UNMASKED_RENDERER_WEBGL : gl.RENDERER) || '');
+          if (/swiftshader|llvmpipe|softpipe|software|basic render/i.test(renderer)) lite = true;
+        }
+        var lose = gl && gl.getExtension('WEBGL_lose_context');
+        if (lose) lose.loseContext();
+      } catch (e) { lite = true; }
+      if (navigator.connection && navigator.connection.saveData) lite = true;
+    }
+    if (lite) d.classList.add('fx-lite');
+  })();
   /* design-system catalog hook (only when this page is framed, e.g. by Bases/lumen-ds.html): the catalog owns the navbar, gets the reading
      progress, and can park this page as the live background of its Components view (hero scene only) */
   (function () {

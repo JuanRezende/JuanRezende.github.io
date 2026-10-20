@@ -41,8 +41,11 @@
   /* credential counts follow their lists, so adding a certificate is a single line of markup */
   $$('[data-count-of]').forEach(el => { const list = $(el.dataset.countOf); if (list) el.textContent = list.children.length; });
 
+  /* lite mode (html.fx-lite, set in <head> when there is no hardware graphics, or by the FX WATCHDOG below) */
+  const isLite = () => doc.classList.contains('fx-lite');
+
   /* ══════════ COSMOS: the background starfield (effects/cosmos.js) ══════════ */
-  Lumen.createCosmos($('#cosmos'));
+  const cosmos = Lumen.createCosmos($('#cosmos'));
 
   /* ══════════ ROUTER: home sections (#sobre) and cases (#case/<slug>[/<section>]) ══════════ */
   function parse(hash = location.hash) {
@@ -348,7 +351,8 @@
       .from('.hero__cta > *', { opacity: 0, y: 18, filter: 'blur(6px)', duration: 1, ease: 'power3.out', stagger: 0.12, ...settle }, 1.6);
 
     const heroST = { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true };
-    gsap.to('.hero__inner', { yPercent: -18, scale: 0.94, opacity: 0, filter: 'blur(6px)', ease: 'none', scrollTrigger: heroST });
+    /* transform + opacity only: a filter scrubbed by scroll repaints the whole hero on every frame */
+    gsap.to('.hero__inner', { yPercent: -18, scale: 0.94, opacity: 0, ease: 'none', scrollTrigger: heroST });
     gsap.to('.hero__stage', { scale: 1.15, opacity: 0.12, ease: 'none', scrollTrigger: heroST });
 
     revealHeadings($$('.h2, .stacked', views.home));
@@ -446,9 +450,12 @@
 
   function playHero() { if (heroTl) heroTl.play(); }
 
+  /* the nebula and dust drift with the scroll (skipped in lite mode: two full-screen layers moving on every scroll frame) */
+  const atmosTweens = [];
   if (motion) {
-    gsap.to('.atmos__layer', { yPercent: -12, ease: 'none', scrollTrigger: { trigger: document.body, start: 'top top', end: 'bottom bottom', scrub: 1.2 } });
-    gsap.to('.atmos__dust', { yPercent: -26, ease: 'none', scrollTrigger: { trigger: document.body, start: 'top top', end: 'bottom bottom', scrub: 1.6 } });
+    if (!isLite()) atmosTweens.push(
+      gsap.to('.atmos__layer', { yPercent: -12, ease: 'none', scrollTrigger: { trigger: document.body, start: 'top top', end: 'bottom bottom', scrub: 1.2 } }),
+      gsap.to('.atmos__dust', { yPercent: -26, ease: 'none', scrollTrigger: { trigger: document.body, start: 'top top', end: 'bottom bottom', scrub: 1.6 } }));
     gsap.from('#site-header', { y: -60, opacity: 0, duration: 1.1, ease: 'power3.out', clearProps: 'transform', delay: doc.classList.contains('no-intro') ? 0 : 1.8 });
   }
 
@@ -610,14 +617,45 @@
   /* ══════════ WAVE: hero ring and contact horizon (effects/wave.js) ══════════ */
   const heroCanvas = $('.hero__gl'), horizonCanvas = $('.horizon__gl');
   const wave = heroCanvas ? Lumen.waveField(heroCanvas, 0) : null;
-  if (horizonCanvas) Lumen.waveField(horizonCanvas, 1);
+  const horizon = horizonCanvas ? Lumen.waveField(horizonCanvas, 1) : null;
   /* without the GSAP timeline (no library, reduced motion) the ring is lit at once */
   if (wave && !motion) wave.ignite();
+
+  /* ══════════ FX WATCHDOG: a GPU that is present but too weak (median frame over 40ms, under ~25fps) switches the
+     visit to lite mode. 40ms, not 17: Chrome's energy saver caps pages at 30fps and must not trip it. Skipped when a
+     mode was forced (?fx=) or chosen earlier this session. ══════════ */
+  function goLite() {
+    if (isLite()) return;
+    doc.classList.add('fx-lite');
+    try { sessionStorage.setItem('jr-fx', 'lite'); } catch (e) {}
+    atmosTweens.forEach(t => { if (t.scrollTrigger) t.scrollTrigger.kill(); t.kill(); });
+    if (hasGSAP) gsap.set(['.atmos__layer', '.atmos__dust'], { clearProps: 'transform' });
+    [wave, horizon, cosmos].forEach(fx => { if (fx && fx.lite) fx.lite(); });
+  }
+  function watchFrames() {
+    let chosen = null;
+    try { chosen = sessionStorage.getItem('jr-fx'); } catch (e) {}
+    if (chosen || isLite() || reduceMotion) return;
+    const sample = (tries) => {
+      if (document.hidden || busy) { if (tries) setTimeout(() => sample(tries - 1), 1500); return; }
+      const t = []; let last = 0;
+      const f = (now) => {
+        if (last) t.push(now - last);
+        last = now;
+        if (document.hidden) return;
+        if (t.length < 60) { requestAnimationFrame(f); return; }
+        t.sort((a, b) => a - b);
+        if (t[t.length >> 1] > 40) goLite();
+      };
+      requestAnimationFrame(f);
+    };
+    setTimeout(() => sample(4), 2500);
+  }
 
   /* ══════════ BOOT ══════════ */
   route({ initial: true });
   updateProgress();
-  runIntro(playHero);
+  runIntro(() => { playHero(); watchFrames(); });
   window.addEventListener('load', () => {
     if (hasGSAP) ScrollTrigger.refresh();
     const p = parse();

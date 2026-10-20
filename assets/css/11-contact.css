@@ -88,6 +88,12 @@
   height: 100%;
   image-rendering: pixelated;
 }
+/* static aura (effects/wave.js): the horizon pre-rendered from the shader; cover scales it by height (its centre stays put)
+   and only by width on screens wider than the 1920px render */
+.horizon__gl.aura-static {
+  background: url("../img/aura/horizon.webp") center / cover no-repeat;
+  image-rendering: auto;
+}
 
 /* ══════════ FOOTER ══════════ */
 .footer {
