@@ -2,12 +2,12 @@
 <!-- If the site address changes, update every <loc>; update lastmod when the content changes (see ESTRUTURA.md › SEO) -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
-    <loc>https://juanrezende.github.io/</loc>
-    <lastmod>2026-10-20</lastmod>
-    <image:image><image:loc>https://juanrezende.github.io/assets/img/seo/og-image.jpg</image:loc></image:image>
-    <image:image><image:loc>https://juanrezende.github.io/assets/img/avatar/juan-500.webp</image:loc></image:image>
-    <image:image><image:loc>https://juanrezende.github.io/assets/img/genialcard/capa.webp</image:loc></image:image>
-    <image:image><image:loc>https://juanrezende.github.io/assets/img/globo/1.webp</image:loc></image:image>
-    <image:image><image:loc>https://juanrezende.github.io/assets/img/light/2.webp</image:loc></image:image>
+    <loc>https://juanrezende.com/</loc>
+    <lastmod>2026-10-21</lastmod>
+    <image:image><image:loc>https://juanrezende.com/assets/img/seo/og-image.jpg</image:loc></image:image>
+    <image:image><image:loc>https://juanrezende.com/assets/img/avatar/juan-500.webp</image:loc></image:image>
+    <image:image><image:loc>https://juanrezende.com/assets/img/genialcard/capa.webp</image:loc></image:image>
+    <image:image><image:loc>https://juanrezende.com/assets/img/globo/1.webp</image:loc></image:image>
+    <image:image><image:loc>https://juanrezende.com/assets/img/light/2.webp</image:loc></image:image>
   </url>
 </urlset>

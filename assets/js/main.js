@@ -605,7 +605,7 @@
   });
 
   /* ══════════ E-MAIL (assembled at click time so the address never sits in the HTML for scrapers) ══════════ */
-  const mailAddr = () => atob('ZXVqdWFucmV6ZW5kZQ==') + '@' + atob('Z21haWwuY29t');
+  const mailAddr = () => atob('Y29udGF0bw==') + '@' + atob('anVhbnJlemVuZGUuY29t');
   /* mailto: does nothing without a default mail app, so open Gmail's compose window instead;
      the address is also copied, for visitors who write from another client */
   $$('[data-mail]').forEach(a => {

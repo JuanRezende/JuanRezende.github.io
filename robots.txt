@@ -1,5 +1,5 @@
-# Site address: https://juanrezende.github.io (if it changes, update it here, in sitemap.xml and index.html)
+# Site address: https://juanrezende.com (if it changes, update it here, in sitemap.xml, index.html and CNAME)
 User-agent: *
 Allow: /
 
-Sitemap: https://juanrezende.github.io/sitemap.xml
+Sitemap: https://juanrezende.com/sitemap.xml
