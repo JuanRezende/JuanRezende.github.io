@@ -443,8 +443,6 @@ window.I18N_EN = {
     'Rodapé': 'Footer',
     'Voltar ao topo': 'Back to top',
     'Imagem ampliada': 'Enlarged image',
-    'Fechar imagem ampliada': 'Close enlarged image',
-    /* footer: the privacy page exists in Portuguese only */
-    'Privacidade': 'Privacy (PT)'
+    'Fechar imagem ampliada': 'Close enlarged image'
   }
 };
