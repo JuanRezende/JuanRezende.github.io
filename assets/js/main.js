@@ -382,7 +382,6 @@
 
     const words = $$('#sobre .statement .w');
     if (words.length) gsap.fromTo(words, { opacity: 0.14 }, { opacity: 1, stagger: 0.05, ease: 'none', scrollTrigger: { trigger: '#sobre .statement', start: 'top 82%', end: 'bottom 45%', scrub: 0.6 } });
-    counters($('.impact'));
     gsap.fromTo('.portrait__frame img', { scale: 1.14 }, { scale: 1, ease: 'none', scrollTrigger: { trigger: '.portrait', start: 'top bottom', end: 'bottom top', scrub: true } });
 
     const bar = $('.process__bar span'), comet = $('.process__comet');

@@ -93,16 +93,6 @@ window.I18N_EN = {
     'Na mesma decisão.': 'In the same decision.',
     'Minha visão conecta estratégia, experiência e código.': 'My work connects strategy, experience and code.',
     'Reestruturei jornadas, digitalizei processos e simplifiquei sistemas legados, da pesquisa à implementação.': 'I have restructured journeys, digitized processes and simplified legacy systems, from research to implementation.',
-    'Indicadores de impacto': 'Impact metrics',
-    'menos inconsistências': 'fewer inconsistencies',
-    'Design System em 56 telas auditadas.': 'Design System across 56 audited screens.',
-    'menos cliques': 'fewer clicks',
-    'Acesso a faturas e pagamentos.': 'To reach bills and payments.',
-    'Light · Agência Virtual': 'Light · Online service portal',
-    'de 20': 'of 20',
-    'usuários': 'users',
-    'Relataram uma experiência melhor.': 'Reported a better experience.',
-    'Globo · Gestão de cobranças': 'Globo · Billing management',
     'Formação acadêmica': 'Education',
     'Bacharelado': "Bachelor's degree",
     'Engenharia de Software': 'Software Engineering',
@@ -316,11 +306,8 @@ window.I18N_EN = {
     '11 · Validação': '11 · Validation',
     'Testado com': 'Tested with',
     'quem vai usar.': 'the people who will use it.',
-    'Clareza, navegação e proposta de valor em teste.': 'Clarity, navigation and value proposition put to the test.',
-    '“GENI IA é incrível! As dicas personalizadas de economia são exatamente o que eu precisava para controlar meu dinheiro.”': '“GENI AI is amazing! The personalized saving tips are exactly what I needed to get my money under control.”',
-    'Participante do teste': 'Test participant',
-    '“O aplicativo tem sido incrível na minha vida! Com o conhecimento que ganhei, já consegui organizar meu orçamento familiar e evitar dívidas no cartão de crédito.”': '“The app has been amazing for me! With what I learned, I have already organized my family budget and avoided credit card debt.”',
-    '“O conteúdo deste app vai além do básico e é super simples. Realmente faz a diferença!”': '“The content in this app goes beyond the basics and is super simple. It really makes a difference!”',
+    'Protótipo testado com 9 pessoas, em sessões de teste de usabilidade.': 'Prototype tested with 9 people in usability testing sessions.',
+    'Clareza, navegação e proposta de valor foram os pontos avaliados.': 'Clarity, navigation and value proposition were the points assessed.',
     'Guia de estilos': 'Style guide',
     '12 · Guia de estilos': '12 · Style guide',
     'Um sistema,': 'A system,',
@@ -456,6 +443,8 @@ window.I18N_EN = {
     'Rodapé': 'Footer',
     'Voltar ao topo': 'Back to top',
     'Imagem ampliada': 'Enlarged image',
-    'Fechar imagem ampliada': 'Close enlarged image'
+    'Fechar imagem ampliada': 'Close enlarged image',
+    /* footer: the privacy page exists in Portuguese only */
+    'Privacidade': 'Privacy (PT)'
   }
 };

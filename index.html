@@ -46,9 +46,8 @@
 <link rel="icon" href="assets/img/seo/favicon-96.png" type="image/png" sizes="96x96">
 <link rel="icon" href="assets/img/seo/favicon-192.png" type="image/png" sizes="192x192">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&amp;family=Newsreader:ital,opsz,wght@1,6..72,300;1,6..72,400&amp;family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+<!-- the three typefaces are served from this site (assets/fonts, SIL OFL), so visitors' browsers never contact Google -->
+<link rel="stylesheet" href="assets/fonts/fonts.css">
 <script>
   document.documentElement.classList.add('js');
   try { if (sessionStorage.getItem('jr-intro') || matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('no-intro'); } catch (e) {}
@@ -189,6 +188,7 @@
 <body>
 <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
 
+<!-- icon sprite: shapes based on Lucide (https://lucide.dev), ISC License, Copyright (c) Lucide Contributors -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
   <defs>
     <linearGradient id="trace-grad" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#fdba74"/><stop offset=".35" stop-color="#fed7aa"/><stop offset=".62" stop-color="#bae6fd"/><stop offset="1" stop-color="#38bdf8"/></linearGradient>
@@ -430,26 +430,6 @@
           <p class="about__lede">Minha visão conecta estratégia, experiência e código.</p>
           <p>Reestruturei jornadas, digitalizei processos e simplifiquei sistemas legados, da pesquisa à implementação.</p>
         </div>
-        <ul class="impact" aria-label="Indicadores de impacto">
-          <li data-reveal>
-            <p class="impact__num"><span data-count="97" data-suffix="%">97%</span></p>
-            <p class="impact__what">menos inconsistências</p>
-            <p class="impact__desc">Design System em 56 telas auditadas.</p>
-            <p class="impact__src">Light · Design System</p>
-          </li>
-          <li data-reveal>
-            <p class="impact__num"><span data-count="75" data-suffix="%">75%</span></p>
-            <p class="impact__what">menos cliques</p>
-            <p class="impact__desc">Acesso a faturas e pagamentos.</p>
-            <p class="impact__src">Light · Agência Virtual</p>
-          </li>
-          <li data-reveal>
-            <p class="impact__num"><span data-count="19">19</span><small> de 20</small></p>
-            <p class="impact__what">usuários</p>
-            <p class="impact__desc">Relataram uma experiência melhor.</p>
-            <p class="impact__src">Globo · Gestão de cobranças</p>
-          </li>
-        </ul>
 
         <!-- FORMAÇÃO: the story continues in the same column, beside the portrait -->
         <div class="edu">
@@ -837,12 +817,8 @@
           <p class="csec__kicker">11 · Validação</p>
           <h2>Testado com <em>quem vai usar.</em></h2>
           <div class="prose" data-reveal>
-            <p>Clareza, navegação e proposta de valor em teste.</p>
-          </div>
-          <div class="quotes">
-            <blockquote class="quote glass" data-reveal><svg class="icon" aria-hidden="true"><use href="#i-quote"/></svg><p>“GENI IA é incrível! As dicas personalizadas de economia são exatamente o que eu precisava para controlar meu dinheiro.”</p><footer>Participante do teste</footer></blockquote>
-            <blockquote class="quote glass" data-reveal><svg class="icon" aria-hidden="true"><use href="#i-quote"/></svg><p>“O aplicativo tem sido incrível na minha vida! Com o conhecimento que ganhei, já consegui organizar meu orçamento familiar e evitar dívidas no cartão de crédito.”</p><footer>Participante do teste</footer></blockquote>
-            <blockquote class="quote glass" data-reveal><svg class="icon" aria-hidden="true"><use href="#i-quote"/></svg><p>“O conteúdo deste app vai além do básico e é super simples. Realmente faz a diferença!”</p><footer>Participante do teste</footer></blockquote>
+            <p>Protótipo testado com 9 pessoas, em sessões de teste de usabilidade.</p>
+            <p>Clareza, navegação e proposta de valor foram os pontos avaliados.</p>
           </div>
         </section>
 
@@ -1160,7 +1136,10 @@
 <!-- ══════════ FOOTER ══════════ -->
 <footer class="footer">
   <div class="container footer__inner">
-    <p class="footer__copy">© 2026 Juan Rezende · Design e desenvolvimento</p>
+    <div class="footer__meta">
+      <p class="footer__copy">© 2026 Juan Rezende · Design e desenvolvimento</p>
+      <a class="footer__legal" href="privacidade.html">Privacidade</a>
+    </div>
     <nav class="footer__nav" aria-label="Rodapé">
       <a href="#contato" data-mail>E-mail</a>
       <a href="https://www.linkedin.com/in/juanrezende/" target="_blank" rel="noopener">LinkedIn</a>

@@ -254,7 +254,7 @@
 .case-index .n {
   font-family: var(--mono);
   font-size: .66rem;
-  opacity: .7;
+  color: var(--meta);   /* readable on the ink (WCAG AA); the label beside it stays the brighter one */
   padding-top: .1rem;
 }
 .csec {
