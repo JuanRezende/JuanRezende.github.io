@@ -32,6 +32,10 @@
   overflow: hidden;
   border-radius: calc(var(--radius-lg) - 1px);
   clip-path: inset(0 round calc(var(--radius-lg) - 1px));
+  /* a mask makes WebKit honour the rounded clip on composited children too (the still under a tilting or filtered frame) */
+  -webkit-mask-image: linear-gradient(#000, #000);
+  mask-image: linear-gradient(#000, #000);
+  isolation: isolate;
 }
 .proj__parallax {
   position: absolute;
@@ -48,6 +52,8 @@
   content: "";
   position: absolute;
   inset: 0;
+  /* the overlays carry the radius themselves, so a dropped overflow clip can't leave them square */
+  border-radius: inherit;
   background:
     linear-gradient(to top, rgba(4, 6, 14, .66), transparent 45%),
     radial-gradient(130% 120% at 50% 40%, transparent 56%, rgba(2, 4, 12, .55) 100%);
@@ -58,6 +64,7 @@
   position: absolute;
   inset: 0;
   z-index: 1;
+  border-radius: inherit;
   pointer-events: none;
   opacity: 0;
   transition: opacity .5s;
@@ -206,8 +213,10 @@
   --c-op: 1;
   --glow: 1;
 }
-.proj__ignite .proj__media {
-  transform-origin: 50% 100%;
+/* the tilt and dim only exist while the card rises: at rest the frame is flat, since even rotateX(0) and brightness(1)
+   keep WebKit's 3D and filter layers, and those square off the rounded clip */
+.proj__ignite .proj__media { transform-origin: 50% 100%; }
+.proj__ignite.is-rising .proj__media {
   transform: perspective(1600px) rotateX(calc(var(--tilt) * 16deg)) scale(calc(1 - var(--tilt) * .12)) translateY(calc(var(--tilt) * 70px));
   filter: brightness(calc(1 - var(--dim) * .58)) saturate(calc(1 - var(--dim) * .45));
 }

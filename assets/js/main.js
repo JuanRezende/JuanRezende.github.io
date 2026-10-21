@@ -325,6 +325,7 @@
   const clamp01 = (v) => Math.max(0, Math.min(1, v));
   function setIgnite(ig, p) {
     const e = ease3(p), d = clamp01((p - 0.04) / 0.72), c = ease3(clamp01((p - 0.3) / 0.66));
+    ig.classList.toggle('is-rising', p < 1);
     ig.style.setProperty('--tilt', (1 - e).toFixed(4));
     ig.style.setProperty('--dim', (1 - clamp01(p / 0.8)).toFixed(4));
     ig.style.setProperty('--draw', (d < 0.5 ? 2 * d * d : 1 - Math.pow(-2 * d + 2, 2) / 2).toFixed(4));
