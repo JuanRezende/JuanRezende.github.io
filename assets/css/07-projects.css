@@ -24,6 +24,15 @@
   transition: box-shadow .6s var(--ease);
 }
 .proj--featured .proj__media { aspect-ratio: 16 / 9; }
+/* the still gets its own rounded clip: mobile browsers drop the frame's overflow radius on a transformed (GSAP) child,
+   and clipping the frame itself would cut its shadow and the trace glow */
+.proj__clip {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: calc(var(--radius-lg) - 1px);
+  clip-path: inset(0 round calc(var(--radius-lg) - 1px));
+}
 .proj__parallax {
   position: absolute;
   inset: -6% 0;

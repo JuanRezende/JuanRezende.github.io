@@ -20,6 +20,12 @@
   background: linear-gradient(var(--surface), var(--surface)) padding-box, var(--hairline-strong) border-box;
   box-shadow: var(--shadow);
 }
+/* same rounded clip as the project stills: the scrubbed scale on the img escapes the frame's radius on mobile */
+.portrait__clip {
+  overflow: hidden;
+  border-radius: calc(var(--radius-lg) - 1px);
+  clip-path: inset(0 round calc(var(--radius-lg) - 1px));
+}
 .portrait__frame img {
   width: 100%;
   aspect-ratio: 1;

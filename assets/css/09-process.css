@@ -20,7 +20,9 @@
   margin: 0;
   display: flex;
   gap: 1rem;
-  padding: 0 var(--gutter) 1rem;
+  /* a scroller clips on both axes: the extra block padding gives the cards' shadow room, the negative margin keeps the layout */
+  padding: 1.5rem var(--gutter) 5rem;
+  margin-block: -1.5rem -4rem;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   scroll-padding-inline: var(--gutter);
@@ -114,7 +116,8 @@
     margin-inline: auto;
     width: 100%;
     overflow: visible;
-    padding-bottom: 0;
+    padding-block: 0;
+    margin-block: 0;
   }
   .step { flex: none; }
   .process__hint { display: none; }

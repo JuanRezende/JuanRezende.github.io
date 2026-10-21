@@ -162,11 +162,14 @@
   mask-composite: exclude;
   transition: opacity .5s var(--ease);
 }
-.glass:hover, .cap:hover, .step:hover {
-  --spot-c: rgba(56, 189, 248, .13);
-  box-shadow: var(--shadow-glow);
+/* hover only where a pointer can hover: a tap would otherwise latch the glow on touch screens */
+@media (hover: hover) {
+  .glass:hover, .cap:hover, .step:hover {
+    --spot-c: rgba(56, 189, 248, .13);
+    box-shadow: var(--shadow-glow);
+  }
+  a.glass:hover { translate: 0 -3px; }
 }
-a.glass:hover { translate: 0 -3px; }
 /* panels: the hairline lights up where the cursor is (--mx/--my in px, set by the glass spotlight script) */
 .glass::before, .cap::before, .step::before {
   content: "";
@@ -183,4 +186,6 @@ a.glass:hover { translate: 0 -3px; }
   opacity: 0;
   transition: opacity .5s var(--ease);
 }
-.glass:hover::before, .cap:hover::before, .step:hover::before { opacity: 1; }
+@media (hover: hover) {
+  .glass:hover::before, .cap:hover::before, .step:hover::before { opacity: 1; }
+}
