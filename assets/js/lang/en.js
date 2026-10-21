@@ -3,7 +3,7 @@
    attribute (alt, aria-label, title, data-caption, data-title, data-label, data-suffix), whose text matches a key is
    swapped for its value; leading and trailing spaces of the original are kept.
    When you edit a Portuguese text in index.html, edit its key here too (otherwise that spot stays in Portuguese).
-   Names (GenialCard, Credenciados Light, tools, companies) need no entry: missing keys keep the
+   Names (GenialCard, tools, companies) need no entry: missing keys keep the
    original text. */
 window.I18N_EN = {
   meta: {
@@ -82,7 +82,7 @@ window.I18N_EN = {
     'Intranet · Globo': 'Intranet · Globo',
     'Cultura e pessoas em um só lugar': 'Culture and people in one place',
     'Cultura, eventos e desenvolvimento em uma comunidade interna.': 'Culture, events and growth in one internal community.',
-    'Telas mobile e desktop do portal Credenciados Light com serviços e acompanhamento': 'Mobile and desktop screens of the Credenciados Light portal with services and request tracking',
+    'Telas mobile e desktop do portal Credenciados Light com serviços e acompanhamento': 'Mobile and desktop screens of the Light Accredited Partners portal with services and request tracking',
     'Plataforma web responsiva · Light': 'Responsive web platform · Light',
     'Serviços mais perto das pessoas': 'Services closer to people',
     'Jornadas de atendimento para estabelecimentos credenciados.': 'Service journeys for accredited partner stores.',
@@ -345,6 +345,8 @@ window.I18N_EN = {
     'Juntos pra fazer história na Globo': 'Together to make history at Globo',
     /* the Globo project goes by its English name (card, case title, tab title, transition card) */
     'Juntos pra fazer história': 'Together to make history',
+    /* the Light project goes by its English name too (card, case title, tab title, transition card, next-case card) */
+    'Credenciados Light': 'Light Accredited Partners',
 
     /* ── case 02 · Globo ── */
     'Case 02 · Intranet · Globo': 'Case 02 · Intranet · Globo',
