@@ -83,9 +83,13 @@
       try { localStorage.setItem('jr-lang', a.dataset.lang); } catch (err) { }
       const url = new URL(location.href);
       url.searchParams.set('lang', a.dataset.lang);
-      location.href = url.toString();
+      /* fade out first (lang-leaving, 05-layout.css) so the reload doesn't blink; at once with reduced motion */
+      const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      doc.classList.add('lang-leaving');
+      setTimeout(() => { location.href = url.toString(); }, still ? 0 : 220);
     });
   });
 
   doc.classList.remove('lang-pending');
+  window.addEventListener('pageshow', () => doc.classList.remove('lang-leaving'));
 })();
