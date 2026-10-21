@@ -212,57 +212,68 @@ main {
   }
 }
 
-/* ══════════ LANGUAGE SWITCH (PT · EN, see assets/js/i18n.js) ══════════
-   A segmented pill with a globe: the current language sits in a lit segment, the other is one tap away.
-   Two copies: end of the header pill (desktop) and in the bar next to the menu button (phones and tablets, where the
-   section links are hidden), so it is always one tap away. */
+/* ══════════ LANGUAGE SWITCH (PT / EN, see assets/js/i18n.js) ══════════
+   Quiet text in the nav's own voice: the current language is white with the ember dot the section links use, the
+   other one is a tap away. Two copies: end of the header pill (desktop, after a hairline divider) and in the bar next
+   to the menu button (phones and tablets, where the section links are hidden). */
 .lang-switch {
+  position: relative;
   display: inline-flex;
   align-items: center;
-  gap: 2px;
-  padding: 3px;
-  border-radius: var(--pill);
-  border: 1px solid var(--line-2);
-  background: rgba(255, 255, 255, .03);
+  gap: .1rem;
   font-family: var(--mono);
   font-size: .68rem;
   font-weight: 500;
-  letter-spacing: .14em;
+  letter-spacing: .18em;
   text-transform: uppercase;
 }
-.lang-switch__icon {
-  width: 15px;
-  height: 15px;
-  margin: 0 .2rem 0 .45rem;
-  color: var(--sky);
-}
 .lang-switch a {
-  display: grid;
-  place-items: center;
-  min-width: 2.35rem;
-  padding: .42rem .7rem .42rem calc(.7rem + .14em);   /* the tracking would leave the label off centre */
-  border-radius: var(--pill);
-  color: var(--muted);
-  transition: color .3s, background-color .3s, box-shadow .3s;
+  position: relative;
+  padding: .5rem .35rem .5rem calc(.35rem + .18em);   /* the tracking would leave the label off centre */
+  color: var(--meta);
+  transition: color .3s;
 }
-.lang-switch a:hover { color: var(--white); background: rgba(255, 255, 255, .05); }
-.lang-switch a.is-current {
-  color: var(--white);
-  background: linear-gradient(180deg, rgba(56, 189, 248, .26), rgba(56, 189, 248, .12));
-  box-shadow: inset 0 0 0 1px var(--sky-line), 0 0 14px -4px rgba(56, 189, 248, .6);
+.lang-switch a:hover { color: var(--white); }
+.lang-switch a.is-current { color: var(--white); }
+.lang-switch a::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: .05rem;
+  width: 4px;
+  height: 4px;
+  margin-left: -2px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 8px rgba(253, 186, 116, .8);
+  transform: scale(0);
+  transition: transform .35s var(--ease);
 }
-.lang-switch a:focus-visible { outline-offset: 1px; }
-/* phones and tablets: a compact copy in the bar, pushed right next to the menu button */
+.lang-switch a.is-current::after { transform: scale(1); }
+.lang-switch__sep { color: var(--marker); }
+/* desktop: a hairline sets it apart from the Contact button */
+.nav__group .lang-switch { padding-left: 1.1rem; }
+.nav__group .lang-switch::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 1px;
+  height: 1.1rem;
+  margin-top: -.55rem;
+  background: var(--line-3);
+}
+/* phones and tablets: in the bar, pushed right next to the menu button */
 .lang-switch--bar { display: none; }
 @media (max-width: 899px) {
-  .nav { gap: .75rem; }
+  .nav { gap: .5rem; }
   .lang-switch--bar {
     display: inline-flex;
     margin-left: auto;
-    margin-right: .25rem;
+    font-size: .74rem;
   }
-  .lang-switch--bar .lang-switch__icon { margin-left: .35rem; }
-  .lang-switch--bar a { min-width: 2.2rem; padding-block: .4rem; }
+  .lang-switch--bar a { padding-block: .7rem; }   /* a comfortable tap target */
+  .lang-switch--bar a::after { bottom: .3rem; }
 }
 /* switching language reloads the page: it fades out first instead of blinking */
 .lang-leaving body {
