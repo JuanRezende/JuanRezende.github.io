@@ -1,7 +1,7 @@
 /* i18n.js · Portuguese / English
-   The page is written in Portuguese. In English (chosen with the PT · EN switch, or ?lang=en), this swaps every text and
-   label for its entry in lang/en.js once, before main.js runs, so the word splitting, counters, tab titles and transition
-   cards all start from English. Switching language saves the choice and reloads the page on the same hash (an in-place
+   The page is written in Portuguese. In English (chosen with the PT · EN switch, ?lang=en, or a browser with no Portuguese
+   among its languages), this swaps every text and label for its entry in lang/en.js once, before main.js runs, so the
+   word splitting, counters, tab titles and transition cards all start from English. Switching language saves the choice and reloads the page on the same hash (an in-place
    swap would leave stale copies in the split headings and their aria-labels).
    The language itself is decided by the <head> script (html[lang], and html.lang-pending, which keeps the page hidden
    until this has run). Loaded after effects/ and before main.js. */

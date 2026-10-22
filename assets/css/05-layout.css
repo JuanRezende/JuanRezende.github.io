@@ -167,9 +167,22 @@
   text-transform: uppercase;
   color: var(--meta);
 }
+/* phones and tablets: the section links fold into the menu, the Contact button stays in the bar next to it */
+.nav__cta--bar { display: none; }
 @media (max-width: 899px) {
+  .nav { gap: .5rem; }
   .nav__group { display: none; }
   .menu-btn { display: grid; }
+  .nav__cta--bar {
+    display: inline-flex;
+    margin-left: auto;
+    padding: .6rem calc(1.05rem - .18em) .6rem 1.05rem;   /* the tracking would leave the label off centre */
+    font-family: var(--mono);
+    font-size: .68rem;
+    font-weight: 500;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+  }
 }
 
 /* ══════════ LAYOUT ══════════ */
@@ -214,8 +227,8 @@ main {
 
 /* ══════════ LANGUAGE SWITCH (PT / EN, see assets/js/i18n.js) ══════════
    Quiet text in the nav's own voice: the current language is white with the ember dot the section links use, the
-   other one is a tap away. Two copies: end of the header pill (desktop, after a hairline divider) and in the bar next
-   to the menu button (phones and tablets, where the section links are hidden). */
+   other one is a tap away. Two copies: end of the header pill (desktop, after a hairline divider) and in the mobile
+   menu under the section links (phones and tablets, where the bar keeps only the Contact button). */
 .lang-switch {
   position: relative;
   display: inline-flex;
@@ -263,18 +276,14 @@ main {
   margin-top: -.55rem;
   background: var(--line-3);
 }
-/* phones and tablets: in the bar, pushed right next to the menu button */
-.lang-switch--bar { display: none; }
-@media (max-width: 899px) {
-  .nav { gap: .5rem; }
-  .lang-switch--bar {
-    display: inline-flex;
-    margin-left: auto;
-    font-size: .74rem;
-  }
-  .lang-switch--bar a { padding-block: .7rem; }   /* a comfortable tap target */
-  .lang-switch--bar a::after { bottom: .3rem; }
+/* phones and tablets: in the menu, under the section links, its first label lined up with theirs */
+.lang-switch--menu {
+  align-self: flex-start;
+  margin: 2rem 0 0 calc(-.35rem - .18em);
+  font-size: .8rem;
 }
+.lang-switch--menu a { padding-block: .7rem; }   /* a comfortable tap target */
+.lang-switch--menu a::after { bottom: .3rem; }
 /* switching language reloads the page: it fades out first instead of blinking */
 .lang-leaving body {
   opacity: 0;

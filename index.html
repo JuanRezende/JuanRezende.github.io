@@ -51,15 +51,22 @@
 <script>
   document.documentElement.classList.add('js');
   try { if (sessionStorage.getItem('jr-intro') || matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('no-intro'); } catch (e) {}
-  /* language: Portuguese unless ?lang=en or a saved choice says English. The English copy is applied by assets/js/i18n.js
-     at the end of the body; until then the page stays hidden (lang-pending, with a CSS failsafe in 02-base.css). */
+  /* language: ?lang=, else the visitor's saved choice, else the browser's languages (Portuguese if any of them is, English
+     otherwise; not saved, so it follows the browser until the switch is used). Crawlers render in en-US, so they always
+     get the Portuguese the page is written in. The English copy is applied by assets/js/i18n.js at the end of the body;
+     until then the page stays hidden (lang-pending, with a CSS failsafe in 02-base.css). */
   (function () {
-    var d = document.documentElement, l = null;
+    var d = document.documentElement, l = null, langs, bot;
     try {
       l = new URLSearchParams(location.search).get('lang');
       if (l === 'en' || l === 'pt') localStorage.setItem('jr-lang', l);
       else l = localStorage.getItem('jr-lang');
     } catch (e) {}
+    if (l !== 'en' && l !== 'pt') {
+      langs = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || ''];
+      bot = /bot|crawl|spider|slurp|lighthouse|headless/i.test(navigator.userAgent);
+      l = bot || !langs[0] || langs.some(function (x) { return /^pt\b/i.test(x); }) ? 'pt' : 'en';
+    }
     if (l === 'en') { d.lang = 'en'; d.classList.add('lang-pending'); }
   })();
   /* effects budget: without hardware graphics (WebGL missing or software-only) every blur and the WebGL aura fall on the CPU,
@@ -270,7 +277,7 @@
       <a class="nav__cta" href="#contato">Contato</a>
       <div class="lang-switch" role="group" aria-label="Idioma"><a href="?lang=pt" data-lang="pt" lang="pt-BR" hreflang="pt-BR" aria-label="Português">PT</a><span class="lang-switch__sep" aria-hidden="true">/</span><a href="?lang=en" data-lang="en" lang="en" hreflang="en" aria-label="English">EN</a></div>
     </div>
-    <div class="lang-switch lang-switch--bar" role="group" aria-label="Idioma"><a href="?lang=pt" data-lang="pt" lang="pt-BR" hreflang="pt-BR" aria-label="Português">PT</a><span class="lang-switch__sep" aria-hidden="true">/</span><a href="?lang=en" data-lang="en" lang="en" hreflang="en" aria-label="English">EN</a></div>
+    <a class="nav__cta nav__cta--bar" href="#contato">Contato</a>
     <button class="menu-btn" type="button" aria-controls="mobile-menu" aria-expanded="false" aria-label="Abrir menu"><svg class="icon" aria-hidden="true"><use href="#i-menu"/></svg></button>
   </nav>
   <div class="progress" aria-hidden="true"><span id="scroll-progress"></span></div>
@@ -282,6 +289,7 @@
   <a href="#processo"><span>03</span>Processo</a>
   <a href="#artigos"><span>04</span>Artigos</a>
   <a href="#contato"><span>05</span>Contato</a>
+  <div class="lang-switch lang-switch--menu" role="group" aria-label="Idioma"><a href="?lang=pt" data-lang="pt" lang="pt-BR" hreflang="pt-BR" aria-label="Português">PT</a><span class="lang-switch__sep" aria-hidden="true">/</span><a href="?lang=en" data-lang="en" lang="en" hreflang="en" aria-label="English">EN</a></div>
   <p class="mobile-menu__foot">Estratégia · Design · Código</p>
 </div>
 
@@ -379,7 +387,7 @@
           <div class="proj__body">
             <p class="proj__meta"><span class="proj__index">01</span><span>App mobile · Finanças pessoais</span></p>
             <h3 class="proj__title">GenialCard <em>Mais clareza sobre os gastos</em></h3>
-            <p class="proj__summary">46 participantes na pesquisa. Protótipo testado com 9 pessoas.</p>
+            <p class="proj__summary">Cartões, limites e assinaturas reunidos em uma leitura única dos gastos.</p>
             <ul class="tags"><li class="tag">UX Research</li><li class="tag">UX Strategy</li><li class="tag">UX Design</li><li class="tag">UI Design</li></ul>
           </div>
         </a>

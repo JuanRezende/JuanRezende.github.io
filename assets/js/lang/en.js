@@ -77,7 +77,6 @@ window.I18N_EN = {
     'Ver case': 'View case',
     'App mobile · Finanças pessoais': 'Mobile app · Personal finance',
     'Mais clareza sobre os gastos': 'Clearer view of spending',
-    '46 participantes na pesquisa. Protótipo testado com 9 pessoas.': '46 survey participants. Prototype tested with 9 people.',
     'Interfaces da comunidade Juntos pra fazer história na intranet da Globo': 'Interfaces of the Together to make history community on the Globo intranet',
     'Intranet · Globo': 'Intranet · Globo',
     'Cultura e pessoas em um só lugar': 'Culture and people in one place',
