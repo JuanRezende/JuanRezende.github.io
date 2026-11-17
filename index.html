@@ -3,7 +3,7 @@
   Juan Rezende · portfolio (single page, works straight from file://)
 
   Where things live
-    index.html ............ content: intro, header, HOME (hero, projetos, sobre + formação, processo, artigos,
+    index.html ............ content: header, HOME (hero, projetos, sobre + formação, processo, artigos,
                             contato), CASES (genialcard, globo, light), footer. Search the ══ comments.
     assets/css/01…14 ....... styles, one file per area, loaded in numeric order (the cascade depends on it)
     assets/js/main.js ...... routing, animations and interactions (contents listed at its top)
@@ -50,7 +50,6 @@
 <link rel="stylesheet" href="assets/fonts/fonts.css">
 <script>
   document.documentElement.classList.add('js');
-  try { if (sessionStorage.getItem('jr-intro') || matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('no-intro'); } catch (e) {}
   /* language: ?lang=, else the visitor's saved choice, else the browser's languages (Portuguese if any of them is, English
      otherwise; not saved, so it follows the browser until the switch is used). Crawlers render in en-US, so they always
      get the Portuguese the page is written in. The English copy is applied by assets/js/i18n.js at the end of the body;
@@ -242,11 +241,7 @@
   </defs>
 </svg>
 
-<!-- ══════════ INTRO (light beam) + TITLE-CARD TRANSITION ══════════ -->
-<div class="intro" id="intro" aria-hidden="true">
-  <span class="intro__beam"></span>
-  <div class="intro__text"><p class="intro__name">Juan Rezende</p><p class="intro__role">Estratégia · Design · Código</p></div>
-</div>
+<!-- ══════════ TITLE-CARD TRANSITION ══════════ -->
 <div class="curtain" id="curtain" aria-hidden="true">
   <canvas class="curtain__warp"></canvas>
   <p class="curtain__label"></p>

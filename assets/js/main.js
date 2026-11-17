@@ -9,11 +9,10 @@
      VIEW SETUP ...... nav state, per-view observers, word splitting
      MOTION .......... GSAP timelines per view: hero, projects, about, process, contact, cases
      IGNITION ........ featured card: tilt, border trace, converging corners
-     INTRO ........... the opening beam and name
      HEADER PROGRESS · POINTER LIGHT · LUMEN (glass spotlight, magnetic buttons, reels, offscreen pause)
      MOBILE MENU · LIGHTBOX · TABS · E-MAIL
      WAVE ............ hero ring + contact horizon (effects/wave.js)
-     BOOT ............ first route, intro, load refresh
+     BOOT ............ first route, hero, load refresh
    ══════════════════════════════════════════════════════════════════════════════════════ */
 (() => {
   'use strict';
@@ -72,7 +71,7 @@
       const el = scrollToTarget(next, false);
       focusTarget(el || (next.view === 'case' ? $('.case-title', cases[next.slug]) : null));
     };
-    if (initial || !motion) { swap(initial ? 'intro' : 0); return; }
+    if (initial || !motion) { swap(initial ? 'boot' : 0); return; }
     jump(next, swap);
   }
 
@@ -339,7 +338,7 @@
   });
 
   function animateHome(delay) {
-    heroTl = gsap.timeline({ paused: delay === 'intro', delay: typeof delay === 'number' ? delay : 0 })
+    heroTl = gsap.timeline({ paused: delay === 'boot', delay: typeof delay === 'number' ? delay : 0 })
       .from('.hero__gl', { opacity: 0, duration: 2.4, ease: 'power2.out' }, 0)
       .call(() => { if (wave) wave.ignite(); }, null, 0.15)
       .from('.hero__beams', { opacity: 0, duration: 2.4, ease: 'power2.out' }, 0.9)
@@ -460,22 +459,7 @@
     if (!isLite()) atmosTweens.push(
       gsap.to('.atmos__layer', { yPercent: -12, ease: 'none', scrollTrigger: { trigger: document.body, start: 'top top', end: 'bottom bottom', scrub: 1.2 } }),
       gsap.to('.atmos__dust', { yPercent: -26, ease: 'none', scrollTrigger: { trigger: document.body, start: 'top top', end: 'bottom bottom', scrub: 1.6 } }));
-    gsap.from('#site-header', { y: -60, opacity: 0, duration: 1.1, ease: 'power3.out', clearProps: 'transform', delay: doc.classList.contains('no-intro') ? 0 : 1.8 });
-  }
-
-  /* ══════════ INTRO: a single beam of light, the name, then the scene ══════════ */
-  function runIntro(done) {
-    const intro = $('#intro');
-    try { sessionStorage.setItem('jr-intro', '1'); } catch (e) {}
-    if (!intro || doc.classList.contains('no-intro')) { if (intro) intro.remove(); done(); return; }
-    const fonts = document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve();
-    Promise.race([fonts, new Promise(r => setTimeout(r, 900))]).then(() => {
-      setTimeout(() => {
-        intro.classList.add('is-done');
-        setTimeout(done, 250);
-        setTimeout(() => intro.remove(), 1100);
-      }, 1300);
-    });
+    gsap.from('#site-header', { y: -60, opacity: 0, duration: 1.1, ease: 'power3.out', clearProps: 'transform' });
   }
 
   /* ══════════ HEADER PROGRESS ══════════ */
@@ -659,7 +643,8 @@
   /* ══════════ BOOT ══════════ */
   route({ initial: true });
   updateProgress();
-  runIntro(() => { playHero(); watchFrames(); });
+  playHero();
+  watchFrames();
   window.addEventListener('load', () => {
     if (hasGSAP) ScrollTrigger.refresh();
     const p = parse();

@@ -1,4 +1,4 @@
-/* 04-atmosphere.css · Page background (nebula, starfield, grid, vignette, grain) and the intro beam
+/* 04-atmosphere.css · Page background (nebula, starfield, grid, vignette, grain) and the title-card transition
    Part of the Lumen stylesheet, loaded in numeric order (the cascade depends on it). */
 
 /* ══════════ ATMOSPHERE: nebula, starfield, survey grid, vignette, film grain ══════════ */
@@ -148,95 +148,7 @@
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-/* ══════════ INTRO (light beam) + TITLE-CARD TRANSITION ══════════ */
-.intro {
-  position: fixed;
-  inset: 0;
-  z-index: 200;
-  display: none;
-  place-items: center;
-  background: var(--bg);
-}
-.js:not(.no-intro) .intro {
-  display: grid;
-  animation: introFailsafe .01s 4.2s forwards;
-}
-.intro.is-done {
-  opacity: 0;
-  transition: opacity .9s var(--ease);
-}
-.intro__beam {
-  position: absolute;
-  left: 50%;
-  top: 0;
-  width: 1px;
-  height: 100%;
-  background: linear-gradient(to bottom, transparent, rgba(56, 189, 248, .9) 35%, #fff 50%, rgba(56, 189, 248, .9) 65%, transparent);
-  box-shadow: 0 0 22px 2px rgba(56, 189, 248, .4);
-  transform: scaleY(0);
-  animation: beam 1.2s var(--ease) .1s forwards;
-}
-.intro.is-done .intro__beam {
-  transform: scaleY(1.4);
-  opacity: 0;
-  transition: transform 1s var(--ease), opacity .8s;
-}
-.intro__text {
-  position: relative;
-  display: grid;
-  justify-items: center;
-  gap: .6rem;
-  padding: 1rem 1.75rem;
-  background: var(--bg);
-  text-align: center;
-  opacity: 0;
-  animation: introText 1s var(--ease) .75s forwards;
-}
-.intro__name {
-  font-family: var(--display);
-  font-weight: 500;
-  font-size: clamp(1.5rem, 3vw, 2.25rem);
-  letter-spacing: -.03em;
-  color: var(--white);
-}
-.intro__role {
-  font-family: var(--mono);
-  font-size: .68rem;
-  letter-spacing: .32em;
-  margin-right: -.32em;
-  text-transform: uppercase;
-  color: var(--accent);
-}
-@keyframes beam {
-  to { transform: scaleY(1); }
-}
-@keyframes introText {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-    filter: blur(6px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-    filter: none;
-  }
-}
-@keyframes introFailsafe {
-  to {
-    visibility: hidden;
-    opacity: 0;
-  }
-}
-/* on exit the name and its dark plate leave first, so the plate never lies over the title as it enters */
-.intro.is-done .intro__text { animation: introTextOut .3s var(--ease) forwards; }
-@keyframes introTextOut {
-  from { opacity: 1; }
-  to {
-    opacity: 0;
-    filter: blur(6px);
-  }
-}
+/* ══════════ TITLE-CARD TRANSITION ══════════ */
 .curtain {
   position: fixed;
   inset: 0;
