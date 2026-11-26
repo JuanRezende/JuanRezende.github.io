@@ -35,6 +35,7 @@
   position: absolute;
   inset: auto 0 0;
   height: 60%;
+  opacity: .65;
   z-index: -1;
   pointer-events: none;
 }
@@ -92,7 +93,7 @@
   position: relative;
   z-index: 1;
   padding: 2.5rem 0;
-  background: var(--bg);
+  background: var(--reading-bg);
 }
 .footer::before {
   content: "";

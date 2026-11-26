@@ -200,6 +200,13 @@ main {
   position: relative;
   z-index: 1;
 }
+#view-case {
+  background-color: var(--reading-bg);
+}
+.home-content {
+  /* Continue the hero's opaque bottom fade into the quieter reading background. */
+  background: linear-gradient(to bottom, var(--bg), var(--reading-bg) 6rem);
+}
 .section {
   position: relative;
   padding-block: clamp(5rem, 11vw, 8.5rem);

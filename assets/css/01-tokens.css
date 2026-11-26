@@ -24,6 +24,7 @@
 :root {
   /* ink */
   --bg: #04060e;
+  --reading-bg: color-mix(in srgb, var(--bg) 65%, transparent);
   --ink-2: #070b19;
   --surface: #0a1024;
   --surface-2: #0e1633;
