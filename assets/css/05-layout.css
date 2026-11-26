@@ -13,7 +13,7 @@
   border-radius: var(--pill);
   overflow: hidden;
   background:
-    linear-gradient(rgba(6, 10, 24, .62), rgba(6, 10, 24, .62)) padding-box,
+    linear-gradient(rgba(6, 10, 24, .9), rgba(6, 10, 24, .9)) padding-box,
     var(--hairline-strong) border-box;
   border: 1px solid transparent;
   /* a fixed pill re-blurs what scrolls under it on every frame: kept light (lite mode drops it, see 14-motion.css) */
@@ -53,7 +53,7 @@
   align-items: center;
   gap: 1.85rem;
   font-family: var(--mono);
-  font-size: .68rem;
+  font-size: var(--text-small);
   letter-spacing: .18em;
   font-weight: 500;
   text-transform: uppercase;
@@ -99,7 +99,6 @@
   place-items: center;
   width: 2.75rem;
   height: 2.75rem;
-  margin-right: -.75rem;
   color: var(--text-2);
 }
 .menu-btn .icon {
@@ -129,7 +128,8 @@
   padding: 6rem var(--gutter) 3rem;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: safe center;
+  overflow-y: auto;
   gap: .25rem;
   /* opaque, so it needs no backdrop blur and nothing shows through */
   background: radial-gradient(120% 80% at 50% 0%, #0e1633, #04060e);
@@ -155,34 +155,44 @@
 }
 .mobile-menu > a span {
   font-family: var(--mono);
-  font-size: .72rem;
+  font-size: var(--text-small);
   letter-spacing: .12em;
   color: var(--accent);
 }
 .mobile-menu__foot {
   margin-top: 2.5rem;
   font-family: var(--mono);
-  font-size: .68rem;
-  letter-spacing: .2em;
+  font-size: var(--text-small);
+  letter-spacing: .14em;
   text-transform: uppercase;
   color: var(--meta);
 }
 /* phones and tablets: the section links fold into the menu, the Contact button stays in the bar next to it */
 .nav__cta--bar { display: none; }
 @media (max-width: 899px) {
-  .nav { gap: .5rem; }
+  .nav { gap: .25rem; }
   .nav__group { display: none; }
   .menu-btn { display: grid; }
   .nav__cta--bar {
     display: inline-flex;
     margin-left: auto;
-    padding: .6rem calc(1.05rem - .18em) .6rem 1.05rem;   /* the tracking would leave the label off centre */
+    padding: .6rem calc(.8rem - .18em) .6rem .8rem;
     font-family: var(--mono);
-    font-size: .68rem;
+    font-size: var(--text-small);
     font-weight: 500;
     letter-spacing: .18em;
     text-transform: uppercase;
   }
+}
+
+@media (pointer: coarse) {
+  .brand, .nav-link, .nav__group .nav__cta, .lang-switch a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+  }
+  .nav__cta--bar { min-height: 2.75rem; }
+  .lang-switch a { min-width: 2.75rem; justify-content: center; }
 }
 
 /* ══════════ LAYOUT ══════════ */
@@ -235,7 +245,7 @@ main {
   align-items: center;
   gap: .1rem;
   font-family: var(--mono);
-  font-size: .68rem;
+  font-size: var(--text-small);
   font-weight: 500;
   letter-spacing: .18em;
   text-transform: uppercase;
@@ -280,7 +290,7 @@ main {
 .lang-switch--menu {
   align-self: flex-start;
   margin: 2rem 0 0 calc(-.35rem - .18em);
-  font-size: .8rem;
+  font-size: var(--text-small);
 }
 .lang-switch--menu a { padding-block: .7rem; }   /* a comfortable tap target */
 .lang-switch--menu a::after { bottom: .3rem; }

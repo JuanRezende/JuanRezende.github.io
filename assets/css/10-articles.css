@@ -25,8 +25,8 @@
 .article:hover::after { transform: scaleX(1); }
 .article .article__src {
   font-family: var(--mono);
-  font-size: .64rem;
-  letter-spacing: .2em;
+  font-size: var(--text-small);
+  letter-spacing: .14em;
   text-transform: uppercase;
   color: var(--meta);
 }
@@ -41,7 +41,7 @@
 }
 .article p {
   color: var(--muted);
-  font-size: .9375rem;
+  font-size: 1rem;
   max-width: 40rem;
 }
 .article h3 + p { margin-top: .6rem; }
@@ -50,7 +50,7 @@
   align-items: center;
   gap: .75rem;
   font-family: var(--mono);
-  font-size: .66rem;
+  font-size: var(--text-small);
   letter-spacing: .18em;
   text-transform: uppercase;
   color: var(--accent-2);

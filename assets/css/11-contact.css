@@ -9,35 +9,27 @@
 }
 .contact {
   display: grid;
-  gap: 3rem;
+  gap: 2rem;
   align-items: end;
 }
-.stacked {
-  font-family: var(--display);
-  font-weight: 500;
-  font-size: clamp(2.4rem, 7vw, 5.5rem);
-  line-height: 1;
-  letter-spacing: -.05em;
-  color: var(--white);
+.contact h2 em { display: block; }
+.contact .btn-row { flex-wrap: nowrap; }
+@media (max-width: 899px) {
+  .contact .btn { flex-grow: 1; }
 }
-.stacked > span, .stacked > em { display: block; }
-.stacked em {
-  font-weight: 300;
-  font-size: 1.1em;
-  padding-right: .1em;
-  color: var(--accent-2);
-  text-shadow: 0 0 34px rgba(253, 186, 116, .38);
+@media (max-width: 30rem) {
+  .contact .btn-row { gap: .5rem; }
+  .contact .btn {
+    gap: .375rem;
+    padding-inline: clamp(.625rem, 3vw, .875rem);
+    letter-spacing: .06em;
+  }
 }
-.contact__side {
-  display: grid;
-  gap: 2rem;
+@media (max-width: 22rem) {
+  .contact .btn .icon { display: none; }
 }
-.contact__side p {
-  color: var(--text-2);
-  max-width: 30rem;
-}
-@media (min-width: 1024px) {
-  .contact { grid-template-columns: 1.4fr 1fr; }
+@media (min-width: 900px) {
+  .contact { grid-template-columns: 1fr auto; }
 }
 .horizon {
   position: absolute;
@@ -118,7 +110,7 @@
 }
 .footer__copy {
   font-family: var(--mono);
-  font-size: .64rem;
+  font-size: var(--text-small);
   letter-spacing: .18em;
   text-transform: uppercase;
   color: var(--meta);
@@ -128,13 +120,16 @@
   flex-wrap: wrap;
   gap: .5rem 1.75rem;
   font-family: var(--mono);
-  font-size: .68rem;
+  font-size: var(--text-small);
   letter-spacing: .16em;
   text-transform: uppercase;
   color: var(--muted);
 }
 .footer__nav a { transition: color .3s; }
 .footer__nav a:hover { color: var(--accent-2); }
+@media (pointer: coarse) {
+  .footer__nav a { display: inline-flex; align-items: center; min-height: 2.75rem; }
+}
 @media (min-width: 900px) {
   .footer__inner {
     flex-direction: row;

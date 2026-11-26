@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <!--
   Juan Rezende · portfolio (single page, works straight from file://)
+  After editing this file, run  python tools/build-cases.py  (it makes each case's page: genialcard/index.html…)
 
   Where things live
     index.html ............ content: header, HOME (hero, projetos, sobre + formação, processo, artigos,
@@ -137,9 +138,9 @@
       "mainEntity": { "@id": "https://juanrezende.com/#juan" },
       "primaryImageOfPage": "https://juanrezende.com/assets/img/seo/og-image.jpg",
       "hasPart": [
-        { "@type": "CreativeWork", "name": "GenialCard", "url": "https://juanrezende.com/#case/genialcard", "about": "App mobile de finanças pessoais: UX Research, UX Strategy, UX e UI Design", "image": "https://juanrezende.com/assets/img/genialcard/capa-1024.webp", "creator": { "@id": "https://juanrezende.com/#juan" } },
-        { "@type": "CreativeWork", "name": "Juntos pra fazer história · Globo", "url": "https://juanrezende.com/#case/globo", "about": "Comunidade de cultura e pessoas na intranet da Globo: UX e UI Design", "image": "https://juanrezende.com/assets/img/globo/1-1024.webp", "creator": { "@id": "https://juanrezende.com/#juan" } },
-        { "@type": "CreativeWork", "name": "Credenciados Light", "url": "https://juanrezende.com/#case/light", "about": "Plataforma web responsiva para parceiros credenciados da Light: UX e UI Design", "image": "https://juanrezende.com/assets/img/light/2-1024.webp", "creator": { "@id": "https://juanrezende.com/#juan" } }
+        { "@type": "CreativeWork", "name": "GenialCard", "url": "https://juanrezende.com/genialcard/", "about": "App mobile de finanças pessoais: UX Research, UX Strategy, UX e UI Design", "image": "https://juanrezende.com/assets/img/genialcard/capa-1024.webp", "creator": { "@id": "https://juanrezende.com/#juan" } },
+        { "@type": "CreativeWork", "name": "Juntos pra fazer história · Globo", "url": "https://juanrezende.com/juntos-pra-fazer-historia/", "about": "Comunidade de cultura e pessoas na intranet da Globo: UX e UI Design", "image": "https://juanrezende.com/assets/img/globo/1-1024.webp", "creator": { "@id": "https://juanrezende.com/#juan" } },
+        { "@type": "CreativeWork", "name": "Credenciados Light", "url": "https://juanrezende.com/credenciados-light/", "about": "Plataforma web responsiva para parceiros credenciados da Light: UX e UI Design", "image": "https://juanrezende.com/assets/img/light/2-1024.webp", "creator": { "@id": "https://juanrezende.com/#juan" } }
       ]
     },
     {
@@ -149,7 +150,7 @@
       "url": "https://juanrezende.com/",
       "image": "https://juanrezende.com/assets/img/avatar/juan-500.webp",
       "jobTitle": "Product Designer",
-      "description": "Product Designer que leva produtos do discovery ao código: UX/UI, Design Systems, desenvolvimento front-end e IA aplicada a produtos digitais.",
+      "description": "Product Designer que combina visão estratégica, experiência do usuário e desenvolvimento front-end para criar produtos digitais eficientes e viáveis, do discovery ao código.",
       "address": { "@type": "PostalAddress", "addressCountry": "BR" },
       "knowsLanguage": "pt-BR",
       "knowsAbout": [
@@ -278,7 +279,7 @@
   <div class="progress" aria-hidden="true"><span id="scroll-progress"></span></div>
 </header>
 
-<div class="mobile-menu" id="mobile-menu">
+<div class="mobile-menu" id="mobile-menu" inert>
   <a href="#projetos"><span>01</span>Projetos</a>
   <a href="#sobre"><span>02</span>Sobre</a>
   <a href="#processo"><span>03</span>Processo</a>
@@ -325,8 +326,8 @@
     <div class="container hero__inner">
       <div class="hero__frame" aria-hidden="true"></div>
       <div class="hero__main">
+        <p class="hero__promise">Product Designer · 5+ anos</p>
         <h1 class="display" id="hero-title"><span class="sr-only">Juan Rezende, Product Designer: </span><span class="hero__line"><span>Da visão</span></span> <span class="hero__line"><em>à execução.</em></span></h1>
-        <p class="hero__promise">Estratégia, design e código.</p>
         <div class="btn-row hero__cta">
           <a class="btn btn--fill" href="#projetos">Conheça meus projetos<svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
         </div>
@@ -359,14 +360,13 @@
     <div class="container">
       <div class="section-head section-head--split">
         <div>
-          <p class="eyebrow"><span class="eyebrow__n">01</span>Projetos selecionados</p>
+          <p class="eyebrow">Projetos selecionados</p>
           <h2 class="h2" id="projetos-title">Decisões <em>em prática.</em></h2>
         </div>
-        <p class="lead" data-reveal>Pesquisa, experiência e interfaces em diferentes contextos.</p>
       </div>
 
       <div class="projects">
-        <a class="proj proj--featured" href="#case/genialcard">
+        <a class="proj proj--featured" href="/genialcard/">
           <div class="proj__ignite" data-ignite>
           <div class="proj__media">
             <div class="proj__clip">
@@ -377,17 +377,14 @@
             <span class="proj__bar">Ver case<svg class="icon" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></span>
             <svg class="proj__trace" aria-hidden="true"><path pathLength="1"/><path pathLength="1"/></svg>
           </div>
-          <span class="proj__corners" aria-hidden="true"></span>
           </div>
           <div class="proj__body">
-            <p class="proj__meta"><span class="proj__index">01</span><span>App mobile · Finanças pessoais</span></p>
-            <h3 class="proj__title">GenialCard <em>Mais clareza sobre os gastos</em></h3>
-            <p class="proj__summary">Cartões, limites e assinaturas reunidos em uma leitura única dos gastos.</p>
+            <h3 class="proj__title">GenialCard <em>App mobile de finanças pessoais</em></h3>
             <ul class="tags"><li class="tag">UX Research</li><li class="tag">UX Strategy</li><li class="tag">UX Design</li><li class="tag">UI Design</li></ul>
           </div>
         </a>
 
-        <a class="proj" href="#case/globo">
+        <a class="proj" href="/juntos-pra-fazer-historia/">
           <div class="proj__media">
             <div class="proj__clip">
               <div class="proj__parallax">
@@ -397,14 +394,12 @@
             <span class="proj__bar">Ver case<svg class="icon" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></span>
           </div>
           <div class="proj__body">
-            <p class="proj__meta"><span class="proj__index">02</span><span>Intranet · Globo</span></p>
-            <h3 class="proj__title">Juntos pra fazer história <em>Cultura e pessoas em um só lugar</em></h3>
-            <p class="proj__summary">Cultura, eventos e desenvolvimento em uma comunidade interna.</p>
-            <ul class="tags"><li class="tag">UX Design</li><li class="tag">UI Design</li><li class="tag">Globo</li></ul>
+            <h3 class="proj__title">Juntos pra fazer história <em>Comunicação interna na intranet da Globo</em></h3>
+            <ul class="tags"><li class="tag">UX Design</li><li class="tag">UI Design</li><li class="tag">Testes de usabilidade</li></ul>
           </div>
         </a>
 
-        <a class="proj" href="#case/light">
+        <a class="proj" href="/credenciados-light/">
           <div class="proj__media">
             <div class="proj__clip">
               <div class="proj__parallax">
@@ -414,10 +409,8 @@
             <span class="proj__bar">Ver case<svg class="icon" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></span>
           </div>
           <div class="proj__body">
-            <p class="proj__meta"><span class="proj__index">03</span><span>Plataforma web responsiva · Light</span></p>
-            <h3 class="proj__title">Credenciados Light <em>Serviços mais perto das pessoas</em></h3>
-            <p class="proj__summary">Jornadas de atendimento para estabelecimentos credenciados.</p>
-            <ul class="tags"><li class="tag">UX Design</li><li class="tag">UI Design</li><li class="tag">Light</li></ul>
+            <h3 class="proj__title">Credenciados Light <em>Portal de energia para parceiros credenciados</em></h3>
+            <ul class="tags"><li class="tag">UX Design</li><li class="tag">UI Design</li><li class="tag">Testes de usabilidade</li></ul>
           </div>
         </a>
       </div>
@@ -433,24 +426,23 @@
         <figcaption>Juan Rezende</figcaption>
       </figure>
       <div>
-        <p class="eyebrow"><span class="eyebrow__n">02</span><span id="sobre-title">Sobre</span></p>
+        <p class="eyebrow"><span id="sobre-title">Sobre</span></p>
         <p class="statement">Design e engenharia. <em>Na mesma decisão.</em></p>
         <div class="about__text" data-reveal>
-          <p class="about__lede">Minha visão conecta estratégia, experiência e código.</p>
-          <p><b>Mais de 5 anos</b> reestruturando jornadas, digitalizando processos e simplificando sistemas legados, da pesquisa à implementação.</p>
+          <ul class="about__points"><li><b>Visão estratégica</b> para criar.</li><li><b>Domínio técnico</b> para construir.</li><li><b>5+ anos</b> simplificando jornadas e sistemas legados.</li></ul>
         </div>
 
         <!-- FORMAÇÃO: the story continues in the same column, beside the portrait -->
         <div class="edu">
           <div class="edu__part">
-            <h3 class="eyebrow" id="edu-degrees"><span class="eyebrow__n" data-count-of=".edu__degrees">2</span>Formação acadêmica</h3>
+            <h3 class="eyebrow" id="edu-degrees">Formação acadêmica</h3>
             <ul class="cap edu__degrees" aria-labelledby="edu-degrees" data-reveal>
               <li><span class="edu__kind">Bacharelado</span><b>Engenharia de Software</b><small>Cruzeiro do Sul · 2028</small></li>
               <li><span class="edu__kind">Graduação</span><b>Análise e Desenvolvimento de Sistemas</b><small>Estácio · 2021</small></li>
             </ul>
           </div>
           <div class="edu__part">
-            <h3 class="eyebrow" id="edu-certs"><span class="eyebrow__n" data-count-of=".edu__certs">6</span>Certificações</h3>
+            <h3 class="eyebrow" id="edu-certs">Certificações</h3>
             <!-- one row per certificate, newest first; data-area: dev · des · pia. The panel and the count grow on their own. -->
             <ul class="cap edu__certs" aria-labelledby="edu-certs" data-reveal>
               <li><span class="edu__area" data-area="pia">Produto &amp; IA</span><b>AI Product Specialist</b><small>PM3 · 2026</small></li>
@@ -471,10 +463,9 @@
     <div class="process__pin">
       <div class="container section-head section-head--split">
         <div>
-          <p class="eyebrow"><span class="eyebrow__n">03</span>Processo</p>
+          <p class="eyebrow">Processo</p>
           <h2 class="h2" id="processo-title">Investigar. Projetar. <em>Construir.</em></h2>
         </div>
-        <p class="lead" data-reveal>Evidências para decidir. IA aplicada de ponta a ponta.</p>
       </div>
 
       <ol class="process__track" aria-label="Etapas do meu processo de produto e desenvolvimento">
@@ -494,10 +485,9 @@
     <div class="container">
       <div class="section-head section-head--split">
         <div>
-          <p class="eyebrow"><span class="eyebrow__n">04</span>Artigos</p>
+          <p class="eyebrow">Artigos</p>
           <h2 class="h2" id="artigos-title">Reflexões sobre <em>experiência.</em></h2>
         </div>
-        <p class="lead" data-reveal>Pesquisa e arquitetura da informação na prática.</p>
       </div>
       <div class="articles">
         <a class="article" href="https://medium.com/@juan.rezende/desvendando-a-arquitetura-da-informa%C3%A7%C3%A3o-conceitos-e-pr%C3%A1ticas-ab6edd15f87c" target="_blank" rel="noopener" data-reveal>
@@ -523,23 +513,20 @@
   <!-- ══════════ CONTATO ══════════ -->
   <section class="section contact-section" id="contato" aria-labelledby="contato-title">
     <div class="horizon" aria-hidden="true"><div class="horizon__planet"></div><canvas class="horizon__gl"></canvas><div class="horizon__sun"></div><div class="horizon__flare"></div></div>
-    <div class="container">
-      <p class="eyebrow"><span class="eyebrow__n">05</span>Contato</p>
-      <div class="contact">
-        <h2 class="stacked" id="contato-title"><span>Vamos</span><em>conversar?</em></h2>
-        <div class="contact__side">
-          <p data-reveal>Para criar algo novo ou evoluir o que já existe.</p>
-          <div class="btn-row" data-reveal>
-            <a class="btn btn--fill" href="#contato" data-mail>Enviar e-mail<svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
-            <a class="btn btn--ghost" href="https://www.linkedin.com/in/juanrezende/" target="_blank" rel="noopener">LinkedIn<svg class="icon" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a>
-          </div>
-        </div>
+    <div class="container contact">
+      <div>
+        <p class="eyebrow">Contato</p>
+        <h2 class="h2" id="contato-title">Vamos construir <em>algo relevante?</em></h2>
+      </div>
+      <div class="btn-row" data-reveal>
+        <a class="btn btn--fill" href="#contato" data-mail>Enviar e-mail<svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+        <a class="btn btn--ghost" href="https://www.linkedin.com/in/juanrezende/" target="_blank" rel="noopener">LinkedIn<svg class="icon" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a>
       </div>
     </div>
   </section>
 </div>
 
-<!-- ═══════════════════════════════ CASES (#case/<slug>) ═══════════════════════════════ -->
+<!-- ═══════════════════════════════ CASES (/genialcard/, /juntos-pra-fazer-historia/, /credenciados-light/: see tools/build-cases.py) ═══════════════════════════════ -->
 <div class="view" id="view-case" hidden>
 
   <!-- ══════════ CASE 01 · GENIALCARD ══════════ -->
@@ -553,24 +540,34 @@
           <span class="crumbs__sep" aria-hidden="true">/</span><span aria-current="page">GenialCard</span>
         </nav>
         <p class="spaced case-el">Case 01 · App mobile · Finanças</p>
-        <h1 class="case-title case-el" tabindex="-1">GenialCard <em>Gastos visíveis. Decisões melhores.</em></h1>
-        <p class="case-lead case-el">Cartões, limites e assinaturas reunidos em uma leitura única dos gastos.</p>
-        <ul class="tags case-el"><li class="tag">UX Research</li><li class="tag">UX Strategy</li><li class="tag">UX Design</li><li class="tag">UI Design</li></ul>
+        <h1 class="case-title case-el" tabindex="-1">GenialCard</h1>
+        <p class="case-intro case-el">App mobile de finanças pessoais</p>
       </div>
       <div class="container">
         <div class="viewfinder">
-          <figure class="stage">
+          <button class="stage media__frame" type="button" data-zoom="assets/img/genialcard/capa.webp" data-caption="Telas do GenialCard: boas-vindas, gráficos de entradas e saídas, gastos do mês e conversa com a IA Geni" aria-label="Ampliar imagem de capa do projeto" aria-haspopup="dialog">
             <img src="assets/img/genialcard/capa-1024.webp" srcset="assets/img/genialcard/capa-1024.webp 1024w, assets/img/genialcard/capa.webp 2048w" sizes="(min-width: 1312px) 1250px, 100vw" width="2048" height="1152" alt="Telas do GenialCard: boas-vindas, gráficos de entradas e saídas, gastos do mês e conversa com a IA Geni" decoding="async">
-          </figure>
+            <span class="media__zoom" aria-hidden="true"><svg class="icon"><use href="#i-maximize"/></svg></span>
+          </button>
         </div>
       </div>
+      <!-- CASE BRIEF: the whole case in one screen (challenge, role, solution, delivery, key decisions + evidence).
+           The summary carries challenge, solution, role and decisions; the sections below go deeper and do not repeat them. EVIDÊNCIA PENDENTE: Juan's individual part in the team, and what the
+           9 usability tests found (results go in "Entrega" and in the stats only with proof, see ESTRUTURA.md). -->
       <div class="container">
-        <dl class="ficha">
-          <div><dt>Produto</dt><dd>App mobile de controle financeiro</dd></div>
-          <div><dt>Escopo</dt><dd>UX Research, UX Strategy, UX e UI Design</dd></div>
-          <div><dt>Ferramentas</dt><dd>Figma, Notion, Trello, Google Forms, Google Meet, Photoshop</dd></div>
-          <div><dt>Status</dt><dd>Concluído · projeto em equipe</dd></div>
-        </dl>
+        <section class="brief" aria-labelledby="genialcard-brief-title">
+          <h2 class="brief__title" id="genialcard-brief-title">Resumo do case</h2>
+          <ol class="brief__lines">
+            <li class="brief__line brief__line--problem"><span class="brief__k">Desafio</span><span class="brief__v">Gastos <em class="hl">espalhados</em> em apps e faturas.</span></li>
+            <li class="brief__line brief__line--proof"><span class="brief__k">Validação</span><span class="brief__v">46 pessoas na pesquisa e 9 nos testes.</span></li>
+            <li class="brief__line brief__line--solution"><span class="brief__k">Solução</span><span class="brief__v">Cartões, limites e assinaturas <em class="hl">em um só app.</em></span></li>
+          </ol>
+          <dl class="brief__meta">
+            <div><dt>Formato</dt><dd>Projeto em equipe</dd></div>
+            <div><dt>Escopo</dt><dd><ul class="ficha__list"><li>UX Research</li><li>UX Strategy</li><li>UX Design</li><li>UI Design</li></ul></dd></div>
+            <div><dt>Ferramentas</dt><dd><ul class="ficha__list"><li>Figma</li><li>Notion</li><li>Trello</li><li>Google Forms</li><li>Google Meet</li><li>Photoshop</li></ul></dd></div>
+          </dl>
+        </section>
       </div>
     </header>
 
@@ -624,22 +621,15 @@
             <li><span class="trend__year">2022</span><span class="trend__val">56%</span></li>
             <li class="trend__arrow" aria-hidden="true"><svg class="icon"><use href="#i-arrow-right"/></svg></li>
             <li><span class="trend__year">2023</span><span class="trend__val">60%</span></li>
-            <li class="trend__caption">Cartão de crédito como principal fonte de dívida. Fonte: “Raio X da Inadimplência Brasileira”, MFM Tecnologia e Instituto Locomotiva.</li>
+            <li class="trend__caption">
+              <span>Cartão de crédito como principal fonte de dívida.</span>
+              <span>Fonte: “Raio X da Inadimplência Brasileira”, MFM Tecnologia e Instituto Locomotiva.</span>
+            </li>
           </ol>
         </section>
 
-        <section class="csec" id="genialcard-problema" data-label="Problema">
-          <p class="csec__kicker">04 · Problema</p>
-          <h2>Dados espalhados. <em>Nenhuma visão do todo.</em></h2>
-          <div class="callout" data-reveal>
-            <p class="callout__label"><svg class="icon" aria-hidden="true"><use href="#i-target"/></svg>Desafio</p>
-            <p>Transações, limites e assinaturas ficam em apps e faturas diferentes.</p>
-            <p>O GenialCard junta tudo e mostra onde dá para economizar.</p>
-          </div>
-        </section>
-
         <section class="csec" id="genialcard-csd" data-label="Matriz CSD">
-          <p class="csec__kicker">05 · Matriz CSD</p>
+          <p class="csec__kicker">04 · Matriz CSD</p>
           <h2>O que sabíamos. <em>O que faltava testar.</em></h2>
           <div class="grid-cards">
             <div class="card glass" data-reveal>
@@ -676,7 +666,7 @@
         </section>
 
         <section class="csec" id="genialcard-pesquisa" data-label="Pesquisa">
-          <p class="csec__kicker">06 · Pesquisa quantitativa</p>
+          <p class="csec__kicker">05 · Pesquisa quantitativa</p>
           <h2>O cartão manda. <em>O controle, não.</em></h2>
           <div class="prose" data-reveal>
             <p>Hábitos de pagamento, controle de gastos e assinaturas.</p>
@@ -698,11 +688,8 @@
         </section>
 
         <section class="csec" id="genialcard-benchmarking" data-label="Benchmarking">
-          <p class="csec__kicker">07 · Benchmarking</p>
+          <p class="csec__kicker">06 · Benchmarking</p>
           <h2>O que já existe. <em>O que faltava.</em></h2>
-          <div class="prose" data-reveal>
-            <p>Monefy, Minhas Economias, Mobills e Organizze, comparados recurso a recurso.</p>
-          </div>
           <div class="table-wrap" tabindex="0" role="region" aria-label="Tabela comparativa de competidores" data-reveal>
             <table>
               <thead><tr><th scope="col">Recursos</th><th scope="col">Monefy</th><th scope="col">Minhas Economias</th><th scope="col">Mobills</th><th scope="col">Organizze</th></tr></thead>
@@ -723,7 +710,7 @@
         </section>
 
         <section class="csec" id="genialcard-negocio" data-label="Negócio">
-          <p class="csec__kicker">08 · Negócio</p>
+          <p class="csec__kicker">07 · Negócio</p>
           <h2>Da pesquisa <em>às prioridades.</em></h2>
           <div class="prose" data-reveal>
             <p>Quem usa, por onde passa e o que o negócio sustenta.</p>
@@ -775,11 +762,10 @@
         </section>
 
         <section class="csec" id="genialcard-solucao" data-label="Solução">
-          <p class="csec__kicker">09 · Solução</p>
+          <p class="csec__kicker">08 · Solução</p>
           <h2>Do rascunho <em>ao protótipo.</em></h2>
           <div class="prose" data-reveal>
             <p>Wireframes, interface em alta fidelidade e protótipo navegável.</p>
-            <p>A navegação prioriza ler e controlar os gastos.</p>
           </div>
           <figure class="media" data-reveal>
             <button class="media__frame" type="button" data-zoom="assets/img/genialcard/wireframes.webp" data-caption="Wireframes do GenialCard" aria-label="Ampliar imagem: wireframes">
@@ -809,7 +795,7 @@
         </section>
 
         <section class="csec" id="genialcard-sitemap" data-label="Sitemap">
-          <p class="csec__kicker">10 · Arquitetura</p>
+          <p class="csec__kicker">09 · Arquitetura</p>
           <h2>Cada tela <em>no seu lugar.</em></h2>
           <div class="prose" data-reveal>
             <p>O sitemap que guiou a navegação.</p>
@@ -823,7 +809,7 @@
         </section>
 
         <section class="csec" id="genialcard-validacao" data-label="Validação">
-          <p class="csec__kicker">11 · Validação</p>
+          <p class="csec__kicker">10 · Validação</p>
           <h2>Testado com <em>quem vai usar.</em></h2>
           <div class="prose" data-reveal>
             <p>Protótipo testado com 9 pessoas, em sessões de teste de usabilidade.</p>
@@ -832,7 +818,7 @@
         </section>
 
         <section class="csec" id="genialcard-estilo" data-label="Guia de estilos">
-          <p class="csec__kicker">12 · Guia de estilos</p>
+          <p class="csec__kicker">11 · Guia de estilos</p>
           <h2>Um sistema, <em>não telas soltas.</em></h2>
           <div class="prose" data-reveal>
             <p>Cores, tipografia e componentes prontos para a implementação.</p>
@@ -846,7 +832,7 @@
         </section>
 
         <section class="csec" id="genialcard-proximos" data-label="Próximos passos">
-          <p class="csec__kicker">13 · Próximos passos</p>
+          <p class="csec__kicker">12 · Próximos passos</p>
           <h2>O que vem <em>depois.</em></h2>
           <ol class="grid-cards num-cards">
             <li class="glass" data-reveal>Validar o UX Writing com usuários.</li>
@@ -857,7 +843,7 @@
         </section>
 
         <section class="csec" id="genialcard-conclusao" data-label="Conclusão">
-          <p class="csec__kicker">14 · Conclusão</p>
+          <p class="csec__kicker">13 · Conclusão</p>
           <h2><em>O que aprendemos.</em></h2>
           <div class="prose" data-reveal>
             <p>O principal aprendizado: alinhar evidências, experiência e viabilidade desde o início.</p>
@@ -869,7 +855,7 @@
 
     <section class="case-next" aria-label="Próximo case">
       <div class="container">
-        <a class="next-card glass" href="#case/globo" data-reveal>
+        <a class="next-card glass" href="/juntos-pra-fazer-historia/" data-reveal>
           <div class="next-card__media"><img src="assets/img/globo/1-1024.webp" width="1024" height="768" alt="" loading="lazy" decoding="async"></div>
           <div class="next-card__body">
             <p class="label" style="color:var(--meta)">Próximo case · 02</p>
@@ -892,81 +878,66 @@
           <span class="crumbs__sep" aria-hidden="true">/</span><span aria-current="page">Globo</span>
         </nav>
         <p class="spaced case-el">Case 02 · Intranet · Globo</p>
-        <h1 class="case-title case-el" tabindex="-1">Juntos pra fazer história na Globo <em>Cultura conectada em um só lugar</em></h1>
-        <p class="case-lead case-el">Uma comunidade interna para reunir cultura, eventos e desenvolvimento.</p>
-        <ul class="tags case-el"><li class="tag">UX Design</li><li class="tag">UI Design</li><li class="tag">Globo</li></ul>
+        <h1 class="case-title case-el" tabindex="-1">Juntos pra fazer história</h1>
+        <p class="case-intro case-el">Comunicação interna na intranet da Globo</p>
       </div>
       <div class="container">
         <div class="viewfinder">
-          <figure class="stage">
+          <button class="stage media__frame" type="button" data-zoom="assets/img/globo/1.webp" data-caption="Visão geral da comunidade: atalhos, conteúdos em destaque, novidades e agenda de eventos" aria-label="Ampliar imagem de capa do projeto" aria-haspopup="dialog">
             <img src="assets/img/globo/1-1024.webp" srcset="assets/img/globo/1-1024.webp 1024w, assets/img/globo/1.webp 2048w" sizes="(min-width: 1312px) 1250px, 100vw" width="2048" height="1536" alt="Visão geral da comunidade: atalhos, conteúdos em destaque, novidades e agenda de eventos" decoding="async">
-          </figure>
+            <span class="media__zoom" aria-hidden="true"><svg class="icon"><use href="#i-maximize"/></svg></span>
+          </button>
         </div>
       </div>
+      <!-- CASE BRIEF (see the GenialCard one). EVIDÊNCIA PENDENTE: what the usability tests showed, before/after of the
+           iterations, adoption or engagement after launch. No numbers until they can be proven. -->
       <div class="container">
-        <dl class="ficha">
-          <div><dt>Cliente</dt><dd>Globo</dd></div>
-          <div><dt>Produto</dt><dd>Comunidade na intranet</dd></div>
-          <div><dt>Responsabilidades</dt><dd>Wireframes, protótipos, testes de usabilidade e iterações</dd></div>
-          <div><dt>Ferramentas</dt><dd>Miro, Whimsical, Adobe XD, Figma</dd></div>
-        </dl>
+        <section class="brief" aria-labelledby="globo-brief-title">
+          <h2 class="brief__title" id="globo-brief-title">Resumo do case</h2>
+          <ol class="brief__lines">
+            <li class="brief__line brief__line--problem"><span class="brief__k">Desafio</span><span class="brief__v">Eventos, histórias e aprendizado <em class="hl">dispersos.</em></span></li>
+            <li class="brief__line brief__line--proof"><span class="brief__k">Validação</span><span class="brief__v">Testes de usabilidade e iterações.</span></li>
+            <li class="brief__line brief__line--solution"><span class="brief__k">Solução</span><span class="brief__v"><em class="hl">Uma comunidade única</em> na intranet.</span></li>
+          </ol>
+          <dl class="brief__meta">
+            <div><dt>Escopo</dt><dd><ul class="ficha__list"><li>UX Design</li><li>UI Design</li></ul></dd></div>
+            <div><dt>Ferramentas</dt><dd><ul class="ficha__list"><li>Miro</li><li>Whimsical</li><li>Adobe XD</li><li>Figma</li></ul></dd></div>
+          </dl>
+        </section>
       </div>
     </header>
 
     <div class="container case-body">
-      <aside class="case-index" aria-label="Seções do case"><p>Neste case</p><ol data-index></ol></aside>
       <div class="case-content">
-        <section class="csec" id="globo-produto" data-label="O produto">
-          <p class="csec__kicker">01 · Visão geral</p>
-          <h2>Informação dispersa. <em>Experiência integrada.</em></h2>
-          <div class="prose" data-reveal>
-            <p>Reunimos eventos, histórias e aprendizado em um só ambiente.</p>
-            <p>O manifesto <strong>“Juntos pra fazer história”</strong> também ganhou espaço central.</p>
-            <p>Para gestores, fluxos dedicados simplificam a publicação de conteúdo.</p>
-          </div>
-        </section>
-
-        <section class="csec" id="globo-funcionalidades" data-label="Funcionalidades">
-          <p class="csec__kicker">02 · Funcionalidades</p>
-          <h2>Uma comunidade. <em>Vários caminhos.</em></h2>
-          <ul class="grid-cards">
-            <li class="card glass" data-reveal><svg class="icon card__icon" aria-hidden="true"><use href="#i-megaphone"/></svg><h3>Manifesto</h3><p>A cultura expressa para todos os colaboradores.</p></li>
-            <li class="card glass" data-reveal><svg class="icon card__icon" aria-hidden="true"><use href="#i-calendar"/></svg><h3>Eventos</h3><p>Agenda e participação em eventos.</p></li>
-            <li class="card glass" data-reveal><svg class="icon card__icon" aria-hidden="true"><use href="#i-newspaper"/></svg><h3>Cultura e histórias</h3><p>Notícias e histórias dos colaboradores.</p></li>
-            <li class="card glass" data-reveal><svg class="icon card__icon" aria-hidden="true"><use href="#i-graduation"/></svg><h3>Treinamento</h3><p>Conteúdos de aprendizado e desenvolvimento.</p></li>
-            <li class="card glass" data-reveal><svg class="icon card__icon" aria-hidden="true"><use href="#i-chart"/></svg><h3>Diagnósticos</h3><p>Dados e diagnósticos sobre cultura.</p></li>
-            <li class="card glass" data-reveal><svg class="icon card__icon" aria-hidden="true"><use href="#i-shield"/></svg><h3>Administração</h3><p>Publicação e gestão de conteúdos.</p></li>
-          </ul>
-        </section>
 
         <section class="csec" id="globo-interfaces" data-label="Interfaces">
-          <p class="csec__kicker">03 · Interfaces</p>
+          <p class="csec__kicker">01 · Interfaces</p>
           <h2>Tudo ao alcance. <em>Navegação simples.</em></h2>
           <div class="gallery">
             <figure class="is-wide" data-reveal>
               <button class="media__frame" type="button" data-zoom="assets/img/globo/2.webp" data-caption="Página inicial com as seções da comunidade e postagens" aria-label="Ampliar imagem: página inicial da comunidade">
-                <img src="assets/img/globo/2-1024.webp" srcset="assets/img/globo/2-1024.webp 1024w, assets/img/globo/2.webp 2048w" sizes="(min-width: 1024px) 860px, 100vw" width="2048" height="1536" alt="" loading="lazy" decoding="async">
+                <img src="assets/img/globo/2-1024.webp" srcset="assets/img/globo/2-1024.webp 1024w, assets/img/globo/2.webp 2048w" sizes="(min-width: 76rem) 70rem, 100vw" width="2048" height="1536" alt="" loading="lazy" decoding="async">
                 <span class="media__zoom" aria-hidden="true"><svg class="icon"><use href="#i-maximize"/></svg></span>
               </button>
               <figcaption>Página inicial com as seções da comunidade e as postagens.</figcaption>
             </figure>
             <figure data-reveal>
               <button class="media__frame" type="button" data-zoom="assets/img/globo/3.webp" data-caption="Área de Desenvolvimento com acesso à academia" aria-label="Ampliar imagem: área de desenvolvimento">
-                <img src="assets/img/globo/3-1024.webp" srcset="assets/img/globo/3-1024.webp 1024w, assets/img/globo/3.webp 2048w" sizes="(min-width: 768px) 420px, 100vw" width="2048" height="1536" alt="" loading="lazy" decoding="async">
+                <img src="assets/img/globo/3-1024.webp" srcset="assets/img/globo/3-1024.webp 1024w, assets/img/globo/3.webp 2048w" sizes="(min-width: 76rem) 34rem, (min-width: 768px) 50vw, 100vw" width="2048" height="1536" alt="" loading="lazy" decoding="async">
                 <span class="media__zoom" aria-hidden="true"><svg class="icon"><use href="#i-maximize"/></svg></span>
               </button>
               <figcaption>Desenvolvimento: academia e conteúdos de aprendizado.</figcaption>
             </figure>
             <figure data-reveal>
               <button class="media__frame" type="button" data-zoom="assets/img/globo/1.webp" data-caption="Destaques, novidades e agenda de eventos" aria-label="Ampliar imagem: destaques e agenda de eventos">
-                <img src="assets/img/globo/1-1024.webp" srcset="assets/img/globo/1-1024.webp 1024w, assets/img/globo/1.webp 2048w" sizes="(min-width: 768px) 420px, 100vw" width="2048" height="1536" alt="" loading="lazy" decoding="async">
+                <img src="assets/img/globo/1-1024.webp" srcset="assets/img/globo/1-1024.webp 1024w, assets/img/globo/1.webp 2048w" sizes="(min-width: 76rem) 34rem, (min-width: 768px) 50vw, 100vw" width="2048" height="1536" alt="" loading="lazy" decoding="async">
                 <span class="media__zoom" aria-hidden="true"><svg class="icon"><use href="#i-maximize"/></svg></span>
               </button>
               <figcaption>Destaques, novidades e agenda de eventos.</figcaption>
             </figure>
             <figure class="is-wide" data-reveal>
               <button class="media__frame" type="button" data-zoom="assets/img/globo/4.webp" data-caption="Manifesto da comunidade" aria-label="Ampliar imagem: manifesto">
-                <img src="assets/img/globo/4-1024.webp" srcset="assets/img/globo/4-1024.webp 1024w, assets/img/globo/4.webp 2048w" sizes="(min-width: 1024px) 860px, 100vw" width="2048" height="644" alt="" loading="lazy" decoding="async">
+                <img src="assets/img/globo/4-1024.webp" srcset="assets/img/globo/4-1024.webp 1024w, assets/img/globo/4.webp 2048w" sizes="(min-width: 76rem) 70rem, 100vw" width="2048" height="644" alt="" loading="lazy" decoding="async">
                 <span class="media__zoom" aria-hidden="true"><svg class="icon"><use href="#i-maximize"/></svg></span>
               </button>
               <figcaption>Manifesto: diversidade e crescimento para os colaboradores.</figcaption>
@@ -974,25 +945,12 @@
           </div>
         </section>
 
-        <section class="csec" id="globo-atuacao" data-label="Atuação">
-          <p class="csec__kicker">04 · Atuação</p>
-          <h2>Do esboço <em>ao produto final.</em></h2>
-          <ol class="grid-cards num-cards">
-            <li class="glass" data-reveal>Wireframing</li>
-            <li class="glass" data-reveal>Prototipação</li>
-            <li class="glass" data-reveal>Testes de usabilidade</li>
-            <li class="glass" data-reveal>Iterações no design</li>
-          </ol>
-          <ul class="chips" style="margin-top:2rem" data-reveal>
-            <li class="chip"><i></i>Miro</li><li class="chip"><i></i>Whimsical</li><li class="chip"><i></i>Adobe XD</li><li class="chip"><i></i>Figma</li>
-          </ul>
-        </section>
       </div>
     </div>
 
     <section class="case-next" aria-label="Próximo case">
       <div class="container">
-        <a class="next-card glass" href="#case/light" data-reveal>
+        <a class="next-card glass" href="/credenciados-light/" data-reveal>
           <div class="next-card__media"><img src="assets/img/light/2-1024.webp" width="1024" height="768" alt="" loading="lazy" decoding="async"></div>
           <div class="next-card__body">
             <p class="label" style="color:var(--meta)">Próximo case · 03</p>
@@ -1015,81 +973,66 @@
           <span class="crumbs__sep" aria-hidden="true">/</span><span aria-current="page">Light</span>
         </nav>
         <p class="spaced case-el">Case 03 · Plataforma web responsiva · Light</p>
-        <h1 class="case-title case-el" tabindex="-1">Credenciados Light <em>Atendimento mais perto das pessoas</em></h1>
-        <p class="case-lead case-el">Um portal para credenciados oferecerem serviços da Light perto dos clientes.</p>
-        <ul class="tags case-el"><li class="tag">UX Design</li><li class="tag">UI Design</li><li class="tag">Light</li></ul>
+        <h1 class="case-title case-el" tabindex="-1">Credenciados Light</h1>
+        <p class="case-intro case-el">Portal de energia para parceiros credenciados</p>
       </div>
       <div class="container">
         <div class="viewfinder">
-          <figure class="stage">
+          <button class="stage media__frame" type="button" data-zoom="assets/img/light/2.webp" data-caption="Telas mobile e desktop do portal Credenciados Light com serviços e acompanhamento" aria-label="Ampliar imagem de capa do projeto" aria-haspopup="dialog">
             <img src="assets/img/light/2-1024.webp" srcset="assets/img/light/2-1024.webp 1024w, assets/img/light/2.webp 2048w" sizes="(min-width: 1312px) 1250px, 100vw" width="2048" height="1536" alt="Telas mobile e desktop do portal Credenciados Light com serviços e acompanhamento" decoding="async">
-          </figure>
+            <span class="media__zoom" aria-hidden="true"><svg class="icon"><use href="#i-maximize"/></svg></span>
+          </button>
         </div>
       </div>
+      <!-- CASE BRIEF (see the GenialCard one). EVIDÊNCIA PENDENTE: what the usability tests showed, the reasoning behind the
+           responsive layout and the tracking screen, and operational results (time per service, errors, volume). -->
       <div class="container">
-        <dl class="ficha">
-          <div><dt>Contexto</dt><dd>Projeto na Light</dd></div>
-          <div><dt>Produto</dt><dd>Portal para parceiros credenciados</dd></div>
-          <div><dt>Responsabilidades</dt><dd>Wireframes, protótipos, testes de usabilidade e iterações</dd></div>
-          <div><dt>Ferramentas</dt><dd>Miro, Whimsical, Adobe XD, Figma</dd></div>
-        </dl>
+        <section class="brief" aria-labelledby="light-brief-title">
+          <h2 class="brief__title" id="light-brief-title">Resumo do case</h2>
+          <ol class="brief__lines">
+            <li class="brief__line brief__line--problem"><span class="brief__k">Desafio</span><span class="brief__v"><em class="hl">Jornadas distintas</em> para cada credenciado.</span></li>
+            <li class="brief__line brief__line--proof"><span class="brief__k">Validação</span><span class="brief__v">Testes de usabilidade e iterações.</span></li>
+            <li class="brief__line brief__line--solution"><span class="brief__k">Solução</span><span class="brief__v">Portal web e mobile <em class="hl">com acompanhamento.</em></span></li>
+          </ol>
+          <dl class="brief__meta">
+            <div><dt>Escopo</dt><dd><ul class="ficha__list"><li>UX Design</li><li>UI Design</li></ul></dd></div>
+            <div><dt>Ferramentas</dt><dd><ul class="ficha__list"><li>Miro</li><li>Whimsical</li><li>Adobe XD</li><li>Figma</li></ul></dd></div>
+          </dl>
+        </section>
       </div>
     </header>
 
     <div class="container case-body">
-      <aside class="case-index" aria-label="Seções do case"><p>Neste case</p><ol data-index></ol></aside>
       <div class="case-content">
-        <section class="csec" id="light-produto" data-label="O produto">
-          <p class="csec__kicker">01 · Visão geral</p>
-          <h2>Mais serviços. <em>Menos distância.</em></h2>
-          <div class="prose" data-reveal>
-            <p>O portal leva serviços da Light a estabelecimentos credenciados nos bairros.</p>
-            <p>Bancas, gráficas e lojas atendem <strong>2ª via, parcelamento, religação</strong> e demais serviços.</p>
-            <p>O desafio era reunir jornadas diferentes em uma interface clara.</p>
-          </div>
-        </section>
-
-        <section class="csec" id="light-servicos" data-label="Serviços">
-          <p class="csec__kicker">02 · Serviços</p>
-          <h2>Vários serviços. <em>Um único portal.</em></h2>
-          <ul class="grid-cards">
-            <li class="card glass" data-reveal><svg class="icon card__icon" aria-hidden="true"><use href="#i-store"/></svg><h3>Parceiros credenciados</h3><p>Bancas, gráficas e lojas nos bairros.</p></li>
-            <li class="card glass" data-reveal><svg class="icon card__icon" aria-hidden="true"><use href="#i-receipt"/></svg><h3>2ª via de contas</h3><p>Emissão no ponto credenciado.</p></li>
-            <li class="card glass" data-reveal><svg class="icon card__icon" aria-hidden="true"><use href="#i-calculator"/></svg><h3>Parcelamento</h3><p>Negociação de débitos no local.</p></li>
-            <li class="card glass" data-reveal><svg class="icon card__icon" aria-hidden="true"><use href="#i-zap"/></svg><h3>Religação</h3><p>Religação, ligação nova e demandas técnicas.</p></li>
-            <li class="card glass" data-reveal><svg class="icon card__icon" aria-hidden="true"><use href="#i-list-checks"/></svg><h3>Acompanhamento</h3><p>Consulta por protocolo, serviço e período.</p></li>
-            <li class="card glass" data-reveal><svg class="icon card__icon" aria-hidden="true"><use href="#i-devices"/></svg><h3>Web e mobile</h3><p>Acesso por desktop e celular.</p></li>
-          </ul>
-        </section>
 
         <section class="csec" id="light-interfaces" data-label="Interfaces">
-          <p class="csec__kicker">03 · Interfaces</p>
+          <p class="csec__kicker">01 · Interfaces</p>
           <h2>Da solicitação <em>ao acompanhamento.</em></h2>
           <div class="gallery">
             <figure class="is-wide" data-reveal>
               <button class="media__frame" type="button" data-zoom="assets/img/light/1.webp" data-caption="Login do credenciado, seleção da instalação e serviços" aria-label="Ampliar imagem: login, seleção de instalação e serviços">
-                <img src="assets/img/light/1-1024.webp" srcset="assets/img/light/1-1024.webp 1024w, assets/img/light/1.webp 2048w" sizes="(min-width: 1024px) 860px, 100vw" width="2048" height="1536" alt="" loading="lazy" decoding="async">
+                <img src="assets/img/light/1-1024.webp" srcset="assets/img/light/1-1024.webp 1024w, assets/img/light/1.webp 2048w" sizes="(min-width: 76rem) 70rem, 100vw" width="2048" height="1536" alt="" loading="lazy" decoding="async">
                 <span class="media__zoom" aria-hidden="true"><svg class="icon"><use href="#i-maximize"/></svg></span>
               </button>
               <figcaption>Login do credenciado, seleção da instalação e catálogo de serviços.</figcaption>
             </figure>
             <figure data-reveal>
               <button class="media__frame" type="button" data-zoom="assets/img/light/3.webp" data-caption="Formulário de alteração de carga" aria-label="Ampliar imagem: formulário de alteração de carga">
-                <img src="assets/img/light/3-1024.webp" srcset="assets/img/light/3-1024.webp 1024w, assets/img/light/3.webp 2048w" sizes="(min-width: 768px) 420px, 100vw" width="2048" height="1536" alt="" loading="lazy" decoding="async">
+                <img src="assets/img/light/3-1024.webp" srcset="assets/img/light/3-1024.webp 1024w, assets/img/light/3.webp 2048w" sizes="(min-width: 76rem) 34rem, (min-width: 768px) 50vw, 100vw" width="2048" height="1536" alt="" loading="lazy" decoding="async">
                 <span class="media__zoom" aria-hidden="true"><svg class="icon"><use href="#i-maximize"/></svg></span>
               </button>
               <figcaption>Solicitação de alteração de carga.</figcaption>
             </figure>
             <figure data-reveal>
               <button class="media__frame" type="button" data-zoom="assets/img/light/2.webp" data-caption="Serviços e acompanhamento em mobile e desktop" aria-label="Ampliar imagem: serviços em mobile e desktop">
-                <img src="assets/img/light/2-1024.webp" srcset="assets/img/light/2-1024.webp 1024w, assets/img/light/2.webp 2048w" sizes="(min-width: 768px) 420px, 100vw" width="2048" height="1536" alt="" loading="lazy" decoding="async">
+                <img src="assets/img/light/2-1024.webp" srcset="assets/img/light/2-1024.webp 1024w, assets/img/light/2.webp 2048w" sizes="(min-width: 76rem) 34rem, (min-width: 768px) 50vw, 100vw" width="2048" height="1536" alt="" loading="lazy" decoding="async">
                 <span class="media__zoom" aria-hidden="true"><svg class="icon"><use href="#i-maximize"/></svg></span>
               </button>
               <figcaption>Serviços e acompanhamento no celular e no desktop.</figcaption>
             </figure>
             <figure class="is-wide" data-reveal>
               <button class="media__frame" type="button" data-zoom="assets/img/light/4.webp" data-caption="Acompanhamento de solicitações por protocolo" aria-label="Ampliar imagem: acompanhamento de solicitações">
-                <img src="assets/img/light/4-1024.webp" srcset="assets/img/light/4-1024.webp 1024w, assets/img/light/4.webp 2048w" sizes="(min-width: 1024px) 860px, 100vw" width="2048" height="644" alt="" loading="lazy" decoding="async">
+                <img src="assets/img/light/4-1024.webp" srcset="assets/img/light/4-1024.webp 1024w, assets/img/light/4.webp 2048w" sizes="(min-width: 76rem) 70rem, 100vw" width="2048" height="644" alt="" loading="lazy" decoding="async">
                 <span class="media__zoom" aria-hidden="true"><svg class="icon"><use href="#i-maximize"/></svg></span>
               </button>
               <figcaption>Acompanhamento por protocolo, serviço e período.</figcaption>
@@ -1097,25 +1040,12 @@
           </div>
         </section>
 
-        <section class="csec" id="light-atuacao" data-label="Atuação">
-          <p class="csec__kicker">04 · Atuação</p>
-          <h2>Do rascunho <em>ao portal pronto.</em></h2>
-          <ol class="grid-cards num-cards">
-            <li class="glass" data-reveal>Wireframing</li>
-            <li class="glass" data-reveal>Prototipação</li>
-            <li class="glass" data-reveal>Testes de usabilidade</li>
-            <li class="glass" data-reveal>Iterações no design</li>
-          </ol>
-          <ul class="chips" style="margin-top:2rem" data-reveal>
-            <li class="chip"><i></i>Miro</li><li class="chip"><i></i>Whimsical</li><li class="chip"><i></i>Adobe XD</li><li class="chip"><i></i>Figma</li>
-          </ul>
-        </section>
       </div>
     </div>
 
     <section class="case-next" aria-label="Próximo case">
       <div class="container">
-        <a class="next-card glass" href="#case/genialcard" data-reveal>
+        <a class="next-card glass" href="/genialcard/" data-reveal>
           <div class="next-card__media"><img src="assets/img/genialcard/capa-1024.webp" width="1024" height="576" alt="" loading="lazy" decoding="async"></div>
           <div class="next-card__body">
             <p class="label" style="color:var(--meta)">Próximo case · 01</p>
@@ -1128,7 +1058,7 @@
   </article>
 
   <section class="case-contact" aria-labelledby="case-contact-title">
-    <div class="container case-contact__inner">
+    <div class="container contact">
       <div>
         <p class="eyebrow">Contato</p>
         <h2 class="h2" id="case-contact-title">Vamos construir <em>algo relevante?</em></h2>

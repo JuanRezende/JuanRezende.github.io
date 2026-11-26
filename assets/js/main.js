@@ -8,7 +8,7 @@
      ROUTER .......... home sections (#sobre) and cases (#case/<slug>[/<section>])
      VIEW SETUP ...... nav state, per-view observers, word splitting
      MOTION .......... GSAP timelines per view: hero, projects, about, process, contact, cases
-     IGNITION ........ featured card: tilt, border trace, converging corners
+     IGNITION ........ featured card: tilt, border trace
      HEADER PROGRESS · POINTER LIGHT · LUMEN (glass spotlight, magnetic buttons, reels, offscreen pause)
      MOBILE MENU · LIGHTBOX · TABS · E-MAIL
      WAVE ............ hero ring + contact horizon (effects/wave.js)
@@ -33,15 +33,27 @@
   if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
 
   const header = $('#site-header');
+  /* Mobile browsers may fetch the icon again after a client-side route change. */
+  $$('link[rel="icon"], link[rel="apple-touch-icon"]').forEach(link => {
+    link.setAttribute('href', link.href);
+  });
+  /* the router moves between / and /genialcard/ without reloading: pin the page's relative file paths (assets/…) to
+     where they point now, or images that load later (lazy, lightbox) would look for /genialcard/assets/… */
+  const pin = (v) => v.replace(/(^|[\s,])(assets\/[^\s,]+)/g, (all, sep, path) => sep + new URL(path, document.baseURI).href);
+  /* (stylesheets and scripts have already loaded, so they are left alone) */
+  $$('[src^="assets/"], [srcset*="assets/"], [href^="assets/"], [data-zoom^="assets/"], [poster^="assets/"]').filter(el => !el.matches('link, script')).forEach(el => {
+    ['src', 'srcset', 'href', 'data-zoom', 'poster'].forEach(a => { const v = el.getAttribute(a); if (v && v.includes('assets/')) el.setAttribute(a, pin(v)); });
+  });
+
   const views = { home: $('#view-home'), case: $('#view-case') };
   const cases = {};
   $$('.case').forEach(a => { cases[a.dataset.case] = a; });
-  const baseTitle = document.title;
+  /* a case's own page (genialcard.html…) opens with the case title; data-home-title keeps the home one for the way back
+     (in English i18n.js has already set the home title) */
+  const baseTitle = doc.dataset.homeTitle && doc.lang !== 'en' ? doc.dataset.homeTitle : document.title;
   /* runtime strings follow the page language (assets/js/i18n.js; Portuguese when it is missing) */
   const tr = (s) => (window.I18N ? I18N.t(s) : s);
   const locale = window.I18N ? I18N.locale : 'pt-BR';
-  /* credential counts follow their lists, so adding a certificate is a single line of markup */
-  $$('[data-count-of]').forEach(el => { const list = $(el.dataset.countOf); if (list) el.textContent = list.children.length; });
 
   /* lite mode (html.fx-lite, set in <head> when there is no hardware graphics, or by the FX WATCHDOG below) */
   const isLite = () => doc.classList.contains('fx-lite');
@@ -49,12 +61,36 @@
   /* ══════════ COSMOS: the background starfield (effects/cosmos.js) ══════════ */
   const cosmos = Lumen.createCosmos($('#cosmos'));
 
-  /* ══════════ ROUTER: home sections (#sobre) and cases (#case/<slug>[/<section>]) ══════════ */
-  function parse(hash = location.hash) {
-    const h = decodeURIComponent(hash || '');
+  /* ══════════ ROUTER: home sections (/#sobre) and cases (/genialcard/[#section]) ══════════
+     Each case has a clean address. GitHub Pages serves it from <address>/index.html, a copy of this page made by
+     tools/build-cases.py. Opened from file:// there is nothing to serve those addresses, so it falls back to
+     #case/<slug>[/<section>]; old #case/ links still open and are rewritten to the clean address. */
+  const PATHS = { genialcard: 'genialcard', globo: 'juntos-pra-fazer-historia', light: 'credenciados-light' };
+  const SLUGS = Object.fromEntries(Object.entries(PATHS).map(([slug, path]) => [path, slug]));
+  const useHash = location.protocol === 'file:';
+  /* href: a link's href (a bare "#x" always means a home section), or the current address when omitted */
+  function parse(href) {
+    const u = new URL(href || location.href, location.href);
+    const h = decodeURIComponent(u.hash || '');
     const m = h.match(/^#case\/([\w-]+)(?:\/([\w-]+))?$/);
     if (m && cases[m[1]]) return { view: 'case', slug: m[1], section: m[2] || null };
+    const dirs = u.pathname.split('/').filter(p => p && p !== 'index.html');   /* /genialcard/ and /genialcard/index.html */
+    const slug = !(href && href.startsWith('#')) && SLUGS[dirs[dirs.length - 1]];
+    if (slug && cases[slug]) return { view: 'case', slug, section: h.slice(1) || null };
     return { view: 'home', slug: null, target: h.slice(1) || null };
+  }
+  function urlFor(r) {
+    if (useHash) {
+      if (r.view === 'case') return `#case/${r.slug}${r.section ? '/' + r.section : ''}`;
+      return r.target ? '#' + r.target : location.pathname + location.search;
+    }
+    const hash = r.view === 'case' ? (r.section ? '#' + r.section : '') : (r.target ? '#' + r.target : '');
+    return (r.view === 'case' ? '/' + PATHS[r.slug] + '/' : '/') + location.search + hash;
+  }
+  /* old #case/ links and /index.html land on the clean address */
+  if (!useHash) {
+    const want = new URL(urlFor(parse()), location.href).href;
+    if (want !== location.href) history.replaceState(null, '', want);
   }
 
   let current = { view: null, slug: null };
@@ -140,7 +176,7 @@
   }
 
   document.addEventListener('click', (e) => {
-    const a = e.target.closest('a[href^="#"]');
+    const a = e.target.closest('a[href^="#"], a[href^="/"]:not([href^="//"])');
     if (!a || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
     const href = a.getAttribute('href');
     if (href === '#') return;
@@ -149,10 +185,11 @@
     if (href === '#conteudo') { focusTarget($('#conteudo')); return; }
     const next = parse(href);
     const same = next.view === current.view && next.slug === current.slug;
-    if (href !== location.hash) history[same ? 'replaceState' : 'pushState'](null, '', href);
+    const url = urlFor(next);
+    if (new URL(url, location.href).href !== location.href) history[same ? 'replaceState' : 'pushState'](null, '', url);
     route({ smooth: true });
   });
-  window.addEventListener('popstate', () => route());
+  window.addEventListener('popstate', () => { closeMenu(); route(); });
 
   /* ══════════ VIEW SETUP (always runs) ══════════ */
   let observers = [];
@@ -175,7 +212,7 @@
     const secs = $$('.csec', article);
     const list = $('[data-index]', article);
     if (list && !list.children.length) {
-      list.innerHTML = secs.map((s, i) => `<li><a href="#case/${slug}/${s.id.slice(slug.length + 1)}"><span class="n">${String(i + 1).padStart(2, '0')}</span><span>${s.dataset.label}</span></a></li>`).join('');
+      list.innerHTML = secs.map((s, i) => `<li><a href="${urlFor({ view: 'case', slug, section: s.id.slice(slug.length + 1) })}"><span class="n">${String(i + 1).padStart(2, '0')}</span><span>${s.dataset.label}</span></a></li>`).join('');
     }
     const links = list ? $$('a', list) : [];
     const io = new IntersectionObserver((entries) => {
@@ -309,7 +346,7 @@
   }
 
   /* ══════════ IGNITION: the featured container rises out of a tilt, light draws its border up from the base,
-     the viewfinder corners converge and a pool of light comes up under it (scroll-linked; the still is untouched) ══════════ */
+     a pool of light comes up under it (scroll-linked; the still is untouched) ══════════ */
   function drawTrace(ig) {
     const media = $('.proj__media', ig), svg = $('.proj__trace', ig);
     if (!media || !svg) return;
@@ -323,13 +360,11 @@
   const ease3 = (t) => 1 - Math.pow(1 - t, 3);
   const clamp01 = (v) => Math.max(0, Math.min(1, v));
   function setIgnite(ig, p) {
-    const e = ease3(p), d = clamp01((p - 0.04) / 0.72), c = ease3(clamp01((p - 0.3) / 0.66));
+    const e = ease3(p), d = clamp01((p - 0.04) / 0.72);
     ig.classList.toggle('is-rising', p < 1);
     ig.style.setProperty('--tilt', (1 - e).toFixed(4));
     ig.style.setProperty('--dim', (1 - clamp01(p / 0.8)).toFixed(4));
     ig.style.setProperty('--draw', (d < 0.5 ? 2 * d * d : 1 - Math.pow(-2 * d + 2, 2) / 2).toFixed(4));
-    ig.style.setProperty('--c-off', (64 - 50 * c).toFixed(1) + 'px');
-    ig.style.setProperty('--c-op', c.toFixed(3));
     ig.style.setProperty('--glow', clamp01((p - 0.38) / 0.6).toFixed(3));
   }
   $$('[data-ignite]').forEach(ig => {
@@ -347,16 +382,16 @@
       .to('.hero__bloom', { scale: 2.2, opacity: 0, duration: 1.7, ease: 'power2.out' }, 1.2)
       .fromTo('.hero__flare', { scaleX: 0, opacity: 0 }, { scaleX: 1, opacity: 1, duration: 0.85, ease: 'expo.out' }, 0.75)
       .to('.hero__flare', { opacity: 0, duration: 1.5, ease: 'power2.inOut' }, 1.4)
-      /* Title, promise and single action enter in sequence. */
+      /* Seal, title and single action enter in sequence. */
       .from('.hero__frame', { opacity: 0, scale: 1.05, duration: 1.8, ease: 'power3.out', clearProps: 'transform' }, 0.8)
       .from('.hero__line > *', { yPercent: 38, opacity: 0, filter: 'blur(14px)', duration: 1.6, ease: 'expo.out', stagger: 0.14, clearProps: 'transform,filter,opacity' }, 0.9)
-      .fromTo('.hero__promise', { clipPath: 'inset(-30% 50% -30% 50%)', opacity: 0, filter: 'blur(8px)' }, { clipPath: 'inset(-30% 0% -30% 0%)', opacity: 1, filter: 'blur(0px)', duration: 1.4, ease: 'power3.inOut', clearProps: 'clipPath,filter,opacity' }, 1.35)
+      .fromTo('.hero__promise', { clipPath: 'inset(-30% 50% -30% 50%)', opacity: 0, filter: 'blur(8px)' }, { clipPath: 'inset(-30% 0% -30% 0%)', opacity: 1, filter: 'blur(0px)', duration: 1.4, ease: 'power3.inOut', clearProps: 'clipPath,filter,opacity' }, 0.8)
       .from('.hero__horizon', { scaleX: 0, opacity: 0, duration: 1.6, ease: 'expo.out', clearProps: 'transform' }, 1.55)
       .from('.hero__cta > *', { opacity: 0, y: 18, filter: 'blur(6px)', duration: 1, ease: 'power3.out', stagger: 0.12, ...settle }, 1.6);
 
     const heroST = { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true };
     /* transform + opacity only: a filter scrubbed by scroll repaints the whole hero on every frame */
-    gsap.to('.hero__inner', { yPercent: -18, scale: 0.94, opacity: 0, ease: 'none', scrollTrigger: heroST });
+    gsap.to('.hero__inner', { yPercent: -18, ease: 'none', scrollTrigger: heroST });
     gsap.to('.hero__stage', { scale: 1.15, opacity: 0.12, ease: 'none', scrollTrigger: heroST });
 
     revealHeadings($$('.h2, .stacked', views.home));
@@ -381,14 +416,14 @@
     });
 
     const words = $$('#sobre .statement .w');
-    if (words.length) gsap.fromTo(words, { opacity: 0.14 }, { opacity: 1, stagger: 0.05, ease: 'none', scrollTrigger: { trigger: '#sobre .statement', start: 'top 82%', end: 'bottom 45%', scrub: 0.6 } });
+    if (words.length) gsap.from(words, { color: getComputedStyle(doc).getPropertyValue('--muted').trim(), stagger: 0.05, ease: 'none', scrollTrigger: { trigger: '#sobre .statement', start: 'top 82%', end: 'bottom 45%', scrub: 0.6 } });
     gsap.fromTo('.portrait__frame img', { scale: 1.14 }, { scale: 1, ease: 'none', scrollTrigger: { trigger: '.portrait', start: 'top bottom', end: 'bottom top', scrub: true } });
 
     const bar = $('.process__bar span'), comet = $('.process__comet');
     if (bar) bar.style.transform = '';
     if (comet) comet.style.transform = '';
     mm = gsap.matchMedia();
-    mm.add('(min-width: 1024px)', () => {
+    mm.add('(min-width: 1024px) and (hover: hover) and (pointer: fine)', () => {
       const track = $('.process__track');
       const dist = () => Math.max(0, track.scrollWidth - doc.clientWidth);
       if (dist() < 40) return;
@@ -408,9 +443,7 @@
         const pitch = bases.length > 1 ? bases[1] - bases[0] : 400;
         steps.forEach((st, i) => {
           const t = Math.min(1, Math.abs(bases[i] + x - fx) / (pitch * 1.6));
-          st.style.opacity = (1 - t * 0.5).toFixed(3);
           st.style.transform = `scale(${(1 - t * 0.06).toFixed(4)})`;
-          st.style.filter = t > 0.03 ? `blur(${(t * 2).toFixed(2)}px)` : 'none';
         });
       };
       const refocus = () => { measure(); focus(); };
@@ -428,7 +461,7 @@
       ScrollTrigger.addEventListener('refresh', refocus);
       return () => {
         ScrollTrigger.removeEventListener('refresh', refocus);
-        steps.forEach(st => { st.style.opacity = ''; st.style.transform = ''; st.style.filter = ''; });
+        steps.forEach(st => { st.style.transform = ''; });
       };
     });
     mm.add('(max-width: 1023px)', () => {
@@ -526,7 +559,10 @@
 
   /* ══════════ MOBILE MENU ══════════ */
   const menuBtn = $('.menu-btn'), menu = $('#mobile-menu');
+  const menuBackground = $$('#conteudo, .footer, .skip-link');
   function setMenu(open) {
+    menu.inert = !open;
+    menuBackground.forEach(el => { el.inert = open; });
     menu.classList.toggle('is-open', open);
     menuBtn.setAttribute('aria-expanded', String(open));
     menuBtn.setAttribute('aria-label', open ? tr('Fechar menu') : tr('Abrir menu'));
@@ -538,6 +574,12 @@
     }
   }
   function closeMenu() { if (menu.classList.contains('is-open')) setMenu(false); }
+  window.matchMedia('(max-width: 899px)').addEventListener('change', e => {
+    if (!e.matches && menu.classList.contains('is-open')) {
+      closeMenu();
+      $('.brand', header).focus({ preventScroll: true });
+    }
+  });
   menuBtn.addEventListener('click', () => setMenu(!menu.classList.contains('is-open')));
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && menu.classList.contains('is-open')) { setMenu(false); menuBtn.focus(); } });
 
@@ -572,7 +614,13 @@
         panel.hidden = !on;
         if (on && motion) gsap.fromTo(panel, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out', clearProps: 'transform,opacity' });
       });
-      if (focus) tab.focus();
+      if (focus) tab.focus({ preventScroll: true });
+      if (list.scrollWidth > list.clientWidth) {
+        list.scrollTo({
+          left: tab.offsetLeft + (tab.offsetWidth - list.clientWidth) / 2,
+          behavior: reduceMotion ? 'instant' : 'smooth'
+        });
+      }
       if (hasGSAP) ScrollTrigger.refresh();
     };
     tabs.forEach((t, i) => {

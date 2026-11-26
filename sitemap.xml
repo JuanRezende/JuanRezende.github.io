@@ -3,11 +3,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://juanrezende.com/</loc>
-    <lastmod>2026-10-21</lastmod>
+    <lastmod>2026-11-22</lastmod>
     <image:image><image:loc>https://juanrezende.com/assets/img/seo/og-image.jpg</image:loc></image:image>
     <image:image><image:loc>https://juanrezende.com/assets/img/avatar/juan-500.webp</image:loc></image:image>
     <image:image><image:loc>https://juanrezende.com/assets/img/genialcard/capa.webp</image:loc></image:image>
     <image:image><image:loc>https://juanrezende.com/assets/img/globo/1.webp</image:loc></image:image>
     <image:image><image:loc>https://juanrezende.com/assets/img/light/2.webp</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://juanrezende.com/genialcard/</loc>
+    <lastmod>2026-11-25</lastmod>
+  </url>
+  <url>
+    <loc>https://juanrezende.com/juntos-pra-fazer-historia/</loc>
+    <lastmod>2026-11-25</lastmod>
+  </url>
+  <url>
+    <loc>https://juanrezende.com/credenciados-light/</loc>
+    <lastmod>2026-11-25</lastmod>
   </url>
 </urlset>
